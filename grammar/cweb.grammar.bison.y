@@ -93,6 +93,7 @@ Briefly, the cweb language comprises two-character control codes that start with
 // cweb document has sections with optional limbo prolog
 cweb:
     limbo sections
+    | limbo
     ;
 
 // limbo has pieces of limbo content
