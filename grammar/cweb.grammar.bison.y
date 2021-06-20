@@ -32,7 +32,7 @@ cweb is described at https://www-cs-faculty.stanford.edu/~knuth/cweb.html
 
 The grammar is based on the cweb manual and documentation generated from cweb source files. There are four documents that describe the language and the behavior of tools for working with cweb content: cwebman.pdf, cweave.pdf, ctangle.pdf and common.pdf
 
-Briefly, the cweb language comprises two-character control codes that start with "@". The "|" pipe character is special in certain contexts too. These codes are used within c and text text. The cweb language specifies what codes are allowed in what contexts. It also specifies how the various parts of a cweb document can be arranged.
+Briefly, the cweb language comprises two-character control codes that start with "@". The codes are case-insensitive. The "|" pipe character is special in certain contexts too. These codes are used within c and tex text. The cweb language specifies what codes are allowed in what contexts. It also specifies how the various parts of a cweb document can be arranged.
 
 */
 
@@ -44,7 +44,7 @@ Briefly, the cweb language comprises two-character control codes that start with
 
 %token FORMAT_BEGIN                    "@f format def"
 %token SUPPRESSED_FORMAT_DEF           "@s suppressed format def"
-%token UNNAMED_C_SECTION_BEGIN         "@c"
+%token UNNAMED_C_SECTION_BEGIN         "@c/@p unnamed program section"
 
 %token NAMED_C_SECTION_DEF_BEGIN       "@< named section definition @>="
 
@@ -83,8 +83,7 @@ Briefly, the cweb language comprises two-character control codes that start with
 %token CPLUSPLUS_COMMENT_BEGIN         "//"
 %token CPLUSPLUS_COMMENT_END           "eol"
 
-
-// free means free of cweb control codes or special characters
+// free means free of cweb control codes and other special characters depending on context
 %token FREE_TEXT                       "free text"
 
 %start cweb
@@ -94,13 +93,12 @@ Briefly, the cweb language comprises two-character control codes that start with
 // cweb document has sections with optional limbo prolog
 cweb:
     limbo sections
-    | sections
-    | limbo
     ;
 
 // limbo has pieces of limbo content
 limbo:
-     limbo_contents
+     %empty
+     | limbo_contents
      ;
 
 // any number of pieces of limbo content
@@ -119,6 +117,7 @@ limbo_content:
 limbo_control:
              "@i include_file"
              | "@s suppressed format def"
+             | "@l latin char"
              ;
 
 // main cweb document has any number of sections
@@ -192,17 +191,18 @@ macro_contents:
 // macro allows some control codes and text free of control codes
 // comments containing inner c contexts are allowed in macros
 macro_content:
-          control_text
-          | non_tex_control_text
-          | c_format_control
-          | comment
-          | "free text"
-          ;
+             control_text
+             | non_tex_control_text
+             | c_format_control
+             | ctangle_control
+             | comment
+             | "free text"
+             ;
 
 // the c part of a section begins with certain control codes
 c:
-  "@c" c_contents
- | "@c"
+  "@c/@p unnamed program section" c_contents
+ | "@c/@p unnamed program section"
  | "@< named section definition @>=" c_contents
  | "@( file output section @>=" c_contents
  | "@< named section reference @>" c_contents
@@ -227,6 +227,7 @@ c_control:
          control_text
          | non_tex_control_text
          | c_format_control
+         | ctangle_control
          | "@< named section reference @>"
          | "@h emit macros here"
          ;
@@ -246,7 +247,7 @@ non_tex_control_text:
                     | "@= verbatim @>"
                     ;
 
-// set of control codes to override c formatting for c, macro and inner c sections
+// set of control codes to override c formatting for c, macro sections
 c_format_control:
                 "@, thin space"
                 | "@/ linebreak"
@@ -258,6 +259,12 @@ c_format_control:
                 | "@[ open format expression" "@] close format expression"
                 ;
 
+// set of ctangle-specific control codes allowed in c, macro and inner c sections
+ctangle_control:
+               "@' ascii char'"
+               | "@& nbsp"
+               ;
+
 // both c and c++ style comments are allowed in program code
 comment:
        c_comment
@@ -267,7 +274,7 @@ comment:
 // c block comment spans lines
 c_comment:
          "/*" comment_contents "*/"
-          ;
+         ;
 
 // c++ single line comment is only till the end of line
 cplusplus_comment:
@@ -301,6 +308,7 @@ inner_c_contents:
 inner_c_content:
                control_text
                | non_tex_control_text
+               | ctangle_control
                | "@, thin space"
                | "free text"
                ;
