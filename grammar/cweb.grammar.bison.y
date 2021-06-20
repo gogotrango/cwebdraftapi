@@ -309,6 +309,7 @@ inner_c_content:
                control_text
                | non_tex_control_text
                | ctangle_control
+               | "@< named section reference @>"
                | "@, thin space"
                | "free text"
                ;
