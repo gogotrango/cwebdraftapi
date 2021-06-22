@@ -60,7 +60,7 @@ Briefly, the cweb language comprises two-character control codes that start with
 %token COMMENT_TEXT                    "@q comment @>"
 %token UNDERLINE_TEXT                  "@! underline @>"
 
-%token ASCII_CHAR                      "@' ascii char'"
+%token ASCII_CHAR                      "@' ascii char"
 %token NBSP                            "@& nbsp"
 %token LATIN_CHAR                      "@l latin char"
 
@@ -117,6 +117,7 @@ limbo_content:
 // control codes allowed in limbo
 limbo_control:
              "@i include_file"
+             | "@q comment @>"
              | "@s suppressed format def"
              | "@l latin char"
              ;
@@ -144,7 +145,7 @@ tex:
    | "@* titled tex section"
    ;
 
-// tex part has any number pieces of of tex content
+// tex part has any number of pieces of tex content
 tex_contents:
             tex_content
             | tex_contents tex_content
@@ -171,9 +172,9 @@ middle:
 
 // any number of pieces of valid content for middle part
 middle_contents:
-            middle_content
-            | middle_contents middle_content
-            ;
+               middle_content
+               | middle_contents middle_content
+               ;
 
 // content allowed in middle part of section
 middle_content:
@@ -202,7 +203,7 @@ macro_content:
 
 // the c part of a section begins with certain control codes
 c:
-  "@c/@p unnamed program section" c_contents
+ "@c/@p unnamed program section" c_contents
  | "@c/@p unnamed program section"
  | "@< named section definition @>=" c_contents
  | "@( file output section @>=" c_contents
@@ -262,7 +263,7 @@ c_format_control:
 
 // set of ctangle-specific control codes allowed in c, macro and inner c sections
 ctangle_control:
-               "@' ascii char'"
+               "@' ascii char"
                | "@& nbsp"
                ;
 

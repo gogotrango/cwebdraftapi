@@ -1,0 +1,3483 @@
+document_begin:
+file_begin: file: "miles_span.w"
+limbo_begin: loc.begin: 1 1, loc.end: 2 1
+free_text: type: "tex", loc.begin: 1 1, loc.end: 2 1, text: "% This file is part of the Stanford GraphBase (c) Stanford University 1993
+"
+include_file: file: "boilerplate.w", quoted: false, trailingText: " %<< legal stuff: PLEASE READ IT BEFORE MAKING ANY CHANGES!", loc.begin: 2 1, loc.end: 3 1, text: " boilerplate.w %<< legal stuff: PLEASE READ IT BEFORE MAKING ANY CHANGES!
+"
+file_begin: file: "boilerplate.w"
+limbo_begin: loc.begin: 1 1, loc.end: 39 1
+free_text: type: "tex", loc.begin: 1 1, loc.end: 39 1, text: "% This material goes at the beginning of all Stanford GraphBase CWEB files
+
+\def\topofcontents{
+  \leftline{\sc\today\ at \hours}\bigskip\bigskip
+  \centerline{\titlefont\title}}
+
+\font\ninett=cmtt9
+\def\botofcontents{\vskip 0pt plus 1filll
+    \ninerm\baselineskip10pt
+    \noindent\copyright\ 1993 Stanford University
+    \bigskip\noindent
+    This file may be freely copied and distributed, provided that
+    no changes whatsoever are made. All users are asked to help keep
+    the Stanford GraphBase files consistent and ``uncorrupted,''
+    identical everywhere in the world. Changes are permissible only
+    if the modified file is given a new name, different from the names of
+    existing files in the Stanford GraphBase, and only if the modified file is
+    clearly identified as not being part of that GraphBase.
+    (The {\ninett CWEB} system has a ``change file'' facility by
+    which users can easily make minor alterations without modifying
+    the master source files in any way. Everybody is supposed to use
+    change files instead of changing the files.)
+    The author has tried his best to produce correct and useful programs,
+    in order to help promote computer science research,
+    but no warranty of any kind should be assumed.
+    \smallskip\noindent
+    Preliminary work on the Stanford GraphBase project
+    was supported in part by National Science
+    Foundation grant CCR-86-10181.}
+
+\def\prerequisite#1{\def\startsection{\noindent
+    Important: Before reading {\sc\title},
+    please read or at least skim the program for {\sc#1}.\bigskip
+    \let\startsection=\stsec\stsec}}
+\def\prerequisites#1#2{\def\startsection{\noindent
+    Important: Before reading {\sc\title}, please read
+    or at least skim the programs for {\sc#1} and {\sc#2}.\bigskip
+    \let\startsection=\stsec\stsec}}
+"
+limbo_end: loc.begin: 39 1, loc.end: 39 1
+file_end: file: "boilerplate.w"
+free_text: type: "tex", loc.begin: 3 1, loc.end: 3 1, text: ""
+include_file: file: "gb_types.w", quoted: false, trailingText: "", loc.begin: 3 1, loc.end: 4 1, text: " gb_types.w
+"
+file_begin: file: "gb_types.w"
+limbo_begin: loc.begin: 1 1, loc.end: 1 1
+free_text: type: "tex", loc.begin: 1 1, loc.end: 1 1, text: ""
+cweb_comment: comment: " This file makes CWEAVE treat Graph, Arc, Vertex, etc. as reserved words. ", loc.begin: 1 1, loc.end: 1 77, text: "@q This file makes CWEAVE treat Graph, Arc, Vertex, etc. as reserved words. @>"
+free_text: type: "tex", loc.begin: 1 77, loc.end: 3 1, text: "
+
+"
+suppresed_format_def: left: "Graph", right: "int", loc.begin: 3 1, loc.end: 3 1, text: " Graph int"
+free_text: type: "tex", loc.begin: 3 1, loc.end: 4 1, text: "
+"
+suppresed_format_def: left: "Arc", right: "int", loc.begin: 4 1, loc.end: 4 1, text: " Arc int"
+free_text: type: "tex", loc.begin: 4 1, loc.end: 5 1, text: "
+"
+suppresed_format_def: left: "Vertex", right: "int", loc.begin: 5 1, loc.end: 5 1, text: " Vertex int"
+free_text: type: "tex", loc.begin: 5 1, loc.end: 6 1, text: "
+"
+suppresed_format_def: left: "Area", right: "int", loc.begin: 6 1, loc.end: 6 1, text: " Area int"
+free_text: type: "tex", loc.begin: 6 1, loc.end: 7 1, text: "
+"
+suppresed_format_def: left: "util", right: "int", loc.begin: 7 1, loc.end: 7 1, text: " util int"
+free_text: type: "tex", loc.begin: 7 1, loc.end: 8 1, text: "
+"
+suppresed_format_def: left: "siz_t", right: "int", loc.begin: 8 1, loc.end: 8 1, text: " siz_t int"
+free_text: type: "tex", loc.begin: 8 1, loc.end: 9 1, text: "
+"
+limbo_end: loc.begin: 9 1, loc.end: 9 1
+file_end: file: "gb_types.w"
+free_text: type: "tex", loc.begin: 4 1, loc.end: 9 1, text: "
+\def\title{MILES\_\,SPAN}
+\def\<#1>{$\langle${\rm#1}$\rangle$}
+
+\prerequisite{GB\_\,MILES}
+"
+limbo_end: loc.begin: 9 1, loc.end: 9 1
+tex_begin: loc.begin: 9 1, loc.end: 9 1
+tex_section_begin: type: "starred", title: "@* Minimum spanning trees.", loc.begin: 9 1, loc.end: 11 1, text: "@* Minimum spanning trees."
+free_text: type: "tex", loc.begin: 9 1, loc.end: 11 1, text: "
+A classic paper by R. L. Graham and Pavol Hell about the history of
+"
+index_entry: entry: "Graham, Ronald Lewis", loc.begin: 11 1, loc.end: 11 23, text: "@^Graham, Ronald Lewis@>"
+free_text: type: "tex", loc.begin: 11 23, loc.end: 12 1, text: "
+"
+index_entry: entry: "Hell, Pavol", loc.begin: 12 1, loc.end: 12 14, text: "@^Hell, Pavol@>"
+free_text: type: "tex", loc.begin: 12 14, loc.end: 19 1, text: "
+algorithms to find the minimum-length spanning tree of a graph
+[{\sl Annals of the History of Computing \bf7} (1985), 43--57]
+describes three main approaches to that problem. Algorithm~1,
+``two nearest fragments,'' repeatedly adds a shortest edge that joins
+two hitherto unconnected fragments of the graph; this algorithm was
+first published by J.~B. Kruskal in 1956. Algorithm~2, ``nearest
+"
+index_entry: entry: "Kruskal, Joseph Bernard", loc.begin: 19 1, loc.end: 19 26, text: "@^Kruskal, Joseph Bernard@>"
+free_text: type: "tex", loc.begin: 19 26, loc.end: 23 1, text: "
+neighbor,'' repeatedly adds a shortest edge that joins a particular
+fragment to a vertex not in that fragment; this algorithm was first
+published by V. Jarn\'{\i}k in 1930. Algorithm~3, ``all nearest
+"
+index_entry: entry: "Jarn{\'\i}k, Vojt\u ech", loc.begin: 23 1, loc.end: 23 26, text: "@^Jarn{\'\i}k, Vojt\u ech@>"
+free_text: type: "tex", loc.begin: 23 26, loc.end: 28 1, text: "
+fragments,'' repeatedly adds to each existing fragment the shortest
+edge that joins it to another fragment; this method, seemingly the
+most sophisticated in concept, also turns out to be the oldest,
+being first published by Otakar Bor{\accent23u}vka in 1926.
+"
+index_entry: entry: "Bor{\accent23u}vka, Otakar", loc.begin: 28 1, loc.end: 28 29, text: "@^Bor{\accent23u}vka, Otakar@>"
+free_text: type: "tex", loc.begin: 28 29, loc.end: 52 1, text: "
+
+The present program contains simple implementations of all three
+approaches, in an attempt to make practical comparisons of how
+they behave on ``realistic'' data. One of the main goals of this
+program is to demonstrate a simple way to make machine-independent
+comparisons of programs written in \CEE/, by counting memory
+references or ``mems.'' In other words, this program is intended
+to be read, not just performed.
+
+The author believes that mem counting sheds considerable light on
+the problem of determining the relative efficiency of competing
+algorithms for practical problems. He hopes other researchers will
+enjoy rising to the challenge of devising algorithms that find minimum
+spanning trees in significantly fewer mem units than the algorithms
+presented here, on problems of the size considered here.
+
+Indeed, mem counting promises to be significant for combinatorial
+algorithms of all kinds. The standard graphs available in the
+Stanford GraphBase should make it possible to carry out a large
+number of machine-independent experiments concerning the practical
+efficiency of algorithms that have previously been studied
+only asymptotically.
+
+"
+tex_begin: loc.begin: 52 1, loc.end: 52 1
+tex_section_begin: type: "unstarred", loc.begin: 52 1, loc.end: 86 1, text: "@ "
+free_text: type: "tex", loc.begin: 52 1, loc.end: 86 1, text: "The graphs we will deal with are produced by the |miles| subroutine,
+found in the {\sc GB\_\,MILES} module. As explained there,
+|miles(n,north_weight,west_weight,pop_weight,0,max_degree,seed)| produces a
+graph of |n<=128| vertices based on the driving distances between
+North American cities. By default we take |n=100|, |north_weight=west_weight
+=pop_weight=0|, and |max_degree=10|; this gives billions of different sparse
+graphs, when different |seed| values are specified, since a different
+random number seed generally results in the selection of another
+one of the $\,128\,\choose100$ possible subgraphs.
+
+The default parameters can be changed by specifying options on the
+command line, at least in a \UNIX/ implementation, thereby obtaining a
+variety of special effects. For example, the value of |n| can be
+raised or lowered and/or the graph can be made more or less sparse.
+The user can bias the selection by ranking cities according to their
+population and/or position, if nonzero values are given to any of the
+parameters |north_weight|, |west_weight|, or |pop_weight|.
+Command-line options \.{-n}\<number>, \.{-N}\<number>, \.{-W}\<number>,
+\.{-P}\<number>, \.{-d}\<number>, and \.{-s}\<number>
+are used to specify non-default values of the respective quantities |n|,
+|north_weight|, |west_weight|, |pop_weight|, |max_degree|, and |seed|.
+
+If the user specifies a \.{-r} option, for example by saying `\.{miles\_span}
+\.{-r10}', this program will investigate the spanning trees of a
+series of, say, 10 graphs having consecutive |seed| values. (This
+option makes sense only if |north_weight=west_weight=pop_weight=0|,
+because |miles| chooses the top |n| cities by weight. The procedure rarely
+needs to use random numbers to break ties when the weights are nonzero,
+because cities rarely have exactly the same weight in that case.)
+
+The special command-line option \.{-g}$\langle\,$filename$\,\rangle$
+overrides all others. It substitutes an external graph previously saved by
+|save_graph| for the graphs produced by |miles|. 
+
+"
+index_entry: entry: "UNIX dependencies", loc.begin: 86 1, loc.end: 86 20, text: "@^UNIX dependencies@>"
+free_text: type: "tex", loc.begin: 86 20, loc.end: 90 1, text: "
+
+Here is the overall layout of this \CEE/ program:
+
+"
+c_begin: loc.begin: 90 1, loc.end: 90 1
+unnamed_c_section_begin:
+comment_begin: type: "c", loc.begin: 90 1, loc.end: 91 23, text: "
+#include "gb_graph.h" /*"
+free_text: type: "tex", loc.begin: 91 23, loc.end: 91 23, text: " the GraphBase data structures "
+comment_end: type: "c", loc.begin: 91 23, loc.end: 91 23, text: "*/"
+comment_begin: type: "c", loc.begin: 91 23, loc.end: 92 22, text: "
+#include "gb_save.h" /*"
+free_text: type: "tex", loc.begin: 92 22, loc.end: 92 22, text: " "
+inner_c_begin: loc.begin: 92 22, loc.end: 92 22, text: "|"
+free_text: type: "c", text: "restore_graph"
+inner_c_end: loc.begin: 92 22, loc.end: 92 22, text: "|"
+free_text: type: "tex", loc.begin: 92 22, loc.end: 92 22, text: " "
+comment_end: type: "c", loc.begin: 92 22, loc.end: 92 22, text: "*/"
+comment_begin: type: "c", loc.begin: 92 22, loc.end: 93 23, text: "
+#include "gb_miles.h" /*"
+free_text: type: "tex", loc.begin: 93 23, loc.end: 93 23, text: " the "
+inner_c_begin: loc.begin: 93 23, loc.end: 93 23, text: "|"
+free_text: type: "c", text: "miles"
+inner_c_end: loc.begin: 93 23, loc.end: 93 23, text: "|"
+free_text: type: "tex", loc.begin: 93 23, loc.end: 93 23, text: " routine "
+comment_end: type: "c", loc.begin: 93 23, loc.end: 93 23, text: "*/"
+free_text: type: "c", loc.begin: 93 23, loc.end: 94 1, text: "
+"
+emit_macros_here: loc.begin: 94 1, loc.end: 94 1
+c_format: code: "@#"
+free_text: type: "c", loc.begin: 94 1, loc.end: 95 1, text: "
+"
+section_name: name: "Global variable", loc.begin: 95 1, loc.end: 95 1, text: "@<Global variables"
+free_text: type: "c", loc.begin: 95 1, loc.end: 95 1, text: ""
+c_format: code: "@;"
+free_text: type: "c", loc.begin: 95 1, loc.end: 96 1, text: "
+"
+section_name: name: "Procedures to be declared earl", loc.begin: 96 1, loc.end: 96 1, text: "@<Procedures to be declared early"
+free_text: type: "c", loc.begin: 96 1, loc.end: 96 1, text: ""
+c_format: code: "@;"
+free_text: type: "c", loc.begin: 96 1, loc.end: 97 1, text: "
+"
+section_name: name: "Priority queue subroutine", loc.begin: 97 1, loc.end: 97 1, text: "@<Priority queue subroutines"
+free_text: type: "c", loc.begin: 97 1, loc.end: 97 1, text: ""
+c_format: code: "@;"
+free_text: type: "c", loc.begin: 97 1, loc.end: 98 1, text: "
+"
+section_name: name: "Subroutine", loc.begin: 98 1, loc.end: 98 1, text: "@<Subroutines"
+free_text: type: "c", loc.begin: 98 1, loc.end: 98 1, text: ""
+c_format: code: "@;"
+comment_begin: type: "c", loc.begin: 98 1, loc.end: 100 13, text: "
+main(argc,argv)
+  int argc; /*"
+free_text: type: "tex", loc.begin: 100 13, loc.end: 100 13, text: " the number of command-line arguments "
+comment_end: type: "c", loc.begin: 100 13, loc.end: 100 13, text: "*/"
+comment_begin: type: "c", loc.begin: 100 13, loc.end: 101 17, text: "
+  char *argv[]; /*"
+free_text: type: "tex", loc.begin: 101 17, loc.end: 101 17, text: " an array of strings containing those arguments "
+comment_end: type: "c", loc.begin: 101 17, loc.end: 101 17, text: "*/"
+free_text: type: "c", loc.begin: 101 17, loc.end: 102 2, text: "
+{"
+c_format: code: "@+"
+comment_begin: type: "c", loc.begin: 102 2, loc.end: 102 23, text: "unsigned long n=100; /*"
+free_text: type: "tex", loc.begin: 102 23, loc.end: 102 23, text: " the desired number of vertices "
+comment_end: type: "c", loc.begin: 102 23, loc.end: 102 23, text: "*/"
+comment_begin: type: "c", loc.begin: 102 23, loc.end: 103 29, text: "
+  unsigned long n_weight=0; /*"
+free_text: type: "tex", loc.begin: 103 29, loc.end: 103 29, text: " the "
+inner_c_begin: loc.begin: 103 29, loc.end: 103 29, text: "|"
+free_text: type: "c", text: "north_weight"
+inner_c_end: loc.begin: 103 29, loc.end: 103 29, text: "|"
+free_text: type: "tex", loc.begin: 103 29, loc.end: 103 29, text: " parameter "
+comment_end: type: "c", loc.begin: 103 29, loc.end: 103 29, text: "*/"
+comment_begin: type: "c", loc.begin: 103 29, loc.end: 104 29, text: "
+  unsigned long w_weight=0; /*"
+free_text: type: "tex", loc.begin: 104 29, loc.end: 104 29, text: " the "
+inner_c_begin: loc.begin: 104 29, loc.end: 104 29, text: "|"
+free_text: type: "c", text: "west_weight"
+inner_c_end: loc.begin: 104 29, loc.end: 104 29, text: "|"
+free_text: type: "tex", loc.begin: 104 29, loc.end: 104 29, text: " parameter "
+comment_end: type: "c", loc.begin: 104 29, loc.end: 104 29, text: "*/"
+comment_begin: type: "c", loc.begin: 104 29, loc.end: 105 29, text: "
+  unsigned long p_weight=0; /*"
+free_text: type: "tex", loc.begin: 105 29, loc.end: 105 29, text: " the "
+inner_c_begin: loc.begin: 105 29, loc.end: 105 29, text: "|"
+free_text: type: "c", text: "pop_weight"
+inner_c_end: loc.begin: 105 29, loc.end: 105 29, text: "|"
+free_text: type: "tex", loc.begin: 105 29, loc.end: 105 29, text: " parameter "
+comment_end: type: "c", loc.begin: 105 29, loc.end: 105 29, text: "*/"
+comment_begin: type: "c", loc.begin: 105 29, loc.end: 106 23, text: "
+  unsigned long d=10; /*"
+free_text: type: "tex", loc.begin: 106 23, loc.end: 106 23, text: " the "
+inner_c_begin: loc.begin: 106 23, loc.end: 106 23, text: "|"
+free_text: type: "c", text: "max_degree"
+inner_c_end: loc.begin: 106 23, loc.end: 106 23, text: "|"
+free_text: type: "tex", loc.begin: 106 23, loc.end: 106 23, text: " parameter "
+comment_end: type: "c", loc.begin: 106 23, loc.end: 106 23, text: "*/"
+comment_begin: type: "c", loc.begin: 106 23, loc.end: 107 13, text: "
+  long s=0; /*"
+free_text: type: "tex", loc.begin: 107 13, loc.end: 107 13, text: " the random number seed "
+comment_end: type: "c", loc.begin: 107 13, loc.end: 107 13, text: "*/"
+comment_begin: type: "c", loc.begin: 107 13, loc.end: 108 22, text: "
+  unsigned long r=1; /*"
+free_text: type: "tex", loc.begin: 108 22, loc.end: 108 22, text: " the number of repetitions "
+comment_end: type: "c", loc.begin: 108 22, loc.end: 108 22, text: "*/"
+comment_begin: type: "c", loc.begin: 108 22, loc.end: 109 25, text: "
+  char *file_name=NULL; /*"
+free_text: type: "tex", loc.begin: 109 25, loc.end: 109 25, text: " external graph to be restored "
+comment_end: type: "c", loc.begin: 109 25, loc.end: 109 25, text: "*/"
+free_text: type: "c", loc.begin: 109 25, loc.end: 110 3, text: "
+  "
+section_name: name: "Scan the command-line option", loc.begin: 110 3, loc.end: 110 3, text: "@<Scan the command-line options"
+comment_begin: type: "c", loc.begin: 110 3, loc.end: 117 18, text: ";
+  while (r--) {
+    if (file_name) g=restore_graph(file_name);
+    else g=miles(n,n_weight,w_weight,p_weight,0L,d,s);
+    if (g==NULL || g->n<=1) {
+      fprintf(stderr,"Sorry, can't create the graph! (error code %ld)\n",
+               panic_code);
+      return -1; /*"
+free_text: type: "tex", loc.begin: 117 18, loc.end: 117 18, text: " error code 0 means the graph is too small "
+comment_end: type: "c", loc.begin: 117 18, loc.end: 117 18, text: "*/"
+free_text: type: "c", loc.begin: 117 18, loc.end: 119 5, text: "
+    }
+    "
+section_name: name: "Report the number of mems needed to compute a minimum spanning tree
+       of |g| by various algorithm", loc.begin: 119 5, loc.end: 119 5, text: "@<Report the number of mems needed to compute a minimum spanning tree
+       of |g| by various algorithms"
+comment_begin: type: "c", loc.begin: 119 5, loc.end: 121 10, text: ";
+    gb_recycle(g);
+    s++; /*"
+free_text: type: "tex", loc.begin: 121 10, loc.end: 121 10, text: " increase the "
+inner_c_begin: loc.begin: 121 10, loc.end: 121 10, text: "|"
+free_text: type: "c", text: "seed"
+inner_c_end: loc.begin: 121 10, loc.end: 121 10, text: "|"
+free_text: type: "tex", loc.begin: 121 10, loc.end: 121 10, text: " value "
+comment_end: type: "c", loc.begin: 121 10, loc.end: 121 10, text: "*/"
+comment_begin: type: "c", loc.begin: 121 10, loc.end: 123 13, text: "
+  }
+  return 0; /*"
+free_text: type: "tex", loc.begin: 123 13, loc.end: 123 13, text: " normal exit "
+comment_end: type: "c", loc.begin: 123 13, loc.end: 123 13, text: "*/"
+free_text: type: "c", loc.begin: 123 13, loc.end: 126 1, text: "
+}
+
+"
+tex_begin: loc.begin: 126 1, loc.end: 126 1
+tex_section_begin: type: "unstarred", loc.begin: 126 1, loc.end: 126 1, text: "@ "
+free_text: type: "tex", loc.begin: 126 1, loc.end: 126 1, text: ""
+c_begin: loc.begin: 126 1, loc.end: 126 1
+c_named_section_begin: name: "Global...", appended: "false"
+comment_begin: type: "c", loc.begin: 126 1, loc.end: 127 11, text: "
+Graph *g; /*"
+free_text: type: "tex", loc.begin: 127 11, loc.end: 127 11, text: " the graph we will work on "
+comment_end: type: "c", loc.begin: 127 11, loc.end: 127 11, text: "*/"
+free_text: type: "c", loc.begin: 127 11, loc.end: 129 1, text: "
+
+"
+c_named_section_end: loc.begin: 129 1, loc.end: 129 1
+tex_begin: loc.begin: 129 1, loc.end: 129 1
+tex_section_begin: type: "unstarred", loc.begin: 129 1, loc.end: 129 1, text: "@ "
+free_text: type: "tex", loc.begin: 129 1, loc.end: 129 1, text: ""
+c_begin: loc.begin: 129 1, loc.end: 129 1
+c_named_section_begin: name: "Scan the command-line options", appended: "false"
+free_text: type: "c", loc.begin: 129 1, loc.end: 131 1, text: "
+while (--argc) {
+"
+index_entry: entry: "UNIX dependencies", loc.begin: 131 1, loc.end: 131 20, text: "@^UNIX dependencies@>"
+free_text: type: "c", loc.begin: 131 20, loc.end: 150 1, text: "
+  if (sscanf(argv[argc],"-n%lu",&n)==1) ;
+  else if (sscanf(argv[argc],"-N%lu",&n_weight)==1) ;
+  else if (sscanf(argv[argc],"-W%lu",&w_weight)==1) ;
+  else if (sscanf(argv[argc],"-P%lu",&p_weight)==1) ;
+  else if (sscanf(argv[argc],"-d%lu",&d)==1) ;
+  else if (sscanf(argv[argc],"-r%lu",&r)==1) ;
+  else if (sscanf(argv[argc],"-s%ld",&s)==1) ;
+  else if (strcmp(argv[argc],"-v")==0) verbose=1;
+  else if (strncmp(argv[argc],"-g",2)==0) file_name=argv[argc]+2;
+  else {
+    fprintf(stderr,
+             "Usage: %s [-nN][-dN][-rN][-sN][-NN][-WN][-PN][-v][-gfoo]\n",
+             argv[0]);
+    return -2;
+  }
+}
+if (file_name) r=1;
+
+"
+c_named_section_end: loc.begin: 150 1, loc.end: 150 1
+tex_begin: loc.begin: 150 1, loc.end: 150 1
+tex_section_begin: type: "unstarred", loc.begin: 150 1, loc.end: 161 1, text: "@ "
+free_text: type: "tex", loc.begin: 150 1, loc.end: 161 1, text: "We will try out four basic algorithms that have received prominent
+attention in the literature. Graham and Hell's Algorithm~1 is represented
+by the |krusk| procedure, which uses Kruskal's algorithm after the
+edges have been sorted by length with a radix sort. Their Algorithm~2
+is represented by the |jar_pr| procedure, which incorporates a 
+priority queue structure that we implement in two ways, either as
+a simple binary heap or as a Fibonacci heap. And their Algorithm~3
+is represented by the |cher_tar_kar| procedure, which implements a
+method similar to Bor{\accent23u}vka's that was independently
+discovered by Cheriton and Tarjan and later simplified and refined by
+Karp and Tarjan.
+"
+index_entry: entry: "Cheriton, David Ross", loc.begin: 161 1, loc.end: 161 23, text: "@^Cheriton, David Ross@>"
+free_text: type: "tex", loc.begin: 161 23, loc.end: 162 1, text: "
+"
+index_entry: entry: "Tarjan, Robert Endre", loc.begin: 162 1, loc.end: 162 23, text: "@^Tarjan, Robert Endre@>"
+free_text: type: "tex", loc.begin: 162 23, loc.end: 163 1, text: "
+"
+index_entry: entry: "Karp, Richard Manning", loc.begin: 163 1, loc.end: 163 24, text: "@^Karp, Richard Manning@>"
+free_text: type: "tex", loc.begin: 163 24, loc.end: 165 1, text: "
+
+"
+middle_begin: loc.begin: 165 1, loc.end: 165 1
+macro_begin: name: "INFINITY", params: {}, loc.begin: 165 1, loc.end: 168 1, text: "INFINITY "
+free_text: type: "c", text: "(unsigned long)-1
+ /* value returned when there's no spanning tree */
+
+"
+macro_end: loc.begin: 168 1, loc.end: 168 1
+c_begin: loc.begin: 168 1, loc.end: 168 1
+c_named_section_begin: name: "Report the number...", appended: "false"
+free_text: type: "c", loc.begin: 168 1, loc.end: 174 1, text: "
+printf("The graph %s has %ld edges,\n",g->id,g->m/2);
+sp_length=krusk(g);
+if (sp_length==INFINITY) printf("  and it isn't connected.\n");
+else printf("  and its minimum spanning tree has length %ld.\n",sp_length);
+printf(" The Kruskal/radix-sort algorithm takes %ld mems;\n",mems);
+"
+section_name: name: "Execute |jar_pr(g)| with binary heaps as the priority queue algorith", loc.begin: 174 1, loc.end: 174 1, text: "@<Execute |jar_pr(g)| with binary heaps as the priority queue algorithm"
+free_text: type: "c", loc.begin: 174 1, loc.end: 176 1, text: ";
+printf(" the Jarnik/Prim/binary-heap algorithm takes %ld mems;\n",mems);
+"
+section_name: name: "Allocate additional space needed by the more complex algorithms;
+    or |goto done| if there isn't enough roo", loc.begin: 176 1, loc.end: 176 1, text: "@<Allocate additional space needed by the more complex algorithms;
+    or |goto done| if there isn't enough room"
+free_text: type: "c", loc.begin: 176 1, loc.end: 177 1, text: ";
+"
+section_name: name: "Execute |jar_pr(g)| with Fibonacci heaps as
+     the priority queue algorith", loc.begin: 177 1, loc.end: 177 1, text: "@<Execute |jar_pr(g)| with Fibonacci heaps as
+     the priority queue algorithm"
+free_text: type: "c", loc.begin: 177 1, loc.end: 187 1, text: ";
+printf(" the Jarnik/Prim/Fibonacci-heap algorithm takes %ld mems;\n",mems);
+if (sp_length!=cher_tar_kar(g)) {
+  if (gb_trouble_code) printf(" ...oops, I've run out of memory!\n");
+  else printf(" ...oops, I've got a bug, please fix fix fix\n");
+  return -3;
+}
+printf(" the Cheriton/Tarjan/Karp algorithm takes %ld mems.\n\n",mems);
+done:;
+
+"
+c_named_section_end: loc.begin: 187 1, loc.end: 187 1
+tex_begin: loc.begin: 187 1, loc.end: 187 1
+tex_section_begin: type: "unstarred", loc.begin: 187 1, loc.end: 187 1, text: "@ "
+free_text: type: "tex", loc.begin: 187 1, loc.end: 187 1, text: ""
+c_begin: loc.begin: 187 1, loc.end: 187 1
+c_named_section_begin: name: "Glob...", appended: "false"
+comment_begin: type: "c", loc.begin: 187 1, loc.end: 188 26, text: "
+unsigned long sp_length; /*"
+free_text: type: "tex", loc.begin: 188 26, loc.end: 188 26, text: " length of the minimum spanning tree "
+comment_end: type: "c", loc.begin: 188 26, loc.end: 188 26, text: "*/"
+free_text: type: "c", loc.begin: 188 26, loc.end: 190 1, text: "
+
+"
+c_named_section_end: loc.begin: 190 1, loc.end: 190 1
+tex_begin: loc.begin: 190 1, loc.end: 190 1
+tex_section_begin: type: "unstarred", loc.begin: 190 1, loc.end: 193 1, text: "@ "
+free_text: type: "tex", loc.begin: 190 1, loc.end: 193 1, text: "When the |verbose| switch is nonzero, edges found by the various
+algorithms will call the |report| subroutine.
+
+"
+c_begin: loc.begin: 193 1, loc.end: 193 1
+c_named_section_begin: name: "Sub...", appended: "false"
+comment_begin: type: "c", loc.begin: 193 1, loc.end: 195 17, text: "
+report(u,v,l)
+  Vertex *u,*v; /*"
+free_text: type: "tex", loc.begin: 195 17, loc.end: 195 17, text: " adjacent vertices in the minimum spanning tree "
+comment_end: type: "c", loc.begin: 195 17, loc.end: 195 17, text: "*/"
+comment_begin: type: "c", loc.begin: 195 17, loc.end: 196 11, text: "
+  long l; /*"
+free_text: type: "tex", loc.begin: 196 11, loc.end: 196 11, text: " the length of the edge between them "
+comment_end: type: "c", loc.begin: 196 11, loc.end: 196 11, text: "*/"
+free_text: type: "c", loc.begin: 196 11, loc.end: 201 1, text: "
+{ printf("  %ld miles between %s and %s [%ld mems]\n",
+           l,u->name,v->name,mems);
+}
+
+"
+c_named_section_end: loc.begin: 201 1, loc.end: 201 1
+tex_begin: loc.begin: 201 1, loc.end: 201 1
+tex_section_begin: type: "starred", title: "@*Strategies and ground rules.", loc.begin: 201 1, loc.end: 205 1, text: "@*Strategies and ground rules."
+free_text: type: "tex", loc.begin: 201 1, loc.end: 205 1, text: "
+Let us say that a {\sl fragment\/} is any subtree of a minimum
+spanning tree. All three algorithms we implement make use of a basic
+principle first stated in full generality by R.~C. Prim in 1957:
+"
+index_entry: entry: "Prim, Robert Clay", loc.begin: 205 1, loc.end: 205 20, text: "@^Prim, Robert Clay@>"
+free_text: type: "tex", loc.begin: 205 20, loc.end: 216 1, text: "
+``If a fragment~$F$ does not include all the vertices, and if $e$~is
+a shortest edge joining $F$ to a vertex not in~$F$, then $F\cup e$
+is a fragment.'' To prove Prim's principle, let $T$ be a minimum
+spanning tree that contains $F$ but not~$e$. Adding $e$ to~$T$ creates
+a circuit containing some edge $e'\ne e$, where $e'$ runs from a vertex
+in~$F$ to a vertex not in~$F$. Deleting $e'$ from
+$T\cup e$ produces a spanning tree~$T'$ of total length no larger
+than the total length of~$T$. Hence $T'$ is a minimum spanning
+tree containing $F\cup e$, QED.
+
+"
+tex_begin: loc.begin: 216 1, loc.end: 216 1
+tex_section_begin: type: "unstarred", loc.begin: 216 1, loc.end: 252 1, text: "@ "
+free_text: type: "tex", loc.begin: 216 1, loc.end: 252 1, text: "The graphs produced by |miles| have special properties, and it is fair game
+to make use of those properties if we can.
+
+First, the length of each edge is a positive integer less than $2^{12}$.
+
+Second, the $k$th vertex $v_k$ of the graph is represented in \CEE/ programs by
+the pointer expression |g->vertices+k|. If weights have been assigned,
+these vertices will be in order by weight. For example, if |north_weight=1|
+but |west_weight=pop_weight=0|, vertex $v_0$ will be the most northerly city
+and vertex $v_{n-1}$ will be the most southerly.
+
+Third, the edges accessible from a vertex |v| appear in a linked list
+starting at |v->arcs|. An edge from |v| to $v_j$ will precede an
+edge from |v| to $v_k$ in this list if and only if $j>k$.
+
+Fourth, the vertices have coordinates |v->x_coord| and |v->y_coord|
+that are correlated with the length of edges between them: The
+Euclidean distance between the coordinates of two vertices tends to be small
+if and only if those vertices are connected by a relatively short edge.
+(This is only a tendency, not a certainty; for example, some cities
+around Chesapeake Bay are fairly close together as the crow flies, but not
+within easy driving range of each other.)
+
+Fifth, the edge lengths satisfy the triangle inequality: Whenever
+three edges form a cycle, the longest is no longer than the sum of
+the lengths of the two others. (It can be proved that
+the triangle inequality is of no use in finding minimum spanning
+trees; we mention it here only to exhibit yet another way in which
+the data produced by |miles| is known to be nonrandom.)
+
+Our implementation of Kruskal's algorithm will make use of the first
+property, and it also uses part of the third to avoid considering an
+edge more than once. We will not exploit the other properties, but a
+reader who wants to design algorithms that use fewer mems to find minimum
+spanning trees of these graphs is free to use any idea that helps.
+
+"
+tex_begin: loc.begin: 252 1, loc.end: 252 1
+tex_section_begin: type: "unstarred", loc.begin: 252 1, loc.end: 255 1, text: "@ "
+free_text: type: "tex", loc.begin: 252 1, loc.end: 255 1, text: "Speaking of mems, here are the simple \CEE/ instrumentation macros that we
+use to count memory references. The macros are called |o|, |oo|, |ooo|,
+and |oooo|; hence Jon Bentley has called this a ``little oh analysis.''
+"
+index_entry: entry: "Bentley, Jon Louis", loc.begin: 255 1, loc.end: 255 21, text: "@^Bentley, Jon Louis@>"
+free_text: type: "tex", loc.begin: 255 21, loc.end: 273 1, text: "
+Implementors who want to count mems are supposed to say, e.g., `|oo|,'
+just before an assignment statement or boolean expression that makes
+two references to memory. The \CEE/ preprocessor will convert this
+to a statement that increases |mems| by~2 as that statement or expression
+is evaluated.
+
+The semantics of \CEE/ tell us that the evaluation of an expression
+like `|a&&(o,a->len>10)|' will increment |mems| if and only if the
+pointer variable~|a| is non-null. Warning: The parentheses are very
+important in this example, because \CEE/'s operator |&&| (i.e.,
+\.{\&\&}) has higher precedence than comma.
+
+Values of significant variables, like |a| in the previous example,
+can be assumed to be in ``registers,'' and no charge is made for
+arithmetic computations that involve only registers. But the total
+number of registers in an implementation must be finite and fixed,
+independent of the problem size.
+"
+index_entry: entry: "discussion of \\{mems}", loc.begin: 273 1, loc.end: 273 25, text: "@^discussion of \\{mems}@>"
+free_text: type: "tex", loc.begin: 273 25, loc.end: 280 1, text: "
+
+\CEE/ does not allow the |o| macros to appear in declarations, so we cannot
+take full advantage of \CEE/'s initialization mechanism when we are
+counting mems. But it's easy to initialize variables in separate
+statements after the declarations are done.
+
+"
+middle_begin: loc.begin: 280 1, loc.end: 280 1
+macro_begin: name: "o", params: {}, loc.begin: 280 1, loc.end: 281 1, text: "o "
+free_text: type: "c", text: "mems++
+"
+macro_end: loc.begin: 281 1, loc.end: 281 1
+macro_begin: name: "oo", params: {}, loc.begin: 281 1, loc.end: 282 1, text: "oo "
+free_text: type: "c", text: "mems+=2
+"
+macro_end: loc.begin: 282 1, loc.end: 282 1
+macro_begin: name: "ooo", params: {}, loc.begin: 282 1, loc.end: 283 1, text: "ooo "
+free_text: type: "c", text: "mems+=3
+"
+macro_end: loc.begin: 283 1, loc.end: 283 1
+macro_begin: name: "oooo", params: {}, loc.begin: 283 1, loc.end: 285 1, text: "oooo "
+free_text: type: "c", text: "mems+=4
+
+"
+macro_end: loc.begin: 285 1, loc.end: 285 1
+c_begin: loc.begin: 285 1, loc.end: 285 1
+c_named_section_begin: name: "Glob...", appended: "false"
+comment_begin: type: "c", loc.begin: 285 1, loc.end: 286 12, text: "
+long mems; /*"
+free_text: type: "tex", loc.begin: 286 12, loc.end: 286 12, text: " the number of memory references counted "
+comment_end: type: "c", loc.begin: 286 12, loc.end: 286 12, text: "*/"
+free_text: type: "c", loc.begin: 286 12, loc.end: 288 1, text: "
+
+"
+c_named_section_end: loc.begin: 288 1, loc.end: 288 1
+tex_begin: loc.begin: 288 1, loc.end: 288 1
+tex_section_begin: type: "unstarred", loc.begin: 288 1, loc.end: 305 1, text: "@ "
+free_text: type: "tex", loc.begin: 288 1, loc.end: 305 1, text: "Examples of these mem-counting conventions appear throughout the
+program that follows. Some people will undoubtedly ask why the insertion of
+macros by hand is being recommended here, when it would be possible to
+develop a fancy system that counts mems automatically. The author
+believes that it is best to rely on programmers to introduce |o| and
+|oo|, etc., by themselves, for several reasons. (1)~The macros can be
+inserted easily and quickly using a text editor. (2)~An implementation
+need not pay for mems that could be avoided by a suitable optimizing
+compiler or by making the \CEE/ program text slightly more complex;
+thus, authors can use their good judgment to keep programs more
+readable than if the code were overly hand-optimized. (3)~The
+programmer should be able to see exactly where mems are being charged,
+as an aid to bottleneck elimination. Occurrences of |o| and |oo| make
+this plain without messing up the program text. (4)~An implementation
+need not be charged for mems that merely provide diagnostic output, or
+mems that do redundant computations just to double-check the validity
+of ``proven'' assertions as a program is being tested.
+"
+index_entry: entry: "discussion of \\{mems}", loc.begin: 305 1, loc.end: 305 25, text: "@^discussion of \\{mems}@>"
+free_text: type: "tex", loc.begin: 305 25, loc.end: 335 1, text: "
+
+Computer architecture is converging rapidly these days to the
+design of machines in which the exact running time of a program
+depends on complicated interactions between pipelined circuitry and
+the dynamic properties of cache mapping in a memory hierarchy,
+not to mention the effects of compilers and operating systems.
+But a good approximation to running time is usually obtained if we
+assume that the amount of computation is proportional to the activity
+of the memory bus between registers and main memory. This
+approximation is likely to get even better in the future, as
+RISC computers get faster and faster in comparison to memory devices.
+Although the mem measure is far from perfect, it appears to be
+significantly less distorted than any other measurement that can
+be obtained without considerably more work. An implementation that
+is designed to use few mems will almost certainly be efficient
+on today's sequential computers, as well as on the sequential computers
+we can expect to be built in the foreseeable future. And the converse
+statement is even more true: An algorithm that runs fast will not
+consume many mems.
+
+Of course authors are expected to be reasonable and fair when they
+are competing for minimum-mem prizes. They must be ready to
+submit their programs to inspection by impartial judges. A good
+algorithm will not need to abuse the spirit of realistic mem-counting.
+
+Mems can be analyzed theoretically as well as empirically.
+This means we can attach constants to estimates of running time, instead of
+always resorting to $O$~notation.
+
+"
+tex_begin: loc.begin: 335 1, loc.end: 335 1
+tex_section_begin: type: "starred", title: "@*Kruskal's algorithm.", loc.begin: 335 1, loc.end: 347 1, text: "@*Kruskal's algorithm."
+free_text: type: "tex", loc.begin: 335 1, loc.end: 347 1, text: "
+The first algorithm we shall implement and instrument is the simplest:
+It considers the edges one by one in order of nondecreasing length,
+selecting each edge that does not form a cycle with previously
+selected edges.
+
+We know that the edge lengths are less than $2^{12}$, so we can sort them
+into order with two passes of a $2^6$-bucket radix sort.
+We will arrange to have them appear in the buckets as linked lists
+of |Arc| records; the two utility fields of an |Arc| will be called
+|from| and |klink|, respectively.
+
+"
+middle_begin: loc.begin: 347 1, loc.end: 347 1
+macro_begin: name: "from", params: {}, loc.begin: 347 1, loc.end: 348 1, text: "from "
+free_text: type: "c", text: "a.V /* an edge goes from vertex |a->from| to vertex |a->tip| */
+"
+macro_end: loc.begin: 348 1, loc.end: 348 1
+macro_begin: name: "klink", params: {}, loc.begin: 348 1, loc.end: 350 1, text: "klink "
+free_text: type: "c", text: "b.A /* the next longer edge after |a| will be |a->klink| */
+
+"
+macro_end: loc.begin: 350 1, loc.end: 350 1
+c_begin: loc.begin: 350 1, loc.end: 350 1
+c_named_section_begin: name: "Put all the edges into |bucket[0]| through |bucket[63]|", appended: "false"
+comment_begin: type: "c", loc.begin: 350 1, loc.end: 356 22, text: "
+o,n=g->n;
+for (l=0;l<64;l++) oo,aucket[l]=bucket[l]=NULL;
+for (o,v=g->vertices;v<g->vertices+n;v++)
+  for (o,a=v->arcs;a&&(o,a->tip>v);o,a=a->next) {
+    o,a->from=v;
+    o,l=a->len&0x3f; /*"
+free_text: type: "tex", loc.begin: 356 22, loc.end: 356 22, text: " length mod 64 "
+comment_end: type: "c", loc.begin: 356 22, loc.end: 356 22, text: "*/"
+free_text: type: "c", loc.begin: 356 22, loc.end: 361 27, text: "
+    oo,a->klink=aucket[l];
+    o,aucket[l]=a;
+  }
+for (l=63;l>=0;l--)
+  for (o,a=aucket[l];a;) {"
+c_format: code: "@+"
+comment_begin: type: "c", loc.begin: 361 27, loc.end: 364 22, text: "register long ll;
+    register Arc *aa=a;
+    o,a=a->klink;
+    o,ll=aa->len>>6; /*"
+free_text: type: "tex", loc.begin: 364 22, loc.end: 364 22, text: " length divided by 64 "
+comment_end: type: "c", loc.begin: 364 22, loc.end: 364 22, text: "*/"
+free_text: type: "c", loc.begin: 364 22, loc.end: 369 1, text: "
+    oo,aa->klink=bucket[ll];
+    o,bucket[ll]=aa;
+  }
+
+"
+c_named_section_end: loc.begin: 369 1, loc.end: 369 1
+tex_begin: loc.begin: 369 1, loc.end: 369 1
+tex_section_begin: type: "unstarred", loc.begin: 369 1, loc.end: 369 1, text: "@ "
+free_text: type: "tex", loc.begin: 369 1, loc.end: 369 1, text: ""
+c_begin: loc.begin: 369 1, loc.end: 369 1
+c_named_section_begin: name: "Glob...", appended: "false"
+comment_begin: type: "c", loc.begin: 369 1, loc.end: 370 31, text: "
+Arc *aucket[64], *bucket[64]; /*"
+free_text: type: "tex", loc.begin: 370 31, loc.end: 370 31, text: " heads of linked lists of arcs "
+comment_end: type: "c", loc.begin: 370 31, loc.end: 370 31, text: "*/"
+free_text: type: "c", loc.begin: 370 31, loc.end: 372 1, text: "
+
+"
+c_named_section_end: loc.begin: 372 1, loc.end: 372 1
+tex_begin: loc.begin: 372 1, loc.end: 372 1
+tex_section_begin: type: "unstarred", loc.begin: 372 1, loc.end: 374 1, text: "@ "
+free_text: type: "tex", loc.begin: 372 1, loc.end: 374 1, text: "Kruskal's algorithm now takes the following form.
+
+"
+c_begin: loc.begin: 374 1, loc.end: 374 1
+c_named_section_begin: name: "Sub...", appended: "false"
+free_text: type: "c", loc.begin: 374 1, loc.end: 377 2, text: "
+unsigned long krusk(g)
+  Graph *g;
+{"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 377 2, loc.end: 377 2, text: ""
+section_name: name: "Local variables for |krusk", loc.begin: 377 2, loc.end: 377 2, text: "@<Local variables for |krusk|"
+free_text: type: "c", loc.begin: 377 2, loc.end: 377 2, text: ""
+c_format: code: "@;"
+c_format: code: "@#"
+free_text: type: "c", loc.begin: 377 2, loc.end: 379 3, text: "
+  mems=0;
+  "
+section_name: name: "Put all the edges..", loc.begin: 379 3, loc.end: 379 3, text: "@<Put all the edges..."
+free_text: type: "c", loc.begin: 379 3, loc.end: 381 3, text: ";
+  if (verbose) printf("   [%ld mems to sort the edges into buckets]\n",mems);
+  "
+section_name: name: "Put all the vertices into components by themselve", loc.begin: 381 3, loc.end: 381 3, text: "@<Put all the vertices into components by themselves"
+free_text: type: "c", loc.begin: 381 3, loc.end: 386 7, text: ";
+  for (l=0;l<64;l++)
+    for (o,a=bucket[l];a;o,a=a->klink) {
+      o,u=a->from;
+      o,v=a->tip;
+      "
+section_name: name: "If |u| and |v| are already in the same component, |continue", loc.begin: 386 7, loc.end: 386 7, text: "@<If |u| and |v| are already in the same component, |continue|"
+free_text: type: "c", loc.begin: 386 7, loc.end: 390 7, text: ";
+      if (verbose) report(a->from,a->tip,a->len);
+      o,tot_len+=a->len;
+      if (--components==1) return tot_len;
+      "
+section_name: name: "Merge the components containing |u| and |v", loc.begin: 390 7, loc.end: 390 7, text: "@<Merge the components containing |u| and |v|"
+comment_begin: type: "c", loc.begin: 390 7, loc.end: 392 20, text: ";
+    }
+  return INFINITY; /*"
+free_text: type: "tex", loc.begin: 392 20, loc.end: 392 20, text: " the graph wasn't connected "
+comment_end: type: "c", loc.begin: 392 20, loc.end: 392 20, text: "*/"
+free_text: type: "c", loc.begin: 392 20, loc.end: 395 1, text: "
+}
+
+"
+c_named_section_end: loc.begin: 395 1, loc.end: 395 1
+tex_begin: loc.begin: 395 1, loc.end: 395 1
+tex_section_begin: type: "unstarred", loc.begin: 395 1, loc.end: 398 1, text: "@ "
+free_text: type: "tex", loc.begin: 395 1, loc.end: 398 1, text: "Lest we forget, we'd better declare all the local variables we've
+been using.
+
+"
+c_begin: loc.begin: 398 1, loc.end: 398 1
+c_named_section_begin: name: "Local variables for |krusk|", appended: "false"
+comment_begin: type: "c", loc.begin: 398 1, loc.end: 399 18, text: "
+register Arc *a; /*"
+free_text: type: "tex", loc.begin: 399 18, loc.end: 399 18, text: " current edge of interest "
+comment_end: type: "c", loc.begin: 399 18, loc.end: 399 18, text: "*/"
+comment_begin: type: "c", loc.begin: 399 18, loc.end: 400 18, text: "
+register long l; /*"
+free_text: type: "tex", loc.begin: 400 18, loc.end: 400 18, text: " current bucket of interest "
+comment_end: type: "c", loc.begin: 400 18, loc.end: 400 18, text: "*/"
+comment_begin: type: "c", loc.begin: 400 18, loc.end: 401 27, text: "
+register Vertex *u,*v,*w; /*"
+free_text: type: "tex", loc.begin: 401 27, loc.end: 401 27, text: " current vertices of interest "
+comment_end: type: "c", loc.begin: 401 27, loc.end: 401 27, text: "*/"
+comment_begin: type: "c", loc.begin: 401 27, loc.end: 402 26, text: "
+unsigned long tot_len=0; /*"
+free_text: type: "tex", loc.begin: 402 26, loc.end: 402 26, text: " total length of edges already chosen "
+comment_end: type: "c", loc.begin: 402 26, loc.end: 402 26, text: "*/"
+comment_begin: type: "c", loc.begin: 402 26, loc.end: 403 9, text: "
+long n; /*"
+free_text: type: "tex", loc.begin: 403 9, loc.end: 403 9, text: " the number of vertices "
+comment_end: type: "c", loc.begin: 403 9, loc.end: 403 9, text: "*/"
+free_text: type: "c", loc.begin: 403 9, loc.end: 406 1, text: "
+long components;
+
+"
+c_named_section_end: loc.begin: 406 1, loc.end: 406 1
+tex_begin: loc.begin: 406 1, loc.end: 406 1
+tex_section_begin: type: "unstarred", loc.begin: 406 1, loc.end: 410 1, text: "@ "
+free_text: type: "tex", loc.begin: 406 1, loc.end: 410 1, text: "The remaining things that |krusk| needs to do are easily recognizable
+as an application of ``equivalence algorithms'' or ``union/find''
+data structures. We will use a simple approach whose average running
+time on random graphs was shown to be linear by Knuth and Sch\"onhage
+"
+index_entry: entry: "Knuth, Donald Ervin", loc.begin: 410 1, loc.end: 410 22, text: "@^Knuth, Donald Ervin@>"
+free_text: type: "tex", loc.begin: 410 22, loc.end: 411 1, text: "
+"
+index_entry: entry: "Sch\"onhage, Arnold", loc.begin: 411 1, loc.end: 411 22, text: "@^Sch\"onhage, Arnold@>"
+free_text: type: "tex", loc.begin: 411 22, loc.end: 420 1, text: "
+in {\sl Theoretical Computer Science\/ \bf 6} (1978), 281--315.
+
+The vertices of each component (that is, of each connected fragment defined by
+the edges selected so far) will be linked circularly by |clink| pointers.
+Each vertex also has a |comp| field that points to a unique vertex
+representing its component. Each component representative also has
+a |csize| field that tells how many vertices are in the component.
+
+"
+middle_begin: loc.begin: 420 1, loc.end: 420 1
+macro_begin: name: "clink", params: {}, loc.begin: 420 1, loc.end: 421 1, text: "clink "
+free_text: type: "c", text: "z.V /* pointer to another vertex in the same component */
+"
+macro_end: loc.begin: 421 1, loc.end: 421 1
+macro_begin: name: "comp", params: {}, loc.begin: 421 1, loc.end: 422 1, text: "comp "
+free_text: type: "c", text: "y.V /* pointer to component representative */
+"
+macro_end: loc.begin: 422 1, loc.end: 422 1
+macro_begin: name: "csize", params: {}, loc.begin: 422 1, loc.end: 424 1, text: "csize "
+free_text: type: "c", text: "x.I /* size of the component (maintained only for representatives) */
+
+"
+macro_end: loc.begin: 424 1, loc.end: 424 1
+c_begin: loc.begin: 424 1, loc.end: 424 1
+c_named_section_begin: name: "If |u| and |v| are already in the same component, |continue|", appended: "false"
+free_text: type: "c", loc.begin: 424 1, loc.end: 427 1, text: "
+if (oo,u->comp==v->comp) continue;
+
+"
+c_named_section_end: loc.begin: 427 1, loc.end: 427 1
+tex_begin: loc.begin: 427 1, loc.end: 427 1
+tex_section_begin: type: "unstarred", loc.begin: 427 1, loc.end: 429 1, text: "@ "
+free_text: type: "tex", loc.begin: 427 1, loc.end: 429 1, text: "We don't need to charge any mems for fetching |g->vertices|, because
+|krusk| has already referred to it.
+"
+index_entry: entry: "discussion of \\{mems}", loc.begin: 429 1, loc.end: 429 25, text: "@^discussion of \\{mems}@>"
+free_text: type: "tex", loc.begin: 429 25, loc.end: 431 1, text: "
+
+"
+c_begin: loc.begin: 431 1, loc.end: 431 1
+c_named_section_begin: name: "Put all the vertices...", appended: "false"
+free_text: type: "c", loc.begin: 431 1, loc.end: 438 1, text: "
+for (v=g->vertices;v<g->vertices+n;v++) {
+  oo,v->clink=v->comp=v;
+  o,v->csize=1;
+}
+components=n;
+
+"
+c_named_section_end: loc.begin: 438 1, loc.end: 438 1
+tex_begin: loc.begin: 438 1, loc.end: 438 1
+tex_section_begin: type: "unstarred", loc.begin: 438 1, loc.end: 452 1, text: "@ "
+free_text: type: "tex", loc.begin: 438 1, loc.end: 452 1, text: "The operation of merging two components together requires us to
+change two |clink| pointers, one |csize| field, and the |comp|
+fields in each vertex of the smaller component.
+
+Here we charge two mems for the first |if| test, since |u->csize| and
+|v->csize| are being fetched from memory. Then we charge only one mem
+when |u->csize| is being updated, since the values being added together
+have already been fetched. True, the compiler has to be smart to
+realize that it's safe to add the fetched values |u->csize+v->csize|
+even though |u| and |v| might have been swapped in the meantime;
+but we are assuming that the compiler is extremely clever. (Otherwise we
+would have to clutter up our program every time we don't trust the compiler.
+After all, programs that count mems are intended primarily to be read.
+They aren't intended for production jobs.) % Prim-arily?
+"
+index_entry: entry: "discussion of \\{mems}", loc.begin: 452 1, loc.end: 452 25, text: "@^discussion of \\{mems}@>"
+free_text: type: "tex", loc.begin: 452 25, loc.end: 454 1, text: "
+
+"
+c_begin: loc.begin: 454 1, loc.end: 454 1
+c_named_section_begin: name: "Merge the components containing |u| and |v|", appended: "false"
+comment_begin: type: "c", loc.begin: 454 1, loc.end: 455 12, text: "
+u=u->comp; /*"
+free_text: type: "tex", loc.begin: 455 12, loc.end: 455 12, text: " "
+inner_c_begin: loc.begin: 455 12, loc.end: 455 12, text: "|"
+free_text: type: "c", text: "u->comp"
+inner_c_end: loc.begin: 455 12, loc.end: 455 12, text: "|"
+free_text: type: "tex", loc.begin: 455 12, loc.end: 455 12, text: " has already been fetched from memory "
+comment_end: type: "c", loc.begin: 455 12, loc.end: 455 12, text: "*/"
+comment_begin: type: "c", loc.begin: 455 12, loc.end: 456 12, text: "
+v=v->comp; /*"
+free_text: type: "tex", loc.begin: 456 12, loc.end: 456 12, text: " ditto for "
+inner_c_begin: loc.begin: 456 12, loc.end: 456 12, text: "|"
+free_text: type: "c", text: "v->comp"
+inner_c_end: loc.begin: 456 12, loc.end: 456 12, text: "|"
+free_text: type: "tex", loc.begin: 456 12, loc.end: 456 12, text: " "
+comment_end: type: "c", loc.begin: 456 12, loc.end: 456 12, text: "*/"
+free_text: type: "c", loc.begin: 456 12, loc.end: 458 7, text: "
+if (oo,u->csize<v->csize) {
+  w=u;"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 458 7, loc.end: 458 11, text: "u=v;"
+c_format: code: "@+"
+comment_begin: type: "c", loc.begin: 458 11, loc.end: 459 3, text: "v=w;
+} /*"
+free_text: type: "tex", loc.begin: 459 3, loc.end: 459 3, text: " now "
+inner_c_begin: loc.begin: 459 3, loc.end: 459 3, text: "|"
+free_text: type: "c", text: "v"
+inner_c_end: loc.begin: 459 3, loc.end: 459 3, text: "|"
+free_text: type: "tex", loc.begin: 459 3, loc.end: 459 3, text: "'s component is smaller than "
+inner_c_begin: loc.begin: 459 3, loc.end: 459 3, text: "|"
+free_text: type: "c", text: "u"
+inner_c_end: loc.begin: 459 3, loc.end: 459 3, text: "|"
+free_text: type: "tex", loc.begin: 459 3, loc.end: 459 3, text: "'s (or equally small) "
+comment_end: type: "c", loc.begin: 459 3, loc.end: 459 3, text: "*/"
+free_text: type: "c", loc.begin: 459 3, loc.end: 469 1, text: "
+o,u->csize+=v->csize;
+o,w=v->clink;
+oo,v->clink=u->clink;
+o,u->clink=w;
+for (;;o,w=w->clink) {
+  o,w->comp=u;
+  if (w==v) break;
+}
+  
+"
+c_named_section_end: loc.begin: 469 1, loc.end: 469 1
+tex_begin: loc.begin: 469 1, loc.end: 469 1
+tex_section_begin: type: "starred", title: "@* Jarn{\'\i}k and Prim's algorithm.", loc.begin: 469 1, loc.end: 485 1, text: "@* Jarn{\'\i}k and Prim's algorithm."
+free_text: type: "tex", loc.begin: 469 1, loc.end: 485 1, text: "
+A second approach to minimum spanning trees is also pretty simple,
+except for one technicality: We want to write it in a sufficiently
+general manner that different priority queue algorithms can be plugged in.
+The basic idea is to choose an arbitrary vertex $v_0$ and connect it to its
+nearest neighbor~$v_1$, then to connect that fragment to its nearest
+neighbor~$v_2$, and so on. A priority queue holds all vertices that
+are adjacent to but not already in the current fragment; the key value
+stored with each vertex is its distance to the current fragment.
+
+We want the priority queue data structure to support the four
+operations |init_queue(d)|, |enqueue(v,d)|, |requeue(v,d)|, and
+|del_min()|, described in the {\sc GB\_\,DIJK} module. Dijkstra's
+algorithm for shortest paths, described there, is remarkably similar
+to Jarn{\'\i}k and Prim's algorithm for minimum spanning trees; in
+fact, Dijkstra discovered the latter algorithm independently, at the
+"
+index_entry: entry: "Dijkstra, Edsger Wybe", loc.begin: 485 1, loc.end: 485 24, text: "@^Dijkstra, Edsger Wybe@>"
+free_text: type: "tex", loc.begin: 485 24, loc.end: 491 1, text: "
+same time as he came up with his procedure for shortest paths.
+
+As in {\sc GB\_\,DIJK}, we define pointers to priority queue subroutines
+so that the queueing mechanism can be varied.
+
+"
+middle_begin: loc.begin: 491 1, loc.end: 491 1
+macro_begin: name: "dist", params: {}, loc.begin: 491 1, loc.end: 492 1, text: "dist "
+free_text: type: "c", text: "z.I /* this is the key field for vertices in the priority queue */
+"
+macro_end: loc.begin: 492 1, loc.end: 492 1
+macro_begin: name: "backlink", params: {}, loc.begin: 492 1, loc.end: 494 1, text: "backlink "
+free_text: type: "c", text: "y.V /* this vertex is the stated |dist| away */
+
+"
+macro_end: loc.begin: 494 1, loc.end: 494 1
+c_begin: loc.begin: 494 1, loc.end: 494 1
+c_named_section_begin: name: "Glob...", appended: "false"
+free_text: type: "c", loc.begin: 494 1, loc.end: 495 6, text: "
+void "
+free_text: type: "c", loc.begin: 495 6, loc.end: 495 6, text: ""
+comment_begin: type: "c", loc.begin: 495 6, loc.end: 495 24, text: " (*init_queue)(); /*"
+free_text: type: "tex", loc.begin: 495 24, loc.end: 495 24, text: " create an empty priority queue "
+comment_end: type: "c", loc.begin: 495 24, loc.end: 495 24, text: "*/"
+free_text: type: "c", loc.begin: 495 24, loc.end: 496 6, text: "
+void "
+free_text: type: "c", loc.begin: 496 6, loc.end: 496 6, text: ""
+comment_begin: type: "c", loc.begin: 496 6, loc.end: 496 21, text: " (*enqueue)(); /*"
+free_text: type: "tex", loc.begin: 496 21, loc.end: 496 21, text: " insert a new element in the priority queue "
+comment_end: type: "c", loc.begin: 496 21, loc.end: 496 21, text: "*/"
+free_text: type: "c", loc.begin: 496 21, loc.end: 497 6, text: "
+void "
+free_text: type: "c", loc.begin: 497 6, loc.end: 497 6, text: ""
+comment_begin: type: "c", loc.begin: 497 6, loc.end: 497 21, text: " (*requeue)(); /*"
+free_text: type: "tex", loc.begin: 497 21, loc.end: 497 21, text: " decrease the key of an element in the queue "
+comment_end: type: "c", loc.begin: 497 21, loc.end: 497 21, text: "*/"
+comment_begin: type: "c", loc.begin: 497 21, loc.end: 498 23, text: "
+Vertex *(*del_min)(); /*"
+free_text: type: "tex", loc.begin: 498 23, loc.end: 498 23, text: " remove an element with smallest key "
+comment_end: type: "c", loc.begin: 498 23, loc.end: 498 23, text: "*/"
+free_text: type: "c", loc.begin: 498 23, loc.end: 500 1, text: "
+
+"
+c_named_section_end: loc.begin: 500 1, loc.end: 500 1
+tex_begin: loc.begin: 500 1, loc.end: 500 1
+tex_section_begin: type: "unstarred", loc.begin: 500 1, loc.end: 507 1, text: "@ "
+free_text: type: "tex", loc.begin: 500 1, loc.end: 507 1, text: "The vertices in this algorithm are initially ``unseen''; they become
+``seen'' when they enter the priority queue, and finally ``known''
+when they leave it and enter the current fragment.
+We will put a special constant in the |backlink| field
+of known vertices. A vertex will be unseen if and only if its
+|backlink| is~|NULL|.
+
+"
+middle_begin: loc.begin: 507 1, loc.end: 507 1
+macro_begin: name: "KNOWN", params: {}, loc.begin: 507 1, loc.end: 509 1, text: "KNOWN "
+free_text: type: "c", text: "(Vertex*)1 /* special |backlink| to mark known vertices */
+
+"
+macro_end: loc.begin: 509 1, loc.end: 509 1
+c_begin: loc.begin: 509 1, loc.end: 509 1
+c_named_section_begin: name: "Sub...", appended: "false"
+free_text: type: "c", loc.begin: 509 1, loc.end: 512 2, text: "
+unsigned long jar_pr(g)
+  Graph *g;
+{"
+c_format: code: "@+"
+comment_begin: type: "c", loc.begin: 512 2, loc.end: 512 22, text: "register Vertex *t; /*"
+free_text: type: "tex", loc.begin: 512 22, loc.end: 512 22, text: " vertex that is just becoming known "
+comment_end: type: "c", loc.begin: 512 22, loc.end: 512 22, text: "*/"
+comment_begin: type: "c", loc.begin: 512 22, loc.end: 513 23, text: "
+  long fragment_size; /*"
+free_text: type: "tex", loc.begin: 513 23, loc.end: 513 23, text: " number of vertices in the tree so far "
+comment_end: type: "c", loc.begin: 513 23, loc.end: 513 23, text: "*/"
+comment_begin: type: "c", loc.begin: 513 23, loc.end: 514 28, text: "
+  unsigned long tot_len=0; /*"
+free_text: type: "tex", loc.begin: 514 28, loc.end: 514 28, text: " sum of edge lengths in the tree so far "
+comment_end: type: "c", loc.begin: 514 28, loc.end: 514 28, text: "*/"
+free_text: type: "c", loc.begin: 514 28, loc.end: 516 3, text: "
+  mems=0;
+  "
+section_name: name: "Make |t=g->vertices| the only vertex seen; also make it know", loc.begin: 516 3, loc.end: 516 3, text: "@<Make |t=g->vertices| the only vertex seen; also make it known"
+free_text: type: "c", loc.begin: 516 3, loc.end: 518 5, text: ";
+  while (fragment_size<g->n) {
+    "
+section_name: name: "Put all unseen vertices adjacent to |t| into the queue,
+      and update the distances of the other vertices adjacent to~|t", loc.begin: 518 5, loc.end: 518 5, text: "@<Put all unseen vertices adjacent to |t| into the queue,
+      and update the distances of the other vertices adjacent to~|t|"
+comment_begin: type: "c", loc.begin: 518 5, loc.end: 520 35, text: ";
+    t=(*del_min)();
+    if (t==NULL) return INFINITY; /*"
+free_text: type: "tex", loc.begin: 520 35, loc.end: 520 35, text: " the graph is disconnected "
+comment_end: type: "c", loc.begin: 520 35, loc.end: 520 35, text: "*/"
+free_text: type: "c", loc.begin: 520 35, loc.end: 529 1, text: "
+    if (verbose) report(t->backlink,t,t->dist);
+    o,tot_len+=t->dist;
+    o,t->backlink=KNOWN;
+    fragment_size++;
+  }
+  return tot_len;
+}
+
+"
+c_named_section_end: loc.begin: 529 1, loc.end: 529 1
+tex_begin: loc.begin: 529 1, loc.end: 529 1
+tex_section_begin: type: "unstarred", loc.begin: 529 1, loc.end: 540 1, text: "@ "
+free_text: type: "tex", loc.begin: 529 1, loc.end: 540 1, text: "Notice that we don't charge any mems for the subroutine call
+to |init_queue|, except for mems counted in the subroutine itself.
+What should we charge in general for subroutine linkage when we are
+counting mems? The parameters to subroutines generally go into
+registers, and registers are ``free''; also, a compiler can often
+choose to implement a procedure in line, thereby reducing the
+overhead to zero. Hence, the recommended method for charging mems
+with respect to subroutines is: Charge nothing if the subroutine
+is not recursive; otherwise charge twice the number of things that need
+to be saved on a runtime stack. (The return address is one of the
+things that needs to be saved.)
+"
+index_entry: entry: "discussion of \\{mems}", loc.begin: 540 1, loc.end: 540 25, text: "@^discussion of \\{mems}@>"
+free_text: type: "tex", loc.begin: 540 25, loc.end: 542 1, text: "
+
+"
+c_begin: loc.begin: 542 1, loc.end: 542 1
+c_named_section_begin: name: "Make |t=g->vertices| the only vertex seen; also make it known", appended: "false"
+comment_begin: type: "c", loc.begin: 542 1, loc.end: 546 20, text: "
+for (oo,t=g->vertices+g->n-1;t>g->vertices;t--) o,t->backlink=NULL;
+o,t->backlink=KNOWN;
+fragment_size=1;
+(*init_queue)(0L); /*"
+free_text: type: "tex", loc.begin: 546 20, loc.end: 546 20, text: " make the priority queue empty "
+comment_end: type: "c", loc.begin: 546 20, loc.end: 546 20, text: "*/"
+free_text: type: "c", loc.begin: 546 20, loc.end: 548 1, text: "
+
+"
+c_named_section_end: loc.begin: 548 1, loc.end: 548 1
+tex_begin: loc.begin: 548 1, loc.end: 548 1
+tex_section_begin: type: "unstarred", loc.begin: 548 1, loc.end: 548 1, text: "@ "
+free_text: type: "tex", loc.begin: 548 1, loc.end: 548 1, text: ""
+c_begin: loc.begin: 548 1, loc.end: 548 1
+c_named_section_begin: name: "Put all unseen vertices adjacent to |t| into the queue,
+      and update the distances of the other vertices adjacent to~|t|", appended: "false"
+free_text: type: "c", loc.begin: 548 1, loc.end: 549 2, text: "
+{"
+c_format: code: "@+"
+comment_begin: type: "c", loc.begin: 549 2, loc.end: 549 19, text: "register Arc *a; /*"
+free_text: type: "tex", loc.begin: 549 19, loc.end: 549 19, text: " an arc leading from "
+inner_c_begin: loc.begin: 549 19, loc.end: 549 19, text: "|"
+free_text: type: "c", text: "t"
+inner_c_end: loc.begin: 549 19, loc.end: 549 19, text: "|"
+free_text: type: "tex", loc.begin: 549 19, loc.end: 549 19, text: " "
+comment_end: type: "c", loc.begin: 549 19, loc.end: 549 19, text: "*/"
+comment_begin: type: "c", loc.begin: 549 19, loc.end: 551 25, text: "
+  for (o,a=t->arcs; a; o,a=a->next) {
+    register Vertex *v; /*"
+free_text: type: "tex", loc.begin: 551 25, loc.end: 551 25, text: " a vertex adjacent to "
+inner_c_begin: loc.begin: 551 25, loc.end: 551 25, text: "|"
+free_text: type: "c", text: "t"
+inner_c_end: loc.begin: 551 25, loc.end: 551 25, text: "|"
+free_text: type: "tex", loc.begin: 551 25, loc.end: 551 25, text: " "
+comment_end: type: "c", loc.begin: 551 25, loc.end: 551 25, text: "*/"
+comment_begin: type: "c", loc.begin: 551 25, loc.end: 553 26, text: "
+    o,v=a->tip;
+    if (o,v->backlink) { /*"
+free_text: type: "tex", loc.begin: 553 26, loc.end: 553 26, text: " "
+inner_c_begin: loc.begin: 553 26, loc.end: 553 26, text: "|"
+free_text: type: "c", text: "v"
+inner_c_end: loc.begin: 553 26, loc.end: 553 26, text: "|"
+free_text: type: "tex", loc.begin: 553 26, loc.end: 553 26, text: " has already been seen "
+comment_end: type: "c", loc.begin: 553 26, loc.end: 553 26, text: "*/"
+comment_begin: type: "c", loc.begin: 553 26, loc.end: 557 33, text: "
+      if (v->backlink>KNOWN) {
+        if (oo,a->len<v->dist) {
+          o,v->backlink=t;
+          (*requeue)(v,a->len); /*"
+free_text: type: "tex", loc.begin: 557 33, loc.end: 557 33, text: " we found a better way to get there "
+comment_end: type: "c", loc.begin: 557 33, loc.end: 557 33, text: "*/"
+free_text: type: "c", loc.begin: 557 33, loc.end: 560 6, text: "
+        }
+      }
+    }"
+c_format: code: "@+"
+comment_begin: type: "c", loc.begin: 560 6, loc.end: 560 13, text: "else { /*"
+free_text: type: "tex", loc.begin: 560 13, loc.end: 560 13, text: " "
+inner_c_begin: loc.begin: 560 13, loc.end: 560 13, text: "|"
+free_text: type: "c", text: "v"
+inner_c_end: loc.begin: 560 13, loc.end: 560 13, text: "|"
+free_text: type: "tex", loc.begin: 560 13, loc.end: 560 13, text: " hasn't been seen before "
+comment_end: type: "c", loc.begin: 560 13, loc.end: 560 13, text: "*/"
+free_text: type: "c", loc.begin: 560 13, loc.end: 567 1, text: "
+      o,v->backlink=t;
+      o,(*enqueue)(v,a->len);
+    }
+  }
+}
+
+"
+c_named_section_end: loc.begin: 567 1, loc.end: 567 1
+tex_begin: loc.begin: 567 1, loc.end: 567 1
+tex_section_begin: type: "starred", title: "@*Binary heaps.", loc.begin: 567 1, loc.end: 574 1, text: "@*Binary heaps."
+free_text: type: "tex", loc.begin: 567 1, loc.end: 574 1, text: "
+To complete the |jar_pr| routine, we need to fill in the four
+priority queue functions. Jarn{\'\i}k wrote his original paper before
+computers were known; Prim and Dijkstra wrote theirs before efficient priority
+queue algorithms were known. Their original algorithms therefore
+took $\Theta(n^2)$ steps. 
+Kerschenbaum and Van Slyke pointed out in 1972 that binary heaps could
+"
+index_entry: entry: "Kerschenbaum, A.", loc.begin: 574 1, loc.end: 574 19, text: "@^Kerschenbaum, A.@>"
+free_text: type: "tex", loc.begin: 574 19, loc.end: 575 1, text: "
+"
+index_entry: entry: "Van Slyke, Richard Maurice", loc.begin: 575 1, loc.end: 575 29, text: "@^Van Slyke, Richard Maurice@>"
+free_text: type: "tex", loc.begin: 575 29, loc.end: 577 1, text: "
+do better. A simplified version of binary heaps (invented by Williams
+"
+index_entry: entry: "Williams, John William Joseph", loc.begin: 577 1, loc.end: 577 32, text: "@^Williams, John William Joseph@>"
+free_text: type: "tex", loc.begin: 577 32, loc.end: 586 1, text: "
+in 1964) is presented here.
+
+A binary heap is an array of $n$ elements, and we need space for it.
+Fortunately the space is already there; we can use utility field
+|u| in each of the vertex records of the graph. Moreover, if
+|heap_elt(i)| points to vertex~|v|, we will arrange things so that
+|v->heap_index=i|.
+
+"
+middle_begin: loc.begin: 586 1, loc.end: 586 1
+macro_begin: name: "heap_elt", params: {i}, loc.begin: 586 1, loc.end: 587 1, text: "heap_elt(i)"
+free_text: type: "c", text: " (gv+i)->u.V /* the |i|th vertex of the heap; |gv=g->vertices| */
+"
+macro_end: loc.begin: 587 1, loc.end: 587 1
+macro_begin: name: "heap_index", params: {}, loc.begin: 587 1, loc.end: 590 1, text: "heap_index "
+free_text: type: "c", text: "v.I
+ /* the |v| utility field says where a vertex is in the heap */
+
+"
+macro_end: loc.begin: 590 1, loc.end: 590 1
+c_begin: loc.begin: 590 1, loc.end: 590 1
+c_named_section_begin: name: "Glob...", appended: "false"
+comment_begin: type: "c", loc.begin: 590 1, loc.end: 591 13, text: "
+Vertex *gv; /*"
+free_text: type: "tex", loc.begin: 591 13, loc.end: 591 13, text: " "
+inner_c_begin: loc.begin: 591 13, loc.end: 591 13, text: "|"
+free_text: type: "c", text: "g->vertices"
+inner_c_end: loc.begin: 591 13, loc.end: 591 13, text: "|"
+free_text: type: "tex", loc.begin: 591 13, loc.end: 591 13, text: ", the base of the heap array "
+comment_end: type: "c", loc.begin: 591 13, loc.end: 591 13, text: "*/"
+comment_begin: type: "c", loc.begin: 591 13, loc.end: 592 13, text: "
+long hsize; /*"
+free_text: type: "tex", loc.begin: 592 13, loc.end: 592 13, text: " the number of elements currently in the heap "
+comment_end: type: "c", loc.begin: 592 13, loc.end: 592 13, text: "*/"
+free_text: type: "c", loc.begin: 592 13, loc.end: 594 1, text: "
+
+"
+c_named_section_end: loc.begin: 594 1, loc.end: 594 1
+tex_begin: loc.begin: 594 1, loc.end: 594 1
+tex_section_begin: type: "unstarred", loc.begin: 594 1, loc.end: 598 1, text: "@ "
+free_text: type: "tex", loc.begin: 594 1, loc.end: 598 1, text: "To initialize the heap, we need only initialize two ``registers'' to
+known values, so we don't have to charge any mems at all. (In a production
+implementation, this code would appear in-line as part of the
+spanning tree algorithm.)
+"
+index_entry: entry: "discussion of \\{mems}", loc.begin: 598 1, loc.end: 598 25, text: "@^discussion of \\{mems}@>"
+free_text: type: "tex", loc.begin: 598 25, loc.end: 604 1, text: "
+
+Important Note: This routine refers to the global variable |g|, which is
+set in |main| (not in |jar_pr|). Suitable changes need to be made
+if these binary heap routines are used in other programs.
+
+"
+c_begin: loc.begin: 604 1, loc.end: 604 1
+c_named_section_begin: name: "Priority queue subroutines", appended: "false"
+comment_begin: type: "c", loc.begin: 604 1, loc.end: 605 19, text: "
+void init_heap(d) /*"
+free_text: type: "tex", loc.begin: 605 19, loc.end: 605 19, text: " makes the heap empty "
+comment_end: type: "c", loc.begin: 605 19, loc.end: 605 19, text: "*/"
+free_text: type: "c", loc.begin: 605 19, loc.end: 612 1, text: "
+  long d;
+{
+  gv=g->vertices;
+  hsize=0;
+}
+
+"
+c_named_section_end: loc.begin: 612 1, loc.end: 612 1
+tex_begin: loc.begin: 612 1, loc.end: 612 1
+tex_section_begin: type: "unstarred", loc.begin: 612 1, loc.end: 618 1, text: "@ "
+free_text: type: "tex", loc.begin: 612 1, loc.end: 618 1, text: "The key invariant property that makes heaps work is
+$$\hbox{|heap_elt(k/2)->dist<=heap_elt(k)->dist|, \qquad for |1<k<=hsize|.}$$
+(A reader who has not seen heap ordering before should stop at this
+point and study the beautiful consequences of this innocuously simple
+set of inequalities.) The enqueueing operation turns out to be quite simple:
+
+"
+c_begin: loc.begin: 618 1, loc.end: 618 1
+c_named_section_begin: name: "Priority queue subroutines", appended: "false"
+comment_begin: type: "c", loc.begin: 618 1, loc.end: 620 14, text: "
+void enq_heap(v,d)
+  Vertex *v; /*"
+free_text: type: "tex", loc.begin: 620 14, loc.end: 620 14, text: " vertex that is entering the queue "
+comment_end: type: "c", loc.begin: 620 14, loc.end: 620 14, text: "*/"
+comment_begin: type: "c", loc.begin: 620 14, loc.end: 621 11, text: "
+  long d; /*"
+free_text: type: "tex", loc.begin: 621 11, loc.end: 621 11, text: " its key (aka "
+inner_c_begin: loc.begin: 621 11, loc.end: 621 11, text: "|"
+free_text: type: "c", text: "dist"
+inner_c_end: loc.begin: 621 11, loc.end: 621 11, text: "|"
+free_text: type: "tex", loc.begin: 621 11, loc.end: 621 11, text: ") "
+comment_end: type: "c", loc.begin: 621 11, loc.end: 621 11, text: "*/"
+free_text: type: "c", loc.begin: 621 11, loc.end: 622 2, text: "
+{"
+c_format: code: "@+"
+comment_begin: type: "c", loc.begin: 622 2, loc.end: 622 28, text: "register unsigned long k; /*"
+free_text: type: "tex", loc.begin: 622 28, loc.end: 622 28, text: " position of a ``hole'' in the heap "
+comment_end: type: "c", loc.begin: 622 28, loc.end: 622 28, text: "*/"
+comment_begin: type: "c", loc.begin: 622 28, loc.end: 623 29, text: "
+  register unsigned long j; /*"
+free_text: type: "tex", loc.begin: 623 29, loc.end: 623 29, text: " the parent of that position "
+comment_end: type: "c", loc.begin: 623 29, loc.end: 623 29, text: "*/"
+comment_begin: type: "c", loc.begin: 623 29, loc.end: 624 23, text: "
+  register Vertex *u; /*"
+free_text: type: "tex", loc.begin: 624 23, loc.end: 624 23, text: " "
+inner_c_begin: loc.begin: 624 23, loc.end: 624 23, text: "|"
+free_text: type: "c", text: "heap_elt(j)"
+inner_c_end: loc.begin: 624 23, loc.end: 624 23, text: "|"
+free_text: type: "tex", loc.begin: 624 23, loc.end: 624 23, text: " "
+comment_end: type: "c", loc.begin: 624 23, loc.end: 624 23, text: "*/"
+comment_begin: type: "c", loc.begin: 624 23, loc.end: 627 11, text: "
+  o,v->dist=d;
+  k=++hsize;
+  j=k>>1; /*"
+free_text: type: "tex", loc.begin: 627 11, loc.end: 627 11, text: " "
+inner_c_begin: loc.begin: 627 11, loc.end: 627 11, text: "|"
+free_text: type: "c", text: "k/2"
+inner_c_end: loc.begin: 627 11, loc.end: 627 11, text: "|"
+free_text: type: "tex", loc.begin: 627 11, loc.end: 627 11, text: " "
+comment_end: type: "c", loc.begin: 627 11, loc.end: 627 11, text: "*/"
+comment_begin: type: "c", loc.begin: 627 11, loc.end: 629 22, text: "
+  while (j>0 && (oo,(u=heap_elt(j))->dist>d)) {
+    o,heap_elt(k)=u; /*"
+free_text: type: "tex", loc.begin: 629 22, loc.end: 629 22, text: " the hole moves to parent position "
+comment_end: type: "c", loc.begin: 629 22, loc.end: 629 22, text: "*/"
+free_text: type: "c", loc.begin: 629 22, loc.end: 638 1, text: "
+    o,u->heap_index=k;
+    k=j;
+    j=k>>1;
+  }
+  o,heap_elt(k)=v;
+  o,v->heap_index=k;
+}
+
+"
+c_named_section_end: loc.begin: 638 1, loc.end: 638 1
+tex_begin: loc.begin: 638 1, loc.end: 638 1
+tex_section_begin: type: "unstarred", loc.begin: 638 1, loc.end: 645 1, text: "@ "
+free_text: type: "tex", loc.begin: 638 1, loc.end: 645 1, text: "And in fact, the general requeueing operation is almost identical to
+enqueueing.  This operation is popularly called ``siftup,'' because
+the vertex whose key is being reduced may displace its ancestors
+higher in the heap. We could have implemented enqueueing by first
+placing the new element at the end of the heap, then requeueing it;
+that would have cost at most a couple mems more.
+
+"
+c_begin: loc.begin: 645 1, loc.end: 645 1
+c_named_section_begin: name: "Priority queue subroutines", appended: "false"
+comment_begin: type: "c", loc.begin: 645 1, loc.end: 647 14, text: "
+void req_heap(v,d)
+  Vertex *v; /*"
+free_text: type: "tex", loc.begin: 647 14, loc.end: 647 14, text: " vertex whose key is being reduced "
+comment_end: type: "c", loc.begin: 647 14, loc.end: 647 14, text: "*/"
+comment_begin: type: "c", loc.begin: 647 14, loc.end: 648 11, text: "
+  long d; /*"
+free_text: type: "tex", loc.begin: 648 11, loc.end: 648 11, text: " its new "
+inner_c_begin: loc.begin: 648 11, loc.end: 648 11, text: "|"
+free_text: type: "c", text: "dist"
+inner_c_end: loc.begin: 648 11, loc.end: 648 11, text: "|"
+free_text: type: "tex", loc.begin: 648 11, loc.end: 648 11, text: " "
+comment_end: type: "c", loc.begin: 648 11, loc.end: 648 11, text: "*/"
+free_text: type: "c", loc.begin: 648 11, loc.end: 649 2, text: "
+{"
+c_format: code: "@+"
+comment_begin: type: "c", loc.begin: 649 2, loc.end: 649 28, text: "register unsigned long k; /*"
+free_text: type: "tex", loc.begin: 649 28, loc.end: 649 28, text: " position of a ``hole'' in the heap "
+comment_end: type: "c", loc.begin: 649 28, loc.end: 649 28, text: "*/"
+comment_begin: type: "c", loc.begin: 649 28, loc.end: 650 29, text: "
+  register unsigned long j; /*"
+free_text: type: "tex", loc.begin: 650 29, loc.end: 650 29, text: " the parent of that position "
+comment_end: type: "c", loc.begin: 650 29, loc.end: 650 29, text: "*/"
+comment_begin: type: "c", loc.begin: 650 29, loc.end: 651 23, text: "
+  register Vertex *u; /*"
+free_text: type: "tex", loc.begin: 651 23, loc.end: 651 23, text: " "
+inner_c_begin: loc.begin: 651 23, loc.end: 651 23, text: "|"
+free_text: type: "c", text: "heap_elt(j)"
+inner_c_end: loc.begin: 651 23, loc.end: 651 23, text: "|"
+free_text: type: "tex", loc.begin: 651 23, loc.end: 651 23, text: " "
+comment_end: type: "c", loc.begin: 651 23, loc.end: 651 23, text: "*/"
+comment_begin: type: "c", loc.begin: 651 23, loc.end: 653 22, text: "
+  o,v->dist=d;
+  o,k=v->heap_index; /*"
+free_text: type: "tex", loc.begin: 653 22, loc.end: 653 22, text: " now "
+inner_c_begin: loc.begin: 653 22, loc.end: 653 22, text: "|"
+free_text: type: "c", text: "heap_elt(k)=v"
+inner_c_end: loc.begin: 653 22, loc.end: 653 22, text: "|"
+free_text: type: "tex", loc.begin: 653 22, loc.end: 653 22, text: " "
+comment_end: type: "c", loc.begin: 653 22, loc.end: 653 22, text: "*/"
+comment_begin: type: "c", loc.begin: 653 22, loc.end: 654 11, text: "
+  j=k>>1; /*"
+free_text: type: "tex", loc.begin: 654 11, loc.end: 654 11, text: " "
+inner_c_begin: loc.begin: 654 11, loc.end: 654 11, text: "|"
+free_text: type: "c", text: "k/2"
+inner_c_end: loc.begin: 654 11, loc.end: 654 11, text: "|"
+free_text: type: "tex", loc.begin: 654 11, loc.end: 654 11, text: " "
+comment_end: type: "c", loc.begin: 654 11, loc.end: 654 11, text: "*/"
+comment_begin: type: "c", loc.begin: 654 11, loc.end: 655 46, text: "
+  if (j>0 && (oo,(u=heap_elt(j))->dist>d)) { /*"
+free_text: type: "tex", loc.begin: 655 46, loc.end: 655 46, text: " change is needed "
+comment_end: type: "c", loc.begin: 655 46, loc.end: 655 46, text: "*/"
+free_text: type: "c", loc.begin: 655 46, loc.end: 656 7, text: "
+    do"
+c_format: code: "@+"
+comment_begin: type: "c", loc.begin: 656 7, loc.end: 657 24, text: "{
+      o,heap_elt(k)=u; /*"
+free_text: type: "tex", loc.begin: 657 24, loc.end: 657 24, text: " the hole moves to parent position "
+comment_end: type: "c", loc.begin: 657 24, loc.end: 657 24, text: "*/"
+comment_begin: type: "c", loc.begin: 657 24, loc.end: 660 15, text: "
+      o,u->heap_index=k;
+      k=j;
+      j=k>>1; /*"
+free_text: type: "tex", loc.begin: 660 15, loc.end: 660 15, text: " "
+inner_c_begin: loc.begin: 660 15, loc.end: 660 15, text: "|"
+free_text: type: "c", text: "k/2"
+inner_c_end: loc.begin: 660 15, loc.end: 660 15, text: "|"
+free_text: type: "tex", loc.begin: 660 15, loc.end: 660 15, text: " "
+comment_end: type: "c", loc.begin: 660 15, loc.end: 660 15, text: "*/"
+free_text: type: "c", loc.begin: 660 15, loc.end: 661 6, text: "
+    }"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 661 6, loc.end: 667 1, text: "while (j>0 && (oo,(u=heap_elt(j))->dist>d));
+    o,heap_elt(k)=v;
+    o,v->heap_index=k;
+  }
+}
+
+"
+c_named_section_end: loc.begin: 667 1, loc.end: 667 1
+tex_begin: loc.begin: 667 1, loc.end: 667 1
+tex_section_begin: type: "unstarred", loc.begin: 667 1, loc.end: 676 1, text: "@ "
+free_text: type: "tex", loc.begin: 667 1, loc.end: 676 1, text: "Finally, the procedure for removing the vertex with smallest key is
+only a bit more difficult. The vertex to be removed is always
+|heap_elt(1)|. After we delete it, we ``sift down'' |heap_elt(hsize)|,
+until the basic heap inequalities hold once again.
+
+At a crucial point in this process, we have |j->dist<u->dist|. We cannot
+then have
+|j=hsize+1|, because the previous steps have made |(hsize+1)->dist=u->dist=d|.
+
+"
+c_begin: loc.begin: 676 1, loc.end: 676 1
+c_named_section_begin: name: "Prior...", appended: "false"
+free_text: type: "c", loc.begin: 676 1, loc.end: 678 2, text: "
+Vertex *del_heap()
+{"
+c_format: code: "@+"
+comment_begin: type: "c", loc.begin: 678 2, loc.end: 678 13, text: "Vertex *v; /*"
+free_text: type: "tex", loc.begin: 678 13, loc.end: 678 13, text: " vertex to return "
+comment_end: type: "c", loc.begin: 678 13, loc.end: 678 13, text: "*/"
+comment_begin: type: "c", loc.begin: 678 13, loc.end: 679 23, text: "
+  register Vertex *u; /*"
+free_text: type: "tex", loc.begin: 679 23, loc.end: 679 23, text: " vertex being sifted down "
+comment_end: type: "c", loc.begin: 679 23, loc.end: 679 23, text: "*/"
+comment_begin: type: "c", loc.begin: 679 23, loc.end: 680 29, text: "
+  register unsigned long k; /*"
+free_text: type: "tex", loc.begin: 680 29, loc.end: 680 29, text: " hole in the heap "
+comment_end: type: "c", loc.begin: 680 29, loc.end: 680 29, text: "*/"
+comment_begin: type: "c", loc.begin: 680 29, loc.end: 681 29, text: "
+  register unsigned long j; /*"
+free_text: type: "tex", loc.begin: 681 29, loc.end: 681 29, text: " child of that hole "
+comment_end: type: "c", loc.begin: 681 29, loc.end: 681 29, text: "*/"
+comment_begin: type: "c", loc.begin: 681 29, loc.end: 682 20, text: "
+  register long d; /*"
+free_text: type: "tex", loc.begin: 682 20, loc.end: 682 20, text: " "
+inner_c_begin: loc.begin: 682 20, loc.end: 682 20, text: "|"
+free_text: type: "c", text: "u->dist"
+inner_c_end: loc.begin: 682 20, loc.end: 682 20, text: "|"
+free_text: type: "tex", loc.begin: 682 20, loc.end: 682 20, text: ", the key of the vertex being sifted "
+comment_end: type: "c", loc.begin: 682 20, loc.end: 682 20, text: "*/"
+comment_begin: type: "c", loc.begin: 682 20, loc.end: 692 32, text: "
+  if (hsize==0) return NULL;
+  o,v=heap_elt(1);
+  o,u=heap_elt(hsize--);
+  o,d=u->dist;
+  k=1;
+  j=2;
+  while (j<=hsize) {
+    if (oooo,heap_elt(j)->dist>heap_elt(j+1)->dist) j++;
+    if (heap_elt(j)->dist>=d) break;
+    o,heap_elt(k)=heap_elt(j); /*"
+free_text: type: "tex", loc.begin: 692 32, loc.end: 692 32, text: " NB: we cannot have "
+inner_c_begin: loc.begin: 692 32, loc.end: 692 32, text: "|"
+free_text: type: "c", text: "j>hsize"
+inner_c_end: loc.begin: 692 32, loc.end: 692 32, text: "|"
+free_text: type: "tex", loc.begin: 692 32, loc.end: 692 32, text: ", see above "
+comment_end: type: "c", loc.begin: 692 32, loc.end: 692 32, text: "*/"
+comment_begin: type: "c", loc.begin: 692 32, loc.end: 694 10, text: "
+    o,heap_elt(k)->heap_index=k;
+    k=j; /*"
+free_text: type: "tex", loc.begin: 694 10, loc.end: 694 10, text: " the hole moves to child position "
+comment_end: type: "c", loc.begin: 694 10, loc.end: 694 10, text: "*/"
+comment_begin: type: "c", loc.begin: 694 10, loc.end: 695 13, text: "
+    j=k<<1; /*"
+free_text: type: "tex", loc.begin: 695 13, loc.end: 695 13, text: " "
+inner_c_begin: loc.begin: 695 13, loc.end: 695 13, text: "|"
+free_text: type: "c", text: "2k"
+inner_c_end: loc.begin: 695 13, loc.end: 695 13, text: "|"
+free_text: type: "tex", loc.begin: 695 13, loc.end: 695 13, text: " "
+comment_end: type: "c", loc.begin: 695 13, loc.end: 695 13, text: "*/"
+free_text: type: "c", loc.begin: 695 13, loc.end: 702 1, text: "
+  }
+  o,heap_elt(k)=u;
+  o,u->heap_index=k;
+  return v;
+}
+
+"
+c_named_section_end: loc.begin: 702 1, loc.end: 702 1
+tex_begin: loc.begin: 702 1, loc.end: 702 1
+tex_section_begin: type: "unstarred", loc.begin: 702 1, loc.end: 704 1, text: "@ "
+free_text: type: "tex", loc.begin: 702 1, loc.end: 704 1, text: "OK, here's how we plug binary heaps into Jarn{\'\i}k/Prim.
+
+"
+c_begin: loc.begin: 704 1, loc.end: 704 1
+c_named_section_begin: name: "Execute |jar_pr(g)| with binary heaps as the priority queue algorithm", appended: "false"
+free_text: type: "c", loc.begin: 704 1, loc.end: 714 1, text: "
+init_queue=init_heap;
+enqueue=enq_heap;
+requeue=req_heap;
+del_min=del_heap;
+if (sp_length!=jar_pr(g)) {
+  printf(" ...oops, I've got a bug, please fix fix fix\n");
+  return -4;
+}
+
+"
+c_named_section_end: loc.begin: 714 1, loc.end: 714 1
+tex_begin: loc.begin: 714 1, loc.end: 714 1
+tex_section_begin: type: "starred", title: "@*Fibonacci heaps.", loc.begin: 714 1, loc.end: 721 1, text: "@*Fibonacci heaps."
+free_text: type: "tex", loc.begin: 714 1, loc.end: 721 1, text: "
+The running time of Jarn{\'\i}k/Prim with binary heaps, when the algorithm is
+applied to a connected graph with $n$ vertices and $m$ edges, is $O(m\log n)$,
+because the total number of operations is $O(m+n)=O(m)$ and each
+heap operation takes at most $O(\log n)$ time.
+
+Fibonacci heaps were invented by Fredman and Tarjan in 1984, in order
+"
+index_entry: entry: "Fibonacci, Leonardo, heaps", loc.begin: 721 1, loc.end: 721 29, text: "@^Fibonacci, Leonardo, heaps@>"
+free_text: type: "tex", loc.begin: 721 29, loc.end: 722 1, text: "
+"
+index_entry: entry: "Fredman, Michael Lawrence", loc.begin: 722 1, loc.end: 722 28, text: "@^Fredman, Michael Lawrence@>"
+free_text: type: "tex", loc.begin: 722 28, loc.end: 723 1, text: "
+"
+index_entry: entry: "Tarjan, Robert Endre", loc.begin: 723 1, loc.end: 723 23, text: "@^Tarjan, Robert Endre@>"
+free_text: type: "tex", loc.begin: 723 23, loc.end: 763 1, text: "
+to do better than this. The Jarn{\'\i}k/Prim algorithm does $O(n)$
+enqueueing operations, $O(n)$ delete-min operations, and $O(m)$
+requeueing operations; so Fredman and Tarjan designed a data structure
+that would support requeueing in ``constant amortized time.'' In other
+words, Fibonacci heaps allow us to do $m$ requeueing operations with a
+total cost of~$O(m)$, even though some of the individual requeueings
+might take longer. The resulting asymptotic running time is then
+$O(m+n\log n)$. (This turns out to be optimum within a constant
+factor, when the same technique is applied to Dijkstra's algorithm for
+shortest paths. But for minimum spanning trees the Fibonacci method is
+not always optimum; for example, if $m\approx n\sqrt{\mathstrut\log n}$, the
+algorithm of Cheriton and Tarjan has slightly better asymptotic
+behavior, $O(m\log\log n)$.)
+
+Fibonacci heaps are more complex than binary heaps, so we can expect
+that overhead  costs will make them non-competitive unless $m$ and $n$ are
+quite large. Furthermore, it is not clear that the running time with simple
+binary heaps will behave as $m\log n$ on realistic data, because
+$O(m\log n)$ is a worst-case estimate based on rather pessimistic
+assumptions. (For example, requeueing might rarely require many
+iterations of the siftup loop.) But it will be instructive to
+implement Fibonacci heaps as best we can, just to see how good they
+look in actual practice.
+
+Let us say that the {\sl rank\/} of a node in a forest is the number
+of children it has. A Fibonacci heap is an unordered forest of trees
+in which the key of each node is less than or equal to the key of each
+child of that node, and in which the following further condition,
+called property~F, also holds: The ranks $\{r_1,r_2,\ldots,r_k\}$ of the
+children of every node of rank~$k$, when put into nondecreasing
+order $r_1\le r_2\le\cdots\le r_k$, satisfy $r_j\ge j-2$ for all~$j$.
+
+As a consequence of property F, we can prove by induction that every
+node of rank~$k$ has at least $F_{k+2}$ descendants (including itself).
+Therefore, for example, we cannot have a node of rank $\ge30$ unless
+the total size of the forest is at least $F_{32}=2{,}178{,}309$. We cannot
+have a node of rank $\ge46$ unless the total size of the forest
+exceeds~$2^{32}$.
+
+"
+tex_begin: loc.begin: 763 1, loc.end: 763 1
+tex_section_begin: type: "unstarred", loc.begin: 763 1, loc.end: 791 1, text: "@ "
+free_text: type: "tex", loc.begin: 763 1, loc.end: 791 1, text: "We will represent a Fibonacci heap with a rather elaborate data structure,
+in order to guarantee the efficiency of all the necessary operations.
+Each node will have four pointers: |parent|, the node's parent (or
+|NULL| if the node is a root); |child|, one of the node's children
+(or undefined if the node has no children); |lsib| and |rsib|, the
+node's left and right siblings. The children of each node, and the
+roots of the forest, are doubly linked by |lsib| and |rsib| in
+circular lists; the nodes in these lists can appear in any convenient
+order, and the |child| pointer can point to any child.
+
+Besides the four pointers, there is a \\{rank} field, which tells how
+many children exist, and a \\{tag} field, which is either 0 or~1.
+
+Suppose a node has children of ranks $\{r_1,r_2,\ldots,r_k\}$, where
+$r_1\le r_2\le\cdots\le r_k$. We know that $r_j\ge j-2$ for all~$j$;
+we say that the node has $l$ {\sl critical\/} children if there are
+$l$ cases of equality, where $r_j=j-2$. Our implementation will
+guarantee that any node with $l$ critical children will have at
+least $l$ tagged children of the corresponding ranks. For example,
+suppose a node has seven children, of respective ranks $\{1,1,1,2,4,4,6\}$.
+Then it has three critical children, because $r_3=1$, $r_4=2$, and
+$r_6=4$. In our implementation, at least one of the children of
+rank~1 will have $\\{tag}=1$, and so will the child of rank~2; so will
+one of the children of rank~4.
+
+There is an external pointer called |F_heap|, which indicates a node
+whose key is smallest. (If the heap is empty, |F_heap| is~|NULL|.)
+
+"
+c_begin: loc.begin: 791 1, loc.end: 791 1
+c_named_section_begin: name: "Prior...", appended: "false"
+free_text: type: "c", loc.begin: 791 1, loc.end: 794 2, text: "
+void init_F_heap(d)
+  long d;
+{"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 794 2, loc.end: 794 14, text: "F_heap=NULL;"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 794 14, loc.end: 796 1, text: "}
+
+"
+c_named_section_end: loc.begin: 796 1, loc.end: 796 1
+tex_begin: loc.begin: 796 1, loc.end: 796 1
+tex_section_begin: type: "unstarred", loc.begin: 796 1, loc.end: 796 1, text: "@ "
+free_text: type: "tex", loc.begin: 796 1, loc.end: 796 1, text: ""
+c_begin: loc.begin: 796 1, loc.end: 796 1
+c_named_section_begin: name: "Glob...", appended: "false"
+comment_begin: type: "c", loc.begin: 796 1, loc.end: 797 17, text: "
+Vertex *F_heap; /*"
+free_text: type: "tex", loc.begin: 797 17, loc.end: 797 17, text: " pointer to the ring of root nodes "
+comment_end: type: "c", loc.begin: 797 17, loc.end: 797 17, text: "*/"
+free_text: type: "c", loc.begin: 797 17, loc.end: 799 1, text: "
+
+"
+c_named_section_end: loc.begin: 799 1, loc.end: 799 1
+tex_begin: loc.begin: 799 1, loc.end: 799 1
+tex_section_begin: type: "unstarred", loc.begin: 799 1, loc.end: 812 1, text: "@ "
+free_text: type: "tex", loc.begin: 799 1, loc.end: 812 1, text: "We can save a bit of space and time by combining the \\{rank} and \\{tag}
+fields into a single |rank_tag| field, which contains $\\{rank}*2+\\{tag}$.
+
+Vertices in GraphBase graphs have six utility fields. That's just enough
+for |parent|, |child|, |lsib|, |rsib|, |rank_tag|, and the key field
+|dist|. But unfortunately we also need the |backlink| field, so
+we are over the limit. That's not really so bad, however; we
+can set up another array of $n$ records, and point to it. The
+extra running time needed for indirect pointing does not have to
+be charged to mems, because a production system involving Fibonacci
+heaps would simply redefine |Vertex| records to have seven utility
+fields instead of six. In this way we can simulate the behavior of larger
+records without changing the basic GraphBase conventions.
+"
+index_entry: entry: "discussion of \\{mems}", loc.begin: 812 1, loc.end: 812 25, text: "@^discussion of \\{mems}@>"
+free_text: type: "tex", loc.begin: 812 25, loc.end: 818 1, text: "
+
+We will want an |Arc| record for each vertex in our next algorithm,
+so we might as well allocate storage for it now even though Fibonacci
+heaps need only two of the five fields.
+
+"
+middle_begin: loc.begin: 818 1, loc.end: 818 1
+macro_begin: name: "newarc", params: {}, loc.begin: 818 1, loc.end: 819 1, text: "newarc "
+free_text: type: "c", text: "u.A /* |v->newarc| points to an |Arc| record associated with |v| */
+"
+macro_end: loc.begin: 819 1, loc.end: 819 1
+macro_begin: name: "parent", params: {}, loc.begin: 819 1, loc.end: 820 1, text: "parent "
+free_text: type: "c", text: "newarc->tip
+"
+macro_end: loc.begin: 820 1, loc.end: 820 1
+macro_begin: name: "child", params: {}, loc.begin: 820 1, loc.end: 821 1, text: "child "
+free_text: type: "c", text: "newarc->a.V
+"
+macro_end: loc.begin: 821 1, loc.end: 821 1
+macro_begin: name: "lsib", params: {}, loc.begin: 821 1, loc.end: 822 1, text: "lsib "
+free_text: type: "c", text: "v.V
+"
+macro_end: loc.begin: 822 1, loc.end: 822 1
+macro_begin: name: "rsib", params: {}, loc.begin: 822 1, loc.end: 823 1, text: "rsib "
+free_text: type: "c", text: "w.V
+"
+macro_end: loc.begin: 823 1, loc.end: 823 1
+macro_begin: name: "rank_tag", params: {}, loc.begin: 823 1, loc.end: 825 1, text: "rank_tag "
+free_text: type: "c", text: "x.I
+
+"
+macro_end: loc.begin: 825 1, loc.end: 825 1
+c_begin: loc.begin: 825 1, loc.end: 825 1
+c_named_section_begin: name: "Allocate additional space needed by the more complex algorithms...", appended: "false"
+free_text: type: "c", loc.begin: 825 1, loc.end: 826 2, text: "
+{"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 826 2, loc.end: 837 1, text: "register Arc *aa;
+  register Vertex *uu;
+  aa=gb_typed_alloc(g->n,Arc,g->aux_data);
+  if (aa==NULL) {
+    printf(" and there isn't enough space to try the other methods.\n\n");
+    goto done;
+  }
+  for (uu=g->vertices;uu<g->vertices+g->n;uu++,aa++)
+    uu->newarc=aa;
+}
+
+"
+c_named_section_end: loc.begin: 837 1, loc.end: 837 1
+tex_begin: loc.begin: 837 1, loc.end: 837 1
+tex_section_begin: type: "unstarred", loc.begin: 837 1, loc.end: 854 1, text: "@ "
+free_text: type: "tex", loc.begin: 837 1, loc.end: 854 1, text: "The {\sl potential energy\/} of a Fibonacci heap, as we are
+representing it, is defined to be the number of trees in the forest
+plus twice the total number of tagged children. When we operate on a
+heap, we will store potential energy to be used up later; then it will
+be possible to do the later operations with only a small incremental
+cost to the running time. (Potential energy is just a way to prove
+that the amortized cost is small; it does not appear explicitly in our
+implementation. It simply explains why the number of mems we compute
+will always be $O(m+n\log n)$.)
+
+Enqueueing is easy: We simply insert the new element as a new tree in
+the forest. This costs a constant amount of time, including the cost of
+one new unit of potential energy for the new tree.
+
+We can assume that |F_heap->dist| appears in a register, so we need not
+charge a mem to fetch~it.
+
+"
+c_begin: loc.begin: 854 1, loc.end: 854 1
+c_named_section_begin: name: "Prior...", appended: "false"
+comment_begin: type: "c", loc.begin: 854 1, loc.end: 856 14, text: "
+void enq_F_heap(v,d)
+  Vertex *v; /*"
+free_text: type: "tex", loc.begin: 856 14, loc.end: 856 14, text: " vertex that is entering the queue "
+comment_end: type: "c", loc.begin: 856 14, loc.end: 856 14, text: "*/"
+comment_begin: type: "c", loc.begin: 856 14, loc.end: 857 11, text: "
+  long d; /*"
+free_text: type: "tex", loc.begin: 857 11, loc.end: 857 11, text: " its key (aka "
+inner_c_begin: loc.begin: 857 11, loc.end: 857 11, text: "|"
+free_text: type: "c", text: "dist"
+inner_c_end: loc.begin: 857 11, loc.end: 857 11, text: "|"
+free_text: type: "tex", loc.begin: 857 11, loc.end: 857 11, text: ") "
+comment_end: type: "c", loc.begin: 857 11, loc.end: 857 11, text: "*/"
+comment_begin: type: "c", loc.begin: 857 11, loc.end: 861 20, text: "
+{
+  o,v->dist=d;
+  o,v->parent=NULL;
+  o,v->rank_tag=0; /*"
+free_text: type: "tex", loc.begin: 861 20, loc.end: 861 20, text: " "
+inner_c_begin: loc.begin: 861 20, loc.end: 861 20, text: "|"
+free_text: type: "c", text: "v->child"
+inner_c_end: loc.begin: 861 20, loc.end: 861 20, text: "|"
+free_text: type: "tex", loc.begin: 861 20, loc.end: 861 20, text: " need not be set "
+comment_end: type: "c", loc.begin: 861 20, loc.end: 861 20, text: "*/"
+free_text: type: "c", loc.begin: 861 20, loc.end: 864 4, text: "
+  if (F_heap==NULL) {
+    oo,F_heap=v->lsib=v->rsib=v;
+  }"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 864 4, loc.end: 864 10, text: "else {"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 864 10, loc.end: 873 1, text: "register Vertex *u;
+    o,u=F_heap->lsib;
+    o,v->lsib=u;
+    o,v->rsib=F_heap;
+    oo,F_heap->lsib=u->rsib=v;
+    if (F_heap->dist>d) F_heap=v;
+  }
+}
+
+"
+c_named_section_end: loc.begin: 873 1, loc.end: 873 1
+tex_begin: loc.begin: 873 1, loc.end: 873 1
+tex_section_begin: type: "unstarred", loc.begin: 873 1, loc.end: 895 1, text: "@ "
+free_text: type: "tex", loc.begin: 873 1, loc.end: 895 1, text: "Requeueing is of medium difficulty. If the key is being decreased in
+a root node, or if the decrease doesn't make the key less than the key
+of its parent, no links need to change (except possibly |F_heap|
+itself). Otherwise we detach the node and its descendants from its
+present family and put this former subtree into the forest as a new
+tree. (One unit of potential energy must be stored with it.)
+
+The rank of the former parent, |p|, decreases by~1. If |p| is a root,
+we're done. Otherwise if |p| was not tagged, we tag it (and pay for
+two additional units of energy). Property~F still holds, because an
+untagged node can always admit a decrease in rank. If |p| was tagged,
+however, we detach |p| and its remaining descendants, making it another
+new tree of the forest, with |p| no longer tagged. Removing the tag
+releases enough stored energy to pay for the extra work of moving~|p|.
+Then we must decrease the rank of |p|'s parent, and so on, until finally
+we get to a root or to an untagged node. The total net cost is at most
+three units of energy plus the cost of relinking the original node,
+so it is $O(1)$.
+
+We needn't clear the tag fields of root nodes, because we never
+look at them.
+
+"
+c_begin: loc.begin: 895 1, loc.end: 895 1
+c_named_section_begin: name: "Prior...", appended: "false"
+comment_begin: type: "c", loc.begin: 895 1, loc.end: 897 14, text: "
+void req_F_heap(v,d)
+  Vertex *v; /*"
+free_text: type: "tex", loc.begin: 897 14, loc.end: 897 14, text: " vertex whose key is being reduced "
+comment_end: type: "c", loc.begin: 897 14, loc.end: 897 14, text: "*/"
+comment_begin: type: "c", loc.begin: 897 14, loc.end: 898 11, text: "
+  long d; /*"
+free_text: type: "tex", loc.begin: 898 11, loc.end: 898 11, text: " its new "
+inner_c_begin: loc.begin: 898 11, loc.end: 898 11, text: "|"
+free_text: type: "c", text: "dist"
+inner_c_end: loc.begin: 898 11, loc.end: 898 11, text: "|"
+free_text: type: "tex", loc.begin: 898 11, loc.end: 898 11, text: " "
+comment_end: type: "c", loc.begin: 898 11, loc.end: 898 11, text: "*/"
+free_text: type: "c", loc.begin: 898 11, loc.end: 899 2, text: "
+{"
+c_format: code: "@+"
+comment_begin: type: "c", loc.begin: 899 2, loc.end: 899 26, text: "register Vertex *p,*pp; /*"
+free_text: type: "tex", loc.begin: 899 26, loc.end: 899 26, text: " parent and grandparent of "
+inner_c_begin: loc.begin: 899 26, loc.end: 899 26, text: "|"
+free_text: type: "c", text: "v"
+inner_c_end: loc.begin: 899 26, loc.end: 899 26, text: "|"
+free_text: type: "tex", loc.begin: 899 26, loc.end: 899 26, text: " "
+comment_end: type: "c", loc.begin: 899 26, loc.end: 899 26, text: "*/"
+comment_begin: type: "c", loc.begin: 899 26, loc.end: 900 26, text: "
+  register Vertex *u,*w; /*"
+free_text: type: "tex", loc.begin: 900 26, loc.end: 900 26, text: " other vertices being modified "
+comment_end: type: "c", loc.begin: 900 26, loc.end: 900 26, text: "*/"
+comment_begin: type: "c", loc.begin: 900 26, loc.end: 901 20, text: "
+  register long r; /*"
+free_text: type: "tex", loc.begin: 901 20, loc.end: 901 20, text: " twice the rank plus the tag "
+comment_end: type: "c", loc.begin: 901 20, loc.end: 901 20, text: "*/"
+free_text: type: "c", loc.begin: 901 20, loc.end: 906 4, text: "
+  o,v->dist=d;
+  o,p=v->parent;
+  if (p==NULL) {
+    if (F_heap->dist>d) F_heap=v;
+  }"
+c_format: code: "@+"
+comment_begin: type: "c", loc.begin: 906 4, loc.end: 909 17, text: "else if (o,p->dist>d)
+    while(1) {
+      o,r=p->rank_tag;
+      if (r>=4) /*"
+free_text: type: "tex", loc.begin: 909 17, loc.end: 909 17, text: " "
+inner_c_begin: loc.begin: 909 17, loc.end: 909 17, text: "|"
+free_text: type: "c", text: "v"
+inner_c_end: loc.begin: 909 17, loc.end: 909 17, text: "|"
+free_text: type: "tex", loc.begin: 909 17, loc.end: 909 17, text: " is not an only child "
+comment_end: type: "c", loc.begin: 909 17, loc.end: 909 17, text: "*/"
+free_text: type: "c", loc.begin: 909 17, loc.end: 910 9, text: "
+        "
+section_name: name: "Remove |v| from its famil", loc.begin: 910 9, loc.end: 910 9, text: "@<Remove |v| from its family"
+free_text: type: "c", loc.begin: 910 9, loc.end: 911 7, text: ";
+      "
+section_name: name: "Insert |v| into the fores", loc.begin: 911 7, loc.end: 911 7, text: "@<Insert |v| into the forest"
+comment_begin: type: "c", loc.begin: 911 7, loc.end: 913 23, text: ";
+      o,pp=p->parent;
+      if (pp==NULL) { /*"
+free_text: type: "tex", loc.begin: 913 23, loc.end: 913 23, text: " the parent of "
+inner_c_begin: loc.begin: 913 23, loc.end: 913 23, text: "|"
+free_text: type: "c", text: "v"
+inner_c_end: loc.begin: 913 23, loc.end: 913 23, text: "|"
+free_text: type: "tex", loc.begin: 913 23, loc.end: 913 23, text: " is a root "
+comment_end: type: "c", loc.begin: 913 23, loc.end: 913 23, text: "*/"
+free_text: type: "c", loc.begin: 913 23, loc.end: 914 27, text: "
+        o,p->rank_tag=r-2;"
+c_format: code: "@+"
+comment_begin: type: "c", loc.begin: 914 27, loc.end: 916 23, text: "break;
+      }
+      if ((r&1)==0) { /*"
+free_text: type: "tex", loc.begin: 916 23, loc.end: 916 23, text: " the parent of "
+inner_c_begin: loc.begin: 916 23, loc.end: 916 23, text: "|"
+free_text: type: "c", text: "v"
+inner_c_end: loc.begin: 916 23, loc.end: 916 23, text: "|"
+free_text: type: "tex", loc.begin: 916 23, loc.end: 916 23, text: " is untagged "
+comment_end: type: "c", loc.begin: 916 23, loc.end: 916 23, text: "*/"
+free_text: type: "c", loc.begin: 916 23, loc.end: 917 27, text: "
+        o,p->rank_tag=r-1;"
+c_format: code: "@+"
+comment_begin: type: "c", loc.begin: 917 27, loc.end: 917 34, text: "break; /*"
+free_text: type: "tex", loc.begin: 917 34, loc.end: 917 34, text: " now it's tagged "
+comment_end: type: "c", loc.begin: 917 34, loc.end: 917 34, text: "*/"
+free_text: type: "c", loc.begin: 917 34, loc.end: 918 8, text: "
+      }"
+c_format: code: "@+"
+comment_begin: type: "c", loc.begin: 918 8, loc.end: 918 32, text: "else o,p->rank_tag=r-2; /*"
+free_text: type: "tex", loc.begin: 918 32, loc.end: 918 32, text: " tagged parent will become a root "
+comment_end: type: "c", loc.begin: 918 32, loc.end: 918 32, text: "*/"
+free_text: type: "c", loc.begin: 918 32, loc.end: 919 11, text: "
+      v=p;"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 919 11, loc.end: 923 1, text: "p=pp;
+    }
+}
+
+"
+c_named_section_end: loc.begin: 923 1, loc.end: 923 1
+tex_begin: loc.begin: 923 1, loc.end: 923 1
+tex_section_begin: type: "unstarred", loc.begin: 923 1, loc.end: 923 1, text: "@ "
+free_text: type: "tex", loc.begin: 923 1, loc.end: 923 1, text: ""
+c_begin: loc.begin: 923 1, loc.end: 923 1
+c_named_section_begin: name: "Remove |v| from its family", appended: "false"
+free_text: type: "c", loc.begin: 923 1, loc.end: 932 1, text: "
+{
+  o,u=v->lsib;
+  o,w=v->rsib;
+  o,u->rsib=w;
+  o,w->lsib=u;
+  if (o,p->child==v) o,p->child=w;
+}
+
+"
+c_named_section_end: loc.begin: 932 1, loc.end: 932 1
+tex_begin: loc.begin: 932 1, loc.end: 932 1
+tex_section_begin: type: "unstarred", loc.begin: 932 1, loc.end: 932 1, text: "@ "
+free_text: type: "tex", loc.begin: 932 1, loc.end: 932 1, text: ""
+c_begin: loc.begin: 932 1, loc.end: 932 1
+c_named_section_begin: name: "Insert |v| into the forest", appended: "false"
+comment_begin: type: "c", loc.begin: 932 1, loc.end: 938 31, text: "
+o,v->parent=NULL;
+o,u=F_heap->lsib;
+o,v->lsib=u;
+o,v->rsib=F_heap;
+oo,F_heap->lsib=u->rsib=v;
+if (F_heap->dist>d) F_heap=v; /*"
+free_text: type: "tex", loc.begin: 938 31, loc.end: 938 31, text: " this can happen only with the original "
+inner_c_begin: loc.begin: 938 31, loc.end: 938 31, text: "|"
+free_text: type: "c", text: "v"
+inner_c_end: loc.begin: 938 31, loc.end: 938 31, text: "|"
+free_text: type: "tex", loc.begin: 938 31, loc.end: 938 31, text: " "
+comment_end: type: "c", loc.begin: 938 31, loc.end: 938 31, text: "*/"
+free_text: type: "c", loc.begin: 938 31, loc.end: 940 1, text: "
+
+"
+c_named_section_end: loc.begin: 940 1, loc.end: 940 1
+tex_begin: loc.begin: 940 1, loc.end: 940 1
+tex_section_begin: type: "unstarred", loc.begin: 940 1, loc.end: 961 1, text: "@ "
+free_text: type: "tex", loc.begin: 940 1, loc.end: 961 1, text: "The |del_min| operation is even more interesting; this, in fact,
+is where most of the action lies. We know that |F_heap| points to the
+vertex~$v$ we will be deleting. That's nice, but we need to figure out
+the new value of |F_heap|. So we have to look at all the children of~$v$
+and at all the root nodes in the forest. We have stored up enough
+potential energy to do that, but we can reclaim the potential only if
+we rebuild the Fibonacci heap so that the rebuilt version contains
+relatively few trees.
+
+The solution is to make sure that the new heap has at most one root
+of each rank. Whenever we have two tree roots of equal rank, we can
+make one the child of the other, thus reducing the number of
+trees by~1. (The new child does not violate Property~F, nor is it
+critical, so we can mark it untagged.) The largest rank is always
+$O(\log n)$, if there are $n$ nodes altogether, and we can afford to
+pay $\log n$ units of time for the work that isn't reclaimed from
+potential energy.
+
+An array of pointers to roots of known rank is used to help control
+this part of the process.
+
+"
+c_begin: loc.begin: 961 1, loc.end: 961 1
+c_named_section_begin: name: "Glob...", appended: "false"
+comment_begin: type: "c", loc.begin: 961 1, loc.end: 962 24, text: "
+Vertex *new_roots[46]; /*"
+free_text: type: "tex", loc.begin: 962 24, loc.end: 962 24, text: " big enough for queues of size $2^{32}$ "
+comment_end: type: "c", loc.begin: 962 24, loc.end: 962 24, text: "*/"
+free_text: type: "c", loc.begin: 962 24, loc.end: 964 1, text: "
+
+"
+c_named_section_end: loc.begin: 964 1, loc.end: 964 1
+tex_begin: loc.begin: 964 1, loc.end: 964 1
+tex_section_begin: type: "unstarred", loc.begin: 964 1, loc.end: 964 1, text: "@ "
+free_text: type: "tex", loc.begin: 964 1, loc.end: 964 1, text: ""
+c_begin: loc.begin: 964 1, loc.end: 964 1
+c_named_section_begin: name: "Prio...", appended: "false"
+free_text: type: "c", loc.begin: 964 1, loc.end: 966 2, text: "
+Vertex *del_F_heap()
+{"
+c_format: code: "@+"
+comment_begin: type: "c", loc.begin: 966 2, loc.end: 966 26, text: "Vertex *final_v=F_heap; /*"
+free_text: type: "tex", loc.begin: 966 26, loc.end: 966 26, text: " the node to return "
+comment_end: type: "c", loc.begin: 966 26, loc.end: 966 26, text: "*/"
+comment_begin: type: "c", loc.begin: 966 26, loc.end: 967 32, text: "
+  register Vertex *t,*u,*v,*w; /*"
+free_text: type: "tex", loc.begin: 967 32, loc.end: 967 32, text: " registers for manipulation of links "
+comment_end: type: "c", loc.begin: 967 32, loc.end: 967 32, text: "*/"
+comment_begin: type: "c", loc.begin: 967 32, loc.end: 968 23, text: "
+  register long h=-1; /*"
+free_text: type: "tex", loc.begin: 968 23, loc.end: 968 23, text: " the highest rank present in "
+inner_c_begin: loc.begin: 968 23, loc.end: 968 23, text: "|"
+free_text: type: "c", text: "new_roots"
+inner_c_end: loc.begin: 968 23, loc.end: 968 23, text: "|"
+free_text: type: "tex", loc.begin: 968 23, loc.end: 968 23, text: " "
+comment_end: type: "c", loc.begin: 968 23, loc.end: 968 23, text: "*/"
+comment_begin: type: "c", loc.begin: 968 23, loc.end: 969 20, text: "
+  register long r; /*"
+free_text: type: "tex", loc.begin: 969 20, loc.end: 969 20, text: " rank of current tree "
+comment_end: type: "c", loc.begin: 969 20, loc.end: 969 20, text: "*/"
+comment_begin: type: "c", loc.begin: 969 20, loc.end: 976 9, text: "
+  if (F_heap) {
+    if (o,F_heap->rank_tag<2) o,v=F_heap->rsib;
+    else {
+      o,w=F_heap->child;
+      o,v=w->rsib;
+      oo,w->rsib=F_heap->rsib;
+        /*"
+free_text: type: "tex", loc.begin: 976 9, loc.end: 976 9, text: " link children of deleted node into the list "
+comment_end: type: "c", loc.begin: 976 9, loc.end: 976 9, text: "*/"
+free_text: type: "c", loc.begin: 976 9, loc.end: 982 7, text: "
+      for (w=v;w!=F_heap->rsib;o,w=w->rsib)
+        o,w->parent=NULL;
+    }
+    while (v!=F_heap) {
+      o,w=v->rsib;
+      "
+section_name: name: "Put the tree rooted at |v| into the |new_roots| fores", loc.begin: 982 7, loc.end: 982 7, text: "@<Put the tree rooted at |v| into the |new_roots| forest"
+free_text: type: "c", loc.begin: 982 7, loc.end: 985 5, text: ";
+      v=w;
+    }
+    "
+section_name: name: "Rebuild |F_heap| from |new_roots", loc.begin: 985 5, loc.end: 985 5, text: "@<Rebuild |F_heap| from |new_roots|"
+free_text: type: "c", loc.begin: 985 5, loc.end: 990 1, text: ";
+  }
+  return final_v;
+}
+
+"
+c_named_section_end: loc.begin: 990 1, loc.end: 990 1
+tex_begin: loc.begin: 990 1, loc.end: 990 1
+tex_section_begin: type: "unstarred", loc.begin: 990 1, loc.end: 995 1, text: "@ "
+free_text: type: "tex", loc.begin: 990 1, loc.end: 995 1, text: "The work we do in this step is paid for by the unit of potential
+energy being freed as |v| leaves the old forest, except for the
+work of increasing~|h|; we charge the latter to the $O(\log n)$ cost of
+building |new_roots|.
+
+"
+c_begin: loc.begin: 995 1, loc.end: 995 1
+c_named_section_begin: name: "Put the tree rooted at |v| into the |new_roots| forest", appended: "false"
+free_text: type: "c", loc.begin: 995 1, loc.end: 999 7, text: "
+o,r=v->rank_tag>>1;
+while (1) {
+  if (h<r) {
+    do"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 999 7, loc.end: 1002 6, text: "{
+      h++;
+      o,new_roots[h]=(h==r?v:NULL);
+    }"
+c_format: code: "@+"
+comment_begin: type: "c", loc.begin: 1002 6, loc.end: 1012 25, text: "while (h<r);
+    break;
+  }
+  if (o,new_roots[r]==NULL) {
+    o,new_roots[r]=v;
+    break;
+  }
+  u=new_roots[r];
+  o,new_roots[r]=NULL;
+  if (oo,u->dist<v->dist) {
+    o,v->rank_tag=r<<1; /*"
+free_text: type: "tex", loc.begin: 1012 25, loc.end: 1012 25, text: " "
+inner_c_begin: loc.begin: 1012 25, loc.end: 1012 25, text: "|"
+free_text: type: "c", text: "v"
+inner_c_end: loc.begin: 1012 25, loc.end: 1012 25, text: "|"
+free_text: type: "tex", loc.begin: 1012 25, loc.end: 1012 25, text: " is not critical and needn't be tagged "
+comment_end: type: "c", loc.begin: 1012 25, loc.end: 1012 25, text: "*/"
+free_text: type: "c", loc.begin: 1012 25, loc.end: 1013 9, text: "
+    t=u;"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1013 9, loc.end: 1013 13, text: "u=v;"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1013 13, loc.end: 1015 3, text: "v=t;
+  }
+  "
+section_name: name: "Make |u| a child of |v", loc.begin: 1015 3, loc.end: 1015 3, text: "@<Make |u| a child of |v|"
+comment_begin: type: "c", loc.begin: 1015 3, loc.end: 1018 21, text: ";
+  r++;
+}
+o,v->rank_tag=r<<1; /*"
+free_text: type: "tex", loc.begin: 1018 21, loc.end: 1018 21, text: " every root in "
+inner_c_begin: loc.begin: 1018 21, loc.end: 1018 21, text: "|"
+free_text: type: "c", text: "new_roots"
+inner_c_end: loc.begin: 1018 21, loc.end: 1018 21, text: "|"
+free_text: type: "tex", loc.begin: 1018 21, loc.end: 1018 21, text: " is untagged "
+comment_end: type: "c", loc.begin: 1018 21, loc.end: 1018 21, text: "*/"
+free_text: type: "c", loc.begin: 1018 21, loc.end: 1020 1, text: "
+
+"
+c_named_section_end: loc.begin: 1020 1, loc.end: 1020 1
+tex_begin: loc.begin: 1020 1, loc.end: 1020 1
+tex_section_begin: type: "unstarred", loc.begin: 1020 1, loc.end: 1023 1, text: "@ "
+free_text: type: "tex", loc.begin: 1020 1, loc.end: 1023 1, text: "When we get to this step, |u| and |v| both have rank |r|, and
+|u->dist>=v->dist|; |u| is untagged.
+
+"
+c_begin: loc.begin: 1023 1, loc.end: 1023 1
+c_named_section_begin: name: "Make |u| a child of |v|", appended: "false"
+free_text: type: "c", loc.begin: 1023 1, loc.end: 1027 2, text: "
+if (r==0) {
+  o,v->child=u;
+  oo,u->lsib=u->rsib=u;
+}"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1027 2, loc.end: 1035 1, text: "else {
+  o,t=v->child;
+  oo,u->rsib=t->rsib;
+  o,u->lsib=t;
+  oo,u->rsib->lsib=t->rsib=u;
+}
+o,u->parent=v;
+
+"
+c_named_section_end: loc.begin: 1035 1, loc.end: 1035 1
+tex_begin: loc.begin: 1035 1, loc.end: 1035 1
+tex_section_begin: type: "unstarred", loc.begin: 1035 1, loc.end: 1037 1, text: "@ "
+free_text: type: "tex", loc.begin: 1035 1, loc.end: 1037 1, text: "And now we can breathe easy, because the last step is trivial.
+
+"
+c_begin: loc.begin: 1037 1, loc.end: 1037 1
+c_named_section_begin: name: "Rebuild |F_heap| from |new_roots|", appended: "false"
+free_text: type: "c", loc.begin: 1037 1, loc.end: 1039 7, text: "
+if (h<0) F_heap=NULL;
+else {"
+c_format: code: "@+"
+comment_begin: type: "c", loc.begin: 1039 7, loc.end: 1039 15, text: "long d; /*"
+free_text: type: "tex", loc.begin: 1039 15, loc.end: 1039 15, text: " smallest key value seen so far "
+comment_end: type: "c", loc.begin: 1039 15, loc.end: 1039 15, text: "*/"
+comment_begin: type: "c", loc.begin: 1039 15, loc.end: 1041 4, text: "
+  o,u=v=new_roots[h];
+   /*"
+free_text: type: "tex", loc.begin: 1041 4, loc.end: 1041 4, text: " "
+inner_c_begin: loc.begin: 1041 4, loc.end: 1041 4, text: "|"
+free_text: type: "c", text: "u"
+inner_c_end: loc.begin: 1041 4, loc.end: 1041 4, text: "|"
+free_text: type: "tex", loc.begin: 1041 4, loc.end: 1041 4, text: " and "
+inner_c_begin: loc.begin: 1041 4, loc.end: 1041 4, text: "|"
+free_text: type: "c", text: "v"
+inner_c_end: loc.begin: 1041 4, loc.end: 1041 4, text: "|"
+free_text: type: "tex", loc.begin: 1041 4, loc.end: 1041 4, text: " will point to beginning and end of list, respectively "
+comment_end: type: "c", loc.begin: 1041 4, loc.end: 1041 4, text: "*/"
+free_text: type: "c", loc.begin: 1041 4, loc.end: 1059 1, text: "
+  o,d=u->dist;
+  F_heap=u;
+  for (h--;h>=0;h--)
+    if (o,new_roots[h]) {
+      w=new_roots[h];
+      o,w->lsib=v;
+      o,v->rsib=w;
+      if (o,w->dist<d) {
+        F_heap=w;
+        d=w->dist;
+      }
+      v=w;
+    }
+  o,v->rsib=u;
+  o,u->lsib=v;
+}
+
+"
+c_named_section_end: loc.begin: 1059 1, loc.end: 1059 1
+tex_begin: loc.begin: 1059 1, loc.end: 1059 1
+tex_section_begin: type: "unstarred", loc.begin: 1059 1, loc.end: 1059 1, text: "@ "
+free_text: type: "tex", loc.begin: 1059 1, loc.end: 1059 1, text: ""
+c_begin: loc.begin: 1059 1, loc.end: 1059 1
+c_named_section_begin: name: "Execute |jar_pr(g)| with Fibonacci heaps...", appended: "false"
+free_text: type: "c", loc.begin: 1059 1, loc.end: 1069 1, text: "
+init_queue=init_F_heap;
+enqueue=enq_F_heap;
+requeue=req_F_heap;
+del_min=del_F_heap;
+if (sp_length!=jar_pr(g)) {
+  printf(" ...oops, I've got a bug, please fix fix fix\n");
+  return -5;
+}
+
+"
+c_named_section_end: loc.begin: 1069 1, loc.end: 1069 1
+tex_begin: loc.begin: 1069 1, loc.end: 1069 1
+tex_section_begin: type: "starred", title: "@*Binomial queues.", loc.begin: 1069 1, loc.end: 1071 1, text: "@*Binomial queues."
+free_text: type: "tex", loc.begin: 1069 1, loc.end: 1071 1, text: "
+Jean Vuillemin's ``binomial queue'' structures [{\sl CACM\/ \bf21} (1978),
+"
+index_entry: entry: "Vuillemin, Jean Etienne", loc.begin: 1071 1, loc.end: 1071 26, text: "@^Vuillemin, Jean Etienne@>"
+free_text: type: "tex", loc.begin: 1071 26, loc.end: 1104 1, text: "
+309--314] provide yet another appealing way to maintain priority queues.
+A binomial queue is a forest of trees with keys ordered as in Fibonacci
+heaps, satisfying two conditions that are considerably stronger than
+the Fibonacci heap property: Each node of rank~$k$ has children of
+respective ranks $\{0,1,\ldots,k-1\}$; and each root of the forest
+has a different rank. It follows that each node of rank~$k$ has exactly
+$2^k$ descendants (including itself), and that a binomial queue of
+$n$ elements has exactly as many trees as the number $n$ has 1's in
+binary notation.
+
+We could plug binomial queues into the Jarn{\'\i}k/Prim algorithm, but
+they don't offer advantages over the heap methods already considered
+because they don't support the requeueing operation as nicely.
+Binomial queues do, however, permit efficient merging---the operation
+of combining two priority queues into one---and they achieve this
+without as much space overhead as Fibonacci heaps. In fact, we can
+implement binomial queues with only two pointers per node, namely a
+pointer to the largest child and another to the next sibling. This means we
+have just enough space in the utility fields of GraphBase |Arc| records
+to link the arcs that extend out of a spanning tree fragment. The
+algorithm of Cheriton, Tarjan, and Karp, which we will consider
+soon, maintains priority queues of arcs, not vertices; and it
+requires the operation of merging, not requeueing. Therefore binomial
+queues are well suited to it, and we will prepare ourselves for that
+algorithm by implementing basic binomial queue procedures.
+
+Incidentally, if you wonder why Vuillemin called his structure a
+binomial queue, it's because the trees of $2^k$ elements have many
+pleasant combinatorial properties, among which is the fact that the
+number of elements on level~$l$ is the binomial coefficient~$k\choose
+l$. The backtrack tree for subsets of a $k$-set has the same
+structure. A picture of a binomial-queue tree with $k=5$, drawn by
+"
+index_entry: entry: "Knuth, Nancy Jill Carter", loc.begin: 1104 1, loc.end: 1104 27, text: "@^Knuth, Nancy Jill Carter@>"
+free_text: type: "tex", loc.begin: 1104 27, loc.end: 1108 1, text: "
+Jill~C. Knuth, appears as the frontispiece of {\sl The Art of Computer
+Programming}, facing page~1 of Volume~1.
+
+"
+middle_begin: loc.begin: 1108 1, loc.end: 1108 1
+macro_begin: name: "qchild", params: {}, loc.begin: 1108 1, loc.end: 1109 1, text: "qchild "
+free_text: type: "c", text: "a.A /* pointer to the arc for largest child of an arc */
+"
+macro_end: loc.begin: 1109 1, loc.end: 1109 1
+macro_begin: name: "qsib", params: {}, loc.begin: 1109 1, loc.end: 1111 1, text: "qsib "
+free_text: type: "c", text: "b.A /* pointer to next larger sibling, or from largest to smallest */
+
+"
+macro_end: loc.begin: 1111 1, loc.end: 1111 1
+tex_begin: loc.begin: 1111 1, loc.end: 1111 1
+tex_section_begin: type: "unstarred", loc.begin: 1111 1, loc.end: 1138 1, text: "@ "
+free_text: type: "tex", loc.begin: 1111 1, loc.end: 1138 1, text: "A special header node is used at the head of a binomial queue, to represent
+the queue itself. The |qsib| field of this node points to the smallest
+root node in the forest. (``Smallest'' means smallest in rank, not in
+key value.) The header also contains a |qcount| field, which
+takes the place of |qchild|; the |qcount| is the total number of nodes,
+so its binary representation characterizes the sizes of the trees
+accessible from |qsib|.
+
+For example, suppose a queue with header node |h| contains five elements
+$\{a,b,c,d,e\}$ whose keys happen to be ordered alphabetically. The first
+tree might be the single node~$c$; the other tree might be rooted at~$a$,
+with children $e$ and~$b$. Then we have
+$$\vbox{\halign{#\hfil&\qquad#\hfil\cr
+|h->qcount=5|,&|h->qsib=c|;\cr
+|c->qsib=a|;\cr
+|a->qchild=b|;\cr
+|b->qchild=d|,&|b->qsib=e|;\cr
+|e->qsib=b|.\cr}}$$
+The other fields |c->qchild|, |a->qsib|, |e->qchild|, |d->qsib|, and
+|d->qchild| are undefined. We can save time by not loading or storing the
+undefined fields, which make up about 3/8 of the structure.
+
+An empty binomial queue would have |h->qcount=0| and |h->qsib| undefined.
+
+Like Fibonacci heaps, binomial queues store potential energy: The
+number of energy units present is simply the number of trees in the forest.
+
+"
+middle_begin: loc.begin: 1138 1, loc.end: 1138 1
+macro_begin: name: "qcount", params: {}, loc.begin: 1138 1, loc.end: 1140 1, text: "qcount "
+free_text: type: "c", text: "a.I /* this field takes the place of |qchild| in header nodes */
+
+"
+macro_end: loc.begin: 1140 1, loc.end: 1140 1
+tex_begin: loc.begin: 1140 1, loc.end: 1140 1
+tex_section_begin: type: "unstarred", loc.begin: 1140 1, loc.end: 1149 1, text: "@ "
+free_text: type: "tex", loc.begin: 1140 1, loc.end: 1149 1, text: "Most of the operations we want to do with binomial queues rely on
+the following basic subroutine, which merges a forest of |m| nodes
+starting at |q| with a forest of |mm| nodes starting at |qq|, putting
+a pointer to the resulting forest of |m+mm| nodes into |h->qsib|.
+The amortized running time is $O(\log m)$, independent of |mm|.
+
+The |len| field, not |dist|, is the key field for this queue, because our
+nodes in this case are arcs instead of vertices.
+
+"
+c_begin: loc.begin: 1149 1, loc.end: 1149 1
+c_named_section_begin: name: "Prio...", appended: "false"
+comment_begin: type: "c", loc.begin: 1149 1, loc.end: 1151 23, text: "
+qunite(m,q,mm,qq,h)
+  register long m,mm; /*"
+free_text: type: "tex", loc.begin: 1151 23, loc.end: 1151 23, text: " number of nodes in the forests "
+comment_end: type: "c", loc.begin: 1151 23, loc.end: 1151 23, text: "*/"
+comment_begin: type: "c", loc.begin: 1151 23, loc.end: 1152 24, text: "
+  register Arc *q,*qq; /*"
+free_text: type: "tex", loc.begin: 1152 24, loc.end: 1152 24, text: " binomial trees in the forests, linked by "
+inner_c_begin: loc.begin: 1152 24, loc.end: 1152 24, text: "|"
+free_text: type: "c", text: "qsib"
+inner_c_end: loc.begin: 1152 24, loc.end: 1152 24, text: "|"
+free_text: type: "tex", loc.begin: 1152 24, loc.end: 1152 24, text: " "
+comment_end: type: "c", loc.begin: 1152 24, loc.end: 1152 24, text: "*/"
+comment_begin: type: "c", loc.begin: 1152 24, loc.end: 1153 11, text: "
+  Arc *h; /*"
+free_text: type: "tex", loc.begin: 1153 11, loc.end: 1153 11, text: " "
+inner_c_begin: loc.begin: 1153 11, loc.end: 1153 11, text: "|"
+free_text: type: "c", text: "h->qsib"
+inner_c_end: loc.begin: 1153 11, loc.end: 1153 11, text: "|"
+free_text: type: "tex", loc.begin: 1153 11, loc.end: 1153 11, text: " will get the result "
+comment_end: type: "c", loc.begin: 1153 11, loc.end: 1153 11, text: "*/"
+free_text: type: "c", loc.begin: 1153 11, loc.end: 1154 2, text: "
+{"
+c_format: code: "@+"
+comment_begin: type: "c", loc.begin: 1154 2, loc.end: 1154 19, text: "register Arc *p; /*"
+free_text: type: "tex", loc.begin: 1154 19, loc.end: 1154 19, text: " tail of the list built so far "
+comment_end: type: "c", loc.begin: 1154 19, loc.end: 1154 19, text: "*/"
+comment_begin: type: "c", loc.begin: 1154 19, loc.end: 1155 22, text: "
+  register long k=1; /*"
+free_text: type: "tex", loc.begin: 1155 22, loc.end: 1155 22, text: " size of trees currently being processed "
+comment_end: type: "c", loc.begin: 1155 22, loc.end: 1155 22, text: "*/"
+comment_begin: type: "c", loc.begin: 1155 22, loc.end: 1159 19, text: "
+  p=h;
+  while (m) {
+    if ((m&k)==0) {
+      if (mm&k) { /*"
+free_text: type: "tex", loc.begin: 1159 19, loc.end: 1159 19, text: " "
+inner_c_begin: loc.begin: 1159 19, loc.end: 1159 19, text: "|"
+free_text: type: "c", text: "qq"
+inner_c_end: loc.begin: 1159 19, loc.end: 1159 19, text: "|"
+free_text: type: "tex", loc.begin: 1159 19, loc.end: 1159 19, text: " goes into the merged list "
+comment_end: type: "c", loc.begin: 1159 19, loc.end: 1159 19, text: "*/"
+free_text: type: "c", loc.begin: 1159 19, loc.end: 1160 22, text: "
+        o,p->qsib=qq;"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1160 22, loc.end: 1160 27, text: "p=qq;"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1160 27, loc.end: 1163 6, text: "mm-=k;
+        if (mm) o,qq=qq->qsib;
+      }
+    }"
+c_format: code: "@+"
+comment_begin: type: "c", loc.begin: 1163 6, loc.end: 1163 28, text: "else if ((mm&k)==0) { /*"
+free_text: type: "tex", loc.begin: 1163 28, loc.end: 1163 28, text: " "
+inner_c_begin: loc.begin: 1163 28, loc.end: 1163 28, text: "|"
+free_text: type: "c", text: "q"
+inner_c_end: loc.begin: 1163 28, loc.end: 1163 28, text: "|"
+free_text: type: "tex", loc.begin: 1163 28, loc.end: 1163 28, text: " goes into the merged list "
+comment_end: type: "c", loc.begin: 1163 28, loc.end: 1163 28, text: "*/"
+free_text: type: "c", loc.begin: 1163 28, loc.end: 1164 19, text: "
+      o,p->qsib=q;"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1164 19, loc.end: 1164 23, text: "p=q;"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1164 23, loc.end: 1166 6, text: "m-=k;
+      if (m) o,q=q->qsib;
+    }"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1166 6, loc.end: 1166 11, text: "else "
+section_name: name: "Combine |q| and |qq| into a ``carry'' tree, and continue
+             merging until the carry no longer propagate", loc.begin: 1166 11, loc.end: 1166 11, text: "@<Combine |q| and |qq| into a ``carry'' tree, and continue
+             merging until the carry no longer propagates"
+free_text: type: "c", loc.begin: 1166 11, loc.end: 1172 1, text: ";
+    k<<=1;
+  }
+  if (mm) o,p->qsib=qq;
+}
+    
+"
+c_named_section_end: loc.begin: 1172 1, loc.end: 1172 1
+tex_begin: loc.begin: 1172 1, loc.end: 1172 1
+tex_section_begin: type: "unstarred", loc.begin: 1172 1, loc.end: 1179 1, text: "@ "
+free_text: type: "tex", loc.begin: 1172 1, loc.end: 1179 1, text: "As we have seen in Fibonacci heaps, two heap-ordered trees can be combined
+by simply attaching one as a new child of the other. This operation preserves
+binomial trees. (In fact, if we use Fibonacci heaps without ever doing
+a requeue operation, the forests that appear after every |del_min|
+are binomial queues.) The number of trees decreases by~1, so we have a
+unit of potential energy to pay for this computation.
+
+"
+c_begin: loc.begin: 1179 1, loc.end: 1179 1
+c_named_section_begin: name: "Combine |q| and |qq| into a ``carry'' tree, and continue
+             merging until the carry no longer propagates", appended: "false"
+free_text: type: "c", loc.begin: 1179 1, loc.end: 1180 2, text: "
+{"
+c_format: code: "@+"
+comment_begin: type: "c", loc.begin: 1180 2, loc.end: 1180 19, text: "register Arc *c; /*"
+free_text: type: "tex", loc.begin: 1180 19, loc.end: 1180 19, text: " the ``carry,'' a tree of size "
+inner_c_begin: loc.begin: 1180 19, loc.end: 1180 19, text: "|"
+free_text: type: "c", text: "2k"
+inner_c_end: loc.begin: 1180 19, loc.end: 1180 19, text: "|"
+free_text: type: "tex", loc.begin: 1180 19, loc.end: 1180 19, text: " "
+comment_end: type: "c", loc.begin: 1180 19, loc.end: 1180 19, text: "*/"
+comment_begin: type: "c", loc.begin: 1180 19, loc.end: 1181 22, text: "
+  register long key; /*"
+free_text: type: "tex", loc.begin: 1181 22, loc.end: 1181 22, text: " "
+inner_c_begin: loc.begin: 1181 22, loc.end: 1181 22, text: "|"
+free_text: type: "c", text: "c->len"
+inner_c_end: loc.begin: 1181 22, loc.end: 1181 22, text: "|"
+free_text: type: "tex", loc.begin: 1181 22, loc.end: 1181 22, text: " "
+comment_end: type: "c", loc.begin: 1181 22, loc.end: 1181 22, text: "*/"
+comment_begin: type: "c", loc.begin: 1181 22, loc.end: 1182 24, text: "
+  register Arc *r,*rr; /*"
+free_text: type: "tex", loc.begin: 1182 24, loc.end: 1182 24, text: " remainders of the input lists "
+comment_end: type: "c", loc.begin: 1182 24, loc.end: 1182 24, text: "*/"
+free_text: type: "c", loc.begin: 1182 24, loc.end: 1183 8, text: "
+  m-=k;"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1183 8, loc.end: 1184 9, text: "if (m) o,r=q->qsib;
+  mm-=k;"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1184 9, loc.end: 1185 3, text: "if (mm) o,rr=qq->qsib;
+  "
+section_name: name: "Set |c| to the combination of |q| and |qq", loc.begin: 1185 3, loc.end: 1185 3, text: "@<Set |c| to the combination of |q| and |qq|"
+free_text: type: "c", loc.begin: 1185 3, loc.end: 1186 9, text: ";
+  k<<=1;"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1186 9, loc.end: 1186 13, text: "q=r;"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1186 13, loc.end: 1188 19, text: "qq=rr;
+  while ((m|mm)&k) {
+    if ((m&k)==0) "
+section_name: name: "Merge |qq| into |c| and advance |qq", loc.begin: 1188 19, loc.end: 1188 19, text: "@<Merge |qq| into |c| and advance |qq|"
+free_text: type: "c", loc.begin: 1188 19, loc.end: 1188 19, text: ""
+c_format: code: "@;"
+free_text: type: "c", loc.begin: 1188 19, loc.end: 1190 7, text: "
+    else {
+      "
+section_name: name: "Merge |q| into |c| and advance |q", loc.begin: 1190 7, loc.end: 1190 7, text: "@<Merge |q| into |c| and advance |q|"
+free_text: type: "c", loc.begin: 1190 7, loc.end: 1192 22, text: ";
+      if (mm&k) {
+        o,p->qsib=qq;"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1192 22, loc.end: 1192 27, text: "p=qq;"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1192 27, loc.end: 1198 15, text: "mm-=k;
+        if (mm) o,qq=qq->qsib;
+      }
+    }
+    k<<=1;
+  }
+  o,p->qsib=c;"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1198 15, loc.end: 1201 1, text: "p=c;
+}
+
+"
+c_named_section_end: loc.begin: 1201 1, loc.end: 1201 1
+tex_begin: loc.begin: 1201 1, loc.end: 1201 1
+tex_section_begin: type: "unstarred", loc.begin: 1201 1, loc.end: 1201 1, text: "@ "
+free_text: type: "tex", loc.begin: 1201 1, loc.end: 1201 1, text: ""
+c_begin: loc.begin: 1201 1, loc.end: 1201 1
+c_named_section_begin: name: "Set |c| to the combination of |q| and |qq|", appended: "false"
+free_text: type: "c", loc.begin: 1201 1, loc.end: 1205 2, text: "
+if (oo,q->len<qq->len) {
+  c=q,key=q->len;
+  q=qq;
+}"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1205 2, loc.end: 1215 1, text: "else c=qq,key=qq->len;
+if (k==1) o,c->qchild=q;
+else {
+  o,qq=c->qchild;
+  o,c->qchild=q;
+  if (k==2) o,q->qsib=qq;
+  else oo,q->qsib=qq->qsib;
+  o,qq->qsib=q;
+}
+
+"
+c_named_section_end: loc.begin: 1215 1, loc.end: 1215 1
+tex_begin: loc.begin: 1215 1, loc.end: 1215 1
+tex_section_begin: type: "unstarred", loc.begin: 1215 1, loc.end: 1217 1, text: "@ "
+free_text: type: "tex", loc.begin: 1215 1, loc.end: 1217 1, text: "At this point, |k>1|.
+
+"
+c_begin: loc.begin: 1217 1, loc.end: 1217 1
+c_named_section_begin: name: "Merge |q| into |c| and advance |q|", appended: "false"
+free_text: type: "c", loc.begin: 1217 1, loc.end: 1219 8, text: "
+{
+  m-=k;"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1219 8, loc.end: 1221 10, text: "if (m) o,r=q->qsib;
+  if (o,q->len<key) {
+    rr=c;"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1221 10, loc.end: 1221 14, text: "c=q;"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1221 14, loc.end: 1221 25, text: "key=q->len;"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1221 25, loc.end: 1231 1, text: "q=rr;
+  }
+  o,rr=c->qchild;
+  o,c->qchild=q;
+  if (k==2) o,q->qsib=rr;
+  else oo,q->qsib=rr->qsib;
+  o,rr->qsib=q;
+  q=r;
+}
+
+"
+c_named_section_end: loc.begin: 1231 1, loc.end: 1231 1
+tex_begin: loc.begin: 1231 1, loc.end: 1231 1
+tex_section_begin: type: "unstarred", loc.begin: 1231 1, loc.end: 1231 1, text: "@ "
+free_text: type: "tex", loc.begin: 1231 1, loc.end: 1231 1, text: ""
+c_begin: loc.begin: 1231 1, loc.end: 1231 1
+c_named_section_begin: name: "Merge |qq| into |c| and advance |qq|", appended: "false"
+free_text: type: "c", loc.begin: 1231 1, loc.end: 1233 9, text: "
+{
+  mm-=k;"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1233 9, loc.end: 1235 9, text: "if (mm) o,rr=qq->qsib;
+  if (o,qq->len<key) {
+    r=c;"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1235 9, loc.end: 1235 14, text: "c=qq;"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1235 14, loc.end: 1235 26, text: "key=qq->len;"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1235 26, loc.end: 1245 1, text: "qq=r;
+  }
+  o,r=c->qchild;
+  o,c->qchild=qq;
+  if (k==2) o,qq->qsib=r;
+  else oo,qq->qsib=r->qsib;
+  o,r->qsib=qq;
+  qq=rr;
+}
+
+"
+c_named_section_end: loc.begin: 1245 1, loc.end: 1245 1
+tex_begin: loc.begin: 1245 1, loc.end: 1245 1
+tex_section_begin: type: "unstarred", loc.begin: 1245 1, loc.end: 1249 1, text: "@ "
+free_text: type: "tex", loc.begin: 1245 1, loc.end: 1249 1, text: "OK, now the hard work is done and we can reap the benefits of the
+basic |qunite| routine. One easy application enqueues a new arc
+in $O(1)$ amortized time.
+
+"
+c_begin: loc.begin: 1249 1, loc.end: 1249 1
+c_named_section_begin: name: "Prio...", appended: "false"
+comment_begin: type: "c", loc.begin: 1249 1, loc.end: 1251 11, text: "
+qenque(h,a)
+  Arc *h; /*"
+free_text: type: "tex", loc.begin: 1251 11, loc.end: 1251 11, text: " header of a binomial queue "
+comment_end: type: "c", loc.begin: 1251 11, loc.end: 1251 11, text: "*/"
+comment_begin: type: "c", loc.begin: 1251 11, loc.end: 1252 11, text: "
+  Arc *a; /*"
+free_text: type: "tex", loc.begin: 1252 11, loc.end: 1252 11, text: " new element for that queue "
+comment_end: type: "c", loc.begin: 1252 11, loc.end: 1252 11, text: "*/"
+free_text: type: "c", loc.begin: 1252 11, loc.end: 1253 2, text: "
+{"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1253 2, loc.end: 1260 1, text: "long m;
+  o,m=h->qcount;
+  o,h->qcount=m+1;
+  if (m==0) o,h->qsib=a;
+  else o,qunite(1L,a,m,h->qsib,h);
+}
+
+"
+c_named_section_end: loc.begin: 1260 1, loc.end: 1260 1
+tex_begin: loc.begin: 1260 1, loc.end: 1260 1
+tex_section_begin: type: "unstarred", loc.begin: 1260 1, loc.end: 1264 1, text: "@ "
+free_text: type: "tex", loc.begin: 1260 1, loc.end: 1264 1, text: "Here, similarly, is a routine that merges one binomial queue into
+another. The amortized running time is proportional to the logarithm
+of the number of nodes in the smaller queue.
+
+"
+c_begin: loc.begin: 1264 1, loc.end: 1264 1
+c_named_section_begin: name: "Prio...", appended: "false"
+comment_begin: type: "c", loc.begin: 1264 1, loc.end: 1266 11, text: "
+qmerge(h,hh)
+  Arc *h; /*"
+free_text: type: "tex", loc.begin: 1266 11, loc.end: 1266 11, text: " header of binomial queue that will receive the result "
+comment_end: type: "c", loc.begin: 1266 11, loc.end: 1266 11, text: "*/"
+comment_begin: type: "c", loc.begin: 1266 11, loc.end: 1267 12, text: "
+  Arc *hh; /*"
+free_text: type: "tex", loc.begin: 1267 12, loc.end: 1267 12, text: " header of binomial queue that will be absorbed "
+comment_end: type: "c", loc.begin: 1267 12, loc.end: 1267 12, text: "*/"
+free_text: type: "c", loc.begin: 1267 12, loc.end: 1268 2, text: "
+{"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1268 2, loc.end: 1279 1, text: "long m,mm;
+  o,mm=hh->qcount;
+  if (mm) {
+    o,m=h->qcount;
+    o,h->qcount=m+mm;
+    if (m>=mm) oo,qunite(mm,hh->qsib,m,h->qsib,h);
+    else if (m==0) oo,h->qsib=hh->qsib;
+    else oo,qunite(m,h->qsib,mm,hh->qsib,h);
+  }
+} 
+
+"
+c_named_section_end: loc.begin: 1279 1, loc.end: 1279 1
+tex_begin: loc.begin: 1279 1, loc.end: 1279 1
+tex_section_begin: type: "unstarred", loc.begin: 1279 1, loc.end: 1283 1, text: "@ "
+free_text: type: "tex", loc.begin: 1279 1, loc.end: 1283 1, text: "The other important operation is, of course, deletion of a node
+with the smallest key. The amortized running time is proportional to
+the logarithm of the queue size.
+
+"
+c_begin: loc.begin: 1283 1, loc.end: 1283 1
+c_named_section_begin: name: "Prio...", appended: "false"
+comment_begin: type: "c", loc.begin: 1283 1, loc.end: 1285 11, text: "
+Arc *qdel_min(h)
+  Arc *h; /*"
+free_text: type: "tex", loc.begin: 1285 11, loc.end: 1285 11, text: " header of binomial queue "
+comment_end: type: "c", loc.begin: 1285 11, loc.end: 1285 11, text: "*/"
+free_text: type: "c", loc.begin: 1285 11, loc.end: 1286 2, text: "
+{"
+c_format: code: "@+"
+comment_begin: type: "c", loc.begin: 1286 2, loc.end: 1286 23, text: "register Arc *p,*pp; /*"
+free_text: type: "tex", loc.begin: 1286 23, loc.end: 1286 23, text: " current node and its predecessor "
+comment_end: type: "c", loc.begin: 1286 23, loc.end: 1286 23, text: "*/"
+comment_begin: type: "c", loc.begin: 1286 23, loc.end: 1287 24, text: "
+  register Arc *q,*qq; /*"
+free_text: type: "tex", loc.begin: 1287 24, loc.end: 1287 24, text: " current minimum node and its predecessor "
+comment_end: type: "c", loc.begin: 1287 24, loc.end: 1287 24, text: "*/"
+comment_begin: type: "c", loc.begin: 1287 24, loc.end: 1288 22, text: "
+  register long key; /*"
+free_text: type: "tex", loc.begin: 1288 22, loc.end: 1288 22, text: " "
+inner_c_begin: loc.begin: 1288 22, loc.end: 1288 22, text: "|"
+free_text: type: "c", text: "q->len"
+inner_c_end: loc.begin: 1288 22, loc.end: 1288 22, text: "|"
+free_text: type: "tex", loc.begin: 1288 22, loc.end: 1288 22, text: ", the smallest key known so far "
+comment_end: type: "c", loc.begin: 1288 22, loc.end: 1288 22, text: "*/"
+comment_begin: type: "c", loc.begin: 1288 22, loc.end: 1289 11, text: "
+  long m; /*"
+free_text: type: "tex", loc.begin: 1289 11, loc.end: 1289 11, text: " number of nodes in the queue "
+comment_end: type: "c", loc.begin: 1289 11, loc.end: 1289 11, text: "*/"
+comment_begin: type: "c", loc.begin: 1289 11, loc.end: 1290 11, text: "
+  long k; /*"
+free_text: type: "tex", loc.begin: 1290 11, loc.end: 1290 11, text: " number of nodes in tree "
+inner_c_begin: loc.begin: 1290 11, loc.end: 1290 11, text: "|"
+free_text: type: "c", text: "q"
+inner_c_end: loc.begin: 1290 11, loc.end: 1290 11, text: "|"
+free_text: type: "tex", loc.begin: 1290 11, loc.end: 1290 11, text: " "
+comment_end: type: "c", loc.begin: 1290 11, loc.end: 1290 11, text: "*/"
+comment_begin: type: "c", loc.begin: 1290 11, loc.end: 1291 21, text: "
+  register long mm; /*"
+free_text: type: "tex", loc.begin: 1291 21, loc.end: 1291 21, text: " number of nodes not yet considered "
+comment_end: type: "c", loc.begin: 1291 21, loc.end: 1291 21, text: "*/"
+free_text: type: "c", loc.begin: 1291 21, loc.end: 1295 3, text: "
+  o,m=h->qcount;
+  if (m==0) return NULL;
+  o,h->qcount=m-1;
+  "
+section_name: name: "Find and remove a tree whose root |q| has the smallest ke", loc.begin: 1295 3, loc.end: 1295 3, text: "@<Find and remove a tree whose root |q| has the smallest key"
+free_text: type: "c", loc.begin: 1295 3, loc.end: 1299 4, text: ";
+  if (k>2) {
+    if (k+k<=m) oo,qunite(k-1,q->qchild->qsib,m-k,h->qsib,h);
+    else oo,qunite(m-k,h->qsib,k-1,q->qchild->qsib,h);
+  }"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1299 4, loc.end: 1303 1, text: "else if (k==2) o,qunite(1L,q->qchild,m-k,h->qsib,h);
+  return q;
+}
+
+"
+c_named_section_end: loc.begin: 1303 1, loc.end: 1303 1
+tex_begin: loc.begin: 1303 1, loc.end: 1303 1
+tex_section_begin: type: "unstarred", loc.begin: 1303 1, loc.end: 1310 1, text: "@ "
+free_text: type: "tex", loc.begin: 1303 1, loc.end: 1310 1, text: "If the tree with smallest key is the largest in the forest,
+we don't have to change any links to remove it,
+because our binomial queue algorithms never look at the last |qsib| pointer.
+
+We use a well-known binary number trick: |m&(m-1)| is the same as
+|m|, except that the least significant 1~bit is deleted.
+
+"
+c_begin: loc.begin: 1310 1, loc.end: 1310 1
+c_named_section_begin: name: "Find and remove...", appended: "false"
+comment_begin: type: "c", loc.begin: 1310 1, loc.end: 1314 11, text: "    
+mm=m&(m-1);
+o,q=h->qsib;
+k=m-mm;
+if (mm) { /*"
+free_text: type: "tex", loc.begin: 1314 11, loc.end: 1314 11, text: " there's more than one tree "
+comment_end: type: "c", loc.begin: 1314 11, loc.end: 1314 11, text: "*/"
+free_text: type: "c", loc.begin: 1314 11, loc.end: 1315 7, text: "
+  p=q;"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1315 7, loc.end: 1317 5, text: "qq=h;
+  o,key=q->len;
+  do"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1317 5, loc.end: 1317 6, text: "{"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1317 6, loc.end: 1318 10, text: "long t=mm&(mm-1);
+    pp=p;"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1318 10, loc.end: 1320 11, text: "o,p=p->qsib;
+    if (o,p->len<=key) {
+      q=p;"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1320 11, loc.end: 1320 17, text: "qq=pp;"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1320 17, loc.end: 1320 24, text: "k=mm-t;"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1320 24, loc.end: 1323 4, text: "key=p->len;
+    }
+    mm=t;
+  }"
+c_format: code: "@+"
+comment_begin: type: "c", loc.begin: 1323 4, loc.end: 1324 36, text: "while (mm);
+  if (k+k<=m) oo,qq->qsib=q->qsib; /*"
+free_text: type: "tex", loc.begin: 1324 36, loc.end: 1324 36, text: " remove the tree rooted at "
+inner_c_begin: loc.begin: 1324 36, loc.end: 1324 36, text: "|"
+free_text: type: "c", text: "q"
+inner_c_end: loc.begin: 1324 36, loc.end: 1324 36, text: "|"
+free_text: type: "tex", loc.begin: 1324 36, loc.end: 1324 36, text: " "
+comment_end: type: "c", loc.begin: 1324 36, loc.end: 1324 36, text: "*/"
+free_text: type: "c", loc.begin: 1324 36, loc.end: 1327 1, text: "
+}
+
+"
+c_named_section_end: loc.begin: 1327 1, loc.end: 1327 1
+tex_begin: loc.begin: 1327 1, loc.end: 1327 1
+tex_section_begin: type: "unstarred", loc.begin: 1327 1, loc.end: 1331 1, text: "@ "
+free_text: type: "tex", loc.begin: 1327 1, loc.end: 1331 1, text: "To complete our implementation, here is an algorithm that traverses
+a binomial queue, ``visiting'' each node exactly once, destroying the
+queue as it goes. The total number of mems required is about |1.75m|.
+
+"
+c_begin: loc.begin: 1331 1, loc.end: 1331 1
+c_named_section_begin: name: "Prio...", appended: "false"
+comment_begin: type: "c", loc.begin: 1331 1, loc.end: 1333 11, text: "
+qtraverse(h,visit)
+  Arc *h; /*"
+free_text: type: "tex", loc.begin: 1333 11, loc.end: 1333 11, text: " head of binomial queue to be unraveled "
+comment_end: type: "c", loc.begin: 1333 11, loc.end: 1333 11, text: "*/"
+free_text: type: "c", loc.begin: 1333 11, loc.end: 1334 8, text: "
+  void "
+free_text: type: "c", loc.begin: 1334 8, loc.end: 1334 8, text: ""
+comment_begin: type: "c", loc.begin: 1334 8, loc.end: 1334 21, text: " (*visit)(); /*"
+free_text: type: "tex", loc.begin: 1334 21, loc.end: 1334 21, text: " procedure to be invoked on each node "
+comment_end: type: "c", loc.begin: 1334 21, loc.end: 1334 21, text: "*/"
+free_text: type: "c", loc.begin: 1334 21, loc.end: 1335 2, text: "
+{"
+c_format: code: "@+"
+comment_begin: type: "c", loc.begin: 1335 2, loc.end: 1335 19, text: "register long m; /*"
+free_text: type: "tex", loc.begin: 1335 19, loc.end: 1335 19, text: " the number of nodes remaining "
+comment_end: type: "c", loc.begin: 1335 19, loc.end: 1335 19, text: "*/"
+comment_begin: type: "c", loc.begin: 1335 19, loc.end: 1336 26, text: "
+  register Arc *p,*q,*r; /*"
+free_text: type: "tex", loc.begin: 1336 26, loc.end: 1336 26, text: " current position and neighboring positions "
+comment_end: type: "c", loc.begin: 1336 26, loc.end: 1336 26, text: "*/"
+free_text: type: "c", loc.begin: 1336 26, loc.end: 1357 1, text: "
+  o,m=h->qcount;
+  p=h;
+  while (m) {
+    o,p=p->qsib;
+    (*visit)(p);
+    if (m&1) m--;
+    else {
+      o,q=p->qchild;
+      if (m&2) (*visit)(q);
+      else {
+        o,r=q->qsib;
+        if (m&(m-1)) oo,q->qsib=p->qsib;
+        (*visit)(r);
+        p=r;
+      }
+      m-=2;
+    }
+  }
+}
+
+"
+c_named_section_end: loc.begin: 1357 1, loc.end: 1357 1
+tex_begin: loc.begin: 1357 1, loc.end: 1357 1
+tex_section_begin: type: "starred", title: "@* Cheriton, Tarjan, and Karp's algorithm.", loc.begin: 1357 1, loc.end: 1375 1, text: "@* Cheriton, Tarjan, and Karp's algorithm."
+free_text: type: "tex", loc.begin: 1357 1, loc.end: 1375 1, text: "
+\def\lsqrtn{\hbox{$\lfloor\sqrt n\,\rfloor$}}%
+\def\usqrtn{\hbox{$\lfloor\sqrt{n+1}+{1\over2}\rfloor$}}%
+The final algorithm we shall consider takes yet another approach to
+spanning tree minimization. It operates in two distinct stages: Stage~1
+creates small fragments of the minimum tree, working locally with the
+edges that lead out of each fragment instead of dealing with the
+full set of edges at once as in Kruskal's method. As soon as the
+number of component fragments has been reduced from $n$ to \lsqrtn,
+stage~2 begins. Stage~2 runs through the remaining edges and builds a
+$\lsqrtn\times\lsqrtn$ matrix, which represents the problem of
+finding a minimum spanning tree on the remaining \lsqrtn\ components.
+A simple $O(\sqrt n\,)^2=O(n)$ algorithm then completes the job.
+
+The philosophy underlying stage~1 is that an edge leading out of a
+vertex in a small component is likely to lead to a vertex in another
+component, rather than in the same one. Thus each delete-min operation
+tends to be productive. Karp and Tarjan proved [{\sl Journal of Algorithms\/
+"
+index_entry: entry: "Karp, Richard Manning", loc.begin: 1375 1, loc.end: 1375 24, text: "@^Karp, Richard Manning@>"
+free_text: type: "tex", loc.begin: 1375 24, loc.end: 1376 1, text: "
+"
+index_entry: entry: "Tarjan, Robert Endre", loc.begin: 1376 1, loc.end: 1376 23, text: "@^Tarjan, Robert Endre@>"
+free_text: type: "tex", loc.begin: 1376 23, loc.end: 1384 1, text: "
+\bf1} (1980), 374--393] that the average running time on a random graph with
+$n$ vertices and $m$ edges will be $O(m)$.
+
+The philosophy underlying stage~2 is that the problem
+on an initially sparse graph eventually reduces to a problem on a smaller
+but dense graph that is best solved by a different method.
+
+"
+c_begin: loc.begin: 1384 1, loc.end: 1384 1
+c_named_section_begin: name: "Sub...", appended: "false"
+free_text: type: "c", loc.begin: 1384 1, loc.end: 1387 2, text: "
+unsigned long cher_tar_kar(g)
+  Graph *g;
+{"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1387 2, loc.end: 1387 2, text: ""
+section_name: name: "Local variables for |cher_tar_kar", loc.begin: 1387 2, loc.end: 1387 2, text: "@<Local variables for |cher_tar_kar|"
+free_text: type: "c", loc.begin: 1387 2, loc.end: 1387 2, text: ""
+c_format: code: "@;"
+c_format: code: "@#"
+free_text: type: "c", loc.begin: 1387 2, loc.end: 1389 3, text: "
+  mems=0;
+  "
+section_name: name: "Do stage 1 of |cher_tar_kar", loc.begin: 1389 3, loc.end: 1389 3, text: "@<Do stage 1 of |cher_tar_kar|"
+free_text: type: "c", loc.begin: 1389 3, loc.end: 1391 3, text: ";
+  if (verbose) printf("    [Stage 1 has used %ld mems]\n",mems);
+  "
+section_name: name: "Do stage 2 of |cher_tar_kar", loc.begin: 1391 3, loc.end: 1391 3, text: "@<Do stage 2 of |cher_tar_kar|"
+free_text: type: "c", loc.begin: 1391 3, loc.end: 1395 1, text: ";
+  return tot_len;
+}
+
+"
+c_named_section_end: loc.begin: 1395 1, loc.end: 1395 1
+tex_begin: loc.begin: 1395 1, loc.end: 1395 1
+tex_section_begin: type: "unstarred", loc.begin: 1395 1, loc.end: 1408 1, text: "@ "
+free_text: type: "tex", loc.begin: 1395 1, loc.end: 1408 1, text: "We say that a fragment is {\sl large} if it contains \usqrtn\ or more
+vertices. As soon as a fragment becomes large, stage~1 stops trying
+to extend it. There cannot be more than \lsqrtn\ large fragments,
+because $(\lsqrtn+1)\usqrtn>n$. The other fragments are called {\sl small}.
+
+Stage~1 keeps a list of all the small fragments. Initially this list
+contains $n$ fragments consisting of one vertex each. The algorithm
+repeatedly looks at the first fragment on its list, and finds the
+smallest edge leading to another fragment. These two fragments are
+removed from the list and combined. The resulting fragment is put at
+the end of the list if it is still small, or put onto another list if
+it is large.
+
+"
+c_begin: loc.begin: 1408 1, loc.end: 1408 1
+c_named_section_begin: name: "Local variables for |ch...", appended: "false"
+comment_begin: type: "c", loc.begin: 1408 1, loc.end: 1409 24, text: "
+register Vertex *s,*t; /*"
+free_text: type: "tex", loc.begin: 1409 24, loc.end: 1409 24, text: " beginning and end of the small list "
+comment_end: type: "c", loc.begin: 1409 24, loc.end: 1409 24, text: "*/"
+comment_begin: type: "c", loc.begin: 1409 24, loc.end: 1410 21, text: "
+Vertex *large_list; /*"
+free_text: type: "tex", loc.begin: 1410 21, loc.end: 1410 21, text: " beginning of the list of large fragments "
+comment_end: type: "c", loc.begin: 1410 21, loc.end: 1410 21, text: "*/"
+comment_begin: type: "c", loc.begin: 1410 21, loc.end: 1411 13, text: "
+long frags; /*"
+free_text: type: "tex", loc.begin: 1411 13, loc.end: 1411 13, text: " current number of fragments, large and small "
+comment_end: type: "c", loc.begin: 1411 13, loc.end: 1411 13, text: "*/"
+comment_begin: type: "c", loc.begin: 1411 13, loc.end: 1412 26, text: "
+unsigned long tot_len=0; /*"
+free_text: type: "tex", loc.begin: 1412 26, loc.end: 1412 26, text: " total length of all edges in fragments "
+comment_end: type: "c", loc.begin: 1412 26, loc.end: 1412 26, text: "*/"
+comment_begin: type: "c", loc.begin: 1412 26, loc.end: 1413 24, text: "
+register Vertex *u,*v; /*"
+free_text: type: "tex", loc.begin: 1413 24, loc.end: 1413 24, text: " registers for list manipulation "
+comment_end: type: "c", loc.begin: 1413 24, loc.end: 1413 24, text: "*/"
+comment_begin: type: "c", loc.begin: 1413 24, loc.end: 1414 18, text: "
+register Arc *a; /*"
+free_text: type: "tex", loc.begin: 1414 18, loc.end: 1414 18, text: " and another "
+comment_end: type: "c", loc.begin: 1414 18, loc.end: 1414 18, text: "*/"
+comment_begin: type: "c", loc.begin: 1414 18, loc.end: 1415 20, text: "
+register long j,k; /*"
+free_text: type: "tex", loc.begin: 1415 20, loc.end: 1415 20, text: " index registers for stage 2 "
+comment_end: type: "c", loc.begin: 1415 20, loc.end: 1415 20, text: "*/"
+free_text: type: "c", loc.begin: 1415 20, loc.end: 1417 1, text: "
+
+"
+c_named_section_end: loc.begin: 1417 1, loc.end: 1417 1
+tex_begin: loc.begin: 1417 1, loc.end: 1417 1
+tex_section_begin: type: "unstarred", loc.begin: 1417 1, loc.end: 1420 1, text: "@ "
+free_text: type: "tex", loc.begin: 1417 1, loc.end: 1420 1, text: "We need to make |lo_sqrt| global so that the |note_edge| procedure
+below can access it.
+
+"
+c_begin: loc.begin: 1420 1, loc.end: 1420 1
+c_named_section_begin: name: "Glob...", appended: "false"
+comment_begin: type: "c", loc.begin: 1420 1, loc.end: 1421 23, text: "
+long lo_sqrt,hi_sqrt; /*"
+free_text: type: "tex", loc.begin: 1421 23, loc.end: 1421 23, text: " \lsqrtn\ and \usqrtn\ "
+comment_end: type: "c", loc.begin: 1421 23, loc.end: 1421 23, text: "*/"
+free_text: type: "c", loc.begin: 1421 23, loc.end: 1423 1, text: "
+
+"
+c_named_section_end: loc.begin: 1423 1, loc.end: 1423 1
+tex_begin: loc.begin: 1423 1, loc.end: 1423 1
+tex_section_begin: type: "unstarred", loc.begin: 1423 1, loc.end: 1429 1, text: "@ "
+free_text: type: "tex", loc.begin: 1423 1, loc.end: 1429 1, text: "There is a nonobvious way to compute \usqrtn\ and \lsqrtn. Since
+$\sqrt n$ is small and arithmetic is mem-free, the author
+couldn't resist writing the |for| loop shown here.
+Of course, different ground rules for counting mems would be
+appropriate if this sort of computing were a critical factor in
+the running time.
+"
+index_entry: entry: "discussion of \\{mems}", loc.begin: 1429 1, loc.end: 1429 25, text: "@^discussion of \\{mems}@>"
+free_text: type: "tex", loc.begin: 1429 25, loc.end: 1431 1, text: "
+
+"
+c_begin: loc.begin: 1431 1, loc.end: 1431 1
+c_named_section_begin: name: "Do stage 1 of |cher_tar_kar|", appended: "false"
+free_text: type: "c", loc.begin: 1431 1, loc.end: 1437 1, text: "
+o,frags=g->n;
+for (hi_sqrt=1;hi_sqrt*(hi_sqrt+1)<=frags;hi_sqrt++) ;
+if (hi_sqrt*hi_sqrt<=frags) lo_sqrt=hi_sqrt;
+else lo_sqrt=hi_sqrt-1;
+large_list=NULL;
+"
+section_name: name: "Create the small lis", loc.begin: 1437 1, loc.end: 1437 1, text: "@<Create the small list"
+free_text: type: "c", loc.begin: 1437 1, loc.end: 1439 3, text: ";
+while (frags>lo_sqrt) {
+  "
+section_name: name: "Combine the first fragment on the small list with its nearest neighbo", loc.begin: 1439 3, loc.end: 1439 3, text: "@<Combine the first fragment on the small list with its nearest neighbor"
+free_text: type: "c", loc.begin: 1439 3, loc.end: 1443 1, text: ";
+  frags--;
+}
+
+"
+c_named_section_end: loc.begin: 1443 1, loc.end: 1443 1
+tex_begin: loc.begin: 1443 1, loc.end: 1443 1
+tex_section_begin: type: "unstarred", loc.begin: 1443 1, loc.end: 1465 1, text: "@ "
+free_text: type: "tex", loc.begin: 1443 1, loc.end: 1465 1, text: "To represent fragments, we will use several utility fields already
+defined above. The |lsib| and |rsib| pointers are used between fragments
+in the small list, which is doubly linked; |s|~points to the first small
+fragment, |s->rsib| to the next, \dots, |t->lsib| to the second-from-last,
+and |t| to the last. The pointer fields |s->lsib| and |t->rsib| are
+undefined. The |large_list| is singly linked via |rsib| pointers,
+terminating with |NULL|.
+
+The |csize| field of each fragment tells how many vertices it contains.
+
+The |comp| field of each vertex is |NULL| if this vertex represents a
+fragment (i.e., if this vertex is in the small list or |large_list|);
+otherwise it points to another vertex that is closer to the fragment
+representative.
+
+Finally, the |pq| pointer of each fragment points to the header node of
+its priority queue, which is a binomial queue containing all
+unlooked-at arcs that originate from vertices in the fragment.
+This pointer is identical to the |newarc| pointer already set up.
+In a production implementation, we wouldn't need |pq| as a
+separate field; it would be part of a vertex record. So we do not
+pay any mems for referring to it.
+"
+index_entry: entry: "discussion of \\{mems}", loc.begin: 1465 1, loc.end: 1465 25, text: "@^discussion of \\{mems}@>"
+free_text: type: "tex", loc.begin: 1465 25, loc.end: 1467 1, text: "
+
+"
+middle_begin: loc.begin: 1467 1, loc.end: 1467 1
+macro_begin: name: "pq", params: {}, loc.begin: 1467 1, loc.end: 1469 1, text: "pq "
+free_text: type: "c", text: "newarc
+
+"
+macro_end: loc.begin: 1469 1, loc.end: 1469 1
+c_begin: loc.begin: 1469 1, loc.end: 1469 1
+c_named_section_begin: name: "Create the small...", appended: "false"
+free_text: type: "c", loc.begin: 1469 1, loc.end: 1473 19, text: "
+o,s=g->vertices;
+for (v=s;v<s+frags;v++) {
+  if (v>s) {
+    o,v->lsib=v-1;"
+c_format: code: "@+"
+comment_begin: type: "c", loc.begin: 1473 19, loc.end: 1477 22, text: "o,(v-1)->rsib=v;
+  }
+  o,v->comp=NULL;
+  o,v->csize=1;
+  o,v->pq->qcount=0; /*"
+free_text: type: "tex", loc.begin: 1477 22, loc.end: 1477 22, text: " the binomial queue is initially empty "
+comment_end: type: "c", loc.begin: 1477 22, loc.end: 1477 22, text: "*/"
+free_text: type: "c", loc.begin: 1477 22, loc.end: 1482 1, text: "
+  for (o,a=v->arcs;a;o,a=a->next) qenque(v->pq,a);
+}
+t=v-1;
+
+"
+c_named_section_end: loc.begin: 1482 1, loc.end: 1482 1
+tex_begin: loc.begin: 1482 1, loc.end: 1482 1
+tex_section_begin: type: "unstarred", loc.begin: 1482 1, loc.end: 1482 1, text: "@ "
+free_text: type: "tex", loc.begin: 1482 1, loc.end: 1482 1, text: ""
+c_begin: loc.begin: 1482 1, loc.end: 1482 1
+c_named_section_begin: name: "Combine the first fragment...", appended: "false"
+comment_begin: type: "c", loc.begin: 1482 1, loc.end: 1484 14, text: "
+v=s;
+o,s=s->rsib; /*"
+free_text: type: "tex", loc.begin: 1484 14, loc.end: 1484 14, text: " remove "
+inner_c_begin: loc.begin: 1484 14, loc.end: 1484 14, text: "|"
+free_text: type: "c", text: "v"
+inner_c_end: loc.begin: 1484 14, loc.end: 1484 14, text: "|"
+free_text: type: "tex", loc.begin: 1484 14, loc.end: 1484 14, text: " from small list "
+comment_end: type: "c", loc.begin: 1484 14, loc.end: 1484 14, text: "*/"
+free_text: type: "c", loc.begin: 1484 14, loc.end: 1485 3, text: "
+do"
+c_format: code: "@+"
+comment_begin: type: "c", loc.begin: 1485 3, loc.end: 1486 33, text: "{a=qdel_min(v->pq);
+  if (a==NULL) return INFINITY; /*"
+free_text: type: "tex", loc.begin: 1486 33, loc.end: 1486 33, text: " the graph isn't connected "
+comment_end: type: "c", loc.begin: 1486 33, loc.end: 1486 33, text: "*/"
+comment_begin: type: "c", loc.begin: 1486 33, loc.end: 1488 32, text: "
+  o,u=a->tip;
+  while (o,u->comp) u=u->comp; /*"
+free_text: type: "tex", loc.begin: 1488 32, loc.end: 1488 32, text: " find the fragment pointed to "
+comment_end: type: "c", loc.begin: 1488 32, loc.end: 1488 32, text: "*/"
+free_text: type: "c", loc.begin: 1488 32, loc.end: 1489 2, text: "
+}"
+c_format: code: "@+"
+comment_begin: type: "c", loc.begin: 1489 2, loc.end: 1489 16, text: "while (u==v); /*"
+free_text: type: "tex", loc.begin: 1489 16, loc.end: 1489 16, text: " repeat until a new fragment is found "
+comment_end: type: "c", loc.begin: 1489 16, loc.end: 1489 16, text: "*/"
+free_text: type: "c", loc.begin: 1489 16, loc.end: 1490 14, text: "
+if (verbose) "
+section_name: name: "Report the new edge verbosel", loc.begin: 1490 14, loc.end: 1490 14, text: "@<Report the new edge verbosely"
+free_text: type: "c", loc.begin: 1490 14, loc.end: 1497 1, text: ";
+o,tot_len+=a->len;
+o,v->comp=u;
+qmerge(u->pq,v->pq);
+o,old_size=u->csize;
+o,new_size=old_size+v->csize;
+o,u->csize=new_size;
+"
+section_name: name: "Move |u| to the proper list positio", loc.begin: 1497 1, loc.end: 1497 1, text: "@<Move |u| to the proper list position"
+free_text: type: "c", loc.begin: 1497 1, loc.end: 1499 1, text: ";
+
+"
+c_named_section_end: loc.begin: 1499 1, loc.end: 1499 1
+tex_begin: loc.begin: 1499 1, loc.end: 1499 1
+tex_section_begin: type: "unstarred", loc.begin: 1499 1, loc.end: 1499 1, text: "@ "
+free_text: type: "tex", loc.begin: 1499 1, loc.end: 1499 1, text: ""
+c_begin: loc.begin: 1499 1, loc.end: 1499 1
+c_named_section_begin: name: "Local variables for |cher...", appended: "false"
+comment_begin: type: "c", loc.begin: 1499 1, loc.end: 1500 25, text: "
+long old_size,new_size; /*"
+free_text: type: "tex", loc.begin: 1500 25, loc.end: 1500 25, text: " size of fragment "
+inner_c_begin: loc.begin: 1500 25, loc.end: 1500 25, text: "|"
+free_text: type: "c", text: "u"
+inner_c_end: loc.begin: 1500 25, loc.end: 1500 25, text: "|"
+free_text: type: "tex", loc.begin: 1500 25, loc.end: 1500 25, text: ", before and after "
+comment_end: type: "c", loc.begin: 1500 25, loc.end: 1500 25, text: "*/"
+free_text: type: "c", loc.begin: 1500 25, loc.end: 1502 1, text: "
+
+"
+c_named_section_end: loc.begin: 1502 1, loc.end: 1502 1
+tex_begin: loc.begin: 1502 1, loc.end: 1502 1
+tex_section_begin: type: "unstarred", loc.begin: 1502 1, loc.end: 1510 1, text: "@ "
+free_text: type: "tex", loc.begin: 1502 1, loc.end: 1510 1, text: "Here is a fussy part of the program. We have just merged the small
+fragment |v| into another fragment~|u|. If |u| was already large,
+there's nothing to do (except to check if the small list has just
+become empty). Otherwise we need to move |u| to the end of the small
+list, or we need to put it onto the large list.
+All these cases are special, if we
+want to avoid unnecessary memory references; so let's hope we get them right.
+
+"
+c_begin: loc.begin: 1510 1, loc.end: 1510 1
+c_named_section_begin: name: "Move |u|...", appended: "false"
+comment_begin: type: "c", loc.begin: 1510 1, loc.end: 1511 26, text: "
+if (old_size>=hi_sqrt) { /*"
+free_text: type: "tex", loc.begin: 1511 26, loc.end: 1511 26, text: " "
+inner_c_begin: loc.begin: 1511 26, loc.end: 1511 26, text: "|"
+free_text: type: "c", text: "u"
+inner_c_end: loc.begin: 1511 26, loc.end: 1511 26, text: "|"
+free_text: type: "tex", loc.begin: 1511 26, loc.end: 1511 26, text: " was large "
+comment_end: type: "c", loc.begin: 1511 26, loc.end: 1511 26, text: "*/"
+comment_begin: type: "c", loc.begin: 1511 26, loc.end: 1512 21, text: "
+  if (t==v) s=NULL; /*"
+free_text: type: "tex", loc.begin: 1512 21, loc.end: 1512 21, text: " small list just became empty "
+comment_end: type: "c", loc.begin: 1512 21, loc.end: 1512 21, text: "*/"
+free_text: type: "c", loc.begin: 1512 21, loc.end: 1513 2, text: "
+}"
+c_format: code: "@+"
+comment_begin: type: "c", loc.begin: 1513 2, loc.end: 1513 31, text: "else if (new_size<hi_sqrt) { /*"
+free_text: type: "tex", loc.begin: 1513 31, loc.end: 1513 31, text: " "
+inner_c_begin: loc.begin: 1513 31, loc.end: 1513 31, text: "|"
+free_text: type: "c", text: "u"
+inner_c_end: loc.begin: 1513 31, loc.end: 1513 31, text: "|"
+free_text: type: "tex", loc.begin: 1513 31, loc.end: 1513 31, text: " was and still is small "
+comment_end: type: "c", loc.begin: 1513 31, loc.end: 1513 31, text: "*/"
+comment_begin: type: "c", loc.begin: 1513 31, loc.end: 1514 23, text: "
+  if (u==t) goto fin; /*"
+free_text: type: "tex", loc.begin: 1514 23, loc.end: 1514 23, text: " "
+inner_c_begin: loc.begin: 1514 23, loc.end: 1514 23, text: "|"
+free_text: type: "c", text: "u"
+inner_c_end: loc.begin: 1514 23, loc.end: 1514 23, text: "|"
+free_text: type: "tex", loc.begin: 1514 23, loc.end: 1514 23, text: " is already where we want it "
+comment_end: type: "c", loc.begin: 1514 23, loc.end: 1514 23, text: "*/"
+comment_begin: type: "c", loc.begin: 1514 23, loc.end: 1515 26, text: "
+  if (u==s) o,s=u->rsib; /*"
+free_text: type: "tex", loc.begin: 1515 26, loc.end: 1515 26, text: " remove "
+inner_c_begin: loc.begin: 1515 26, loc.end: 1515 26, text: "|"
+free_text: type: "c", text: "u"
+inner_c_end: loc.begin: 1515 26, loc.end: 1515 26, text: "|"
+free_text: type: "tex", loc.begin: 1515 26, loc.end: 1515 26, text: " from front "
+comment_end: type: "c", loc.begin: 1515 26, loc.end: 1515 26, text: "*/"
+comment_begin: type: "c", loc.begin: 1515 26, loc.end: 1517 32, text: "
+  else {
+    ooo,u->rsib->lsib=u->lsib; /*"
+free_text: type: "tex", loc.begin: 1517 32, loc.end: 1517 32, text: " detach "
+inner_c_begin: loc.begin: 1517 32, loc.end: 1517 32, text: "|"
+free_text: type: "c", text: "u"
+inner_c_end: loc.begin: 1517 32, loc.end: 1517 32, text: "|"
+free_text: type: "tex", loc.begin: 1517 32, loc.end: 1517 32, text: " from middle "
+comment_end: type: "c", loc.begin: 1517 32, loc.end: 1517 32, text: "*/"
+comment_begin: type: "c", loc.begin: 1517 32, loc.end: 1518 30, text: "
+    o,u->lsib->rsib=u->rsib; /*"
+free_text: type: "tex", loc.begin: 1518 30, loc.end: 1518 30, text: " do you follow the mem-counting here? "
+comment_end: type: "c", loc.begin: 1518 30, loc.end: 1518 30, text: "*/"
+free_text: type: "c", loc.begin: 1518 30, loc.end: 1519 1, text: "
+"
+index_entry: entry: "discussion of \\{mems}", loc.begin: 1519 1, loc.end: 1519 25, text: "@^discussion of \\{mems}@>"
+comment_begin: type: "c", loc.begin: 1519 25, loc.end: 1521 16, text: "
+  }
+  o,t->rsib=u; /*"
+free_text: type: "tex", loc.begin: 1521 16, loc.end: 1521 16, text: " insert "
+inner_c_begin: loc.begin: 1521 16, loc.end: 1521 16, text: "|"
+free_text: type: "c", text: "u"
+inner_c_end: loc.begin: 1521 16, loc.end: 1521 16, text: "|"
+free_text: type: "tex", loc.begin: 1521 16, loc.end: 1521 16, text: " at the end "
+comment_end: type: "c", loc.begin: 1521 16, loc.end: 1521 16, text: "*/"
+free_text: type: "c", loc.begin: 1521 16, loc.end: 1524 2, text: "
+  o,u->lsib=t;
+  t=u;
+}"
+c_format: code: "@+"
+comment_begin: type: "c", loc.begin: 1524 2, loc.end: 1524 9, text: "else { /*"
+free_text: type: "tex", loc.begin: 1524 9, loc.end: 1524 9, text: " "
+inner_c_begin: loc.begin: 1524 9, loc.end: 1524 9, text: "|"
+free_text: type: "c", text: "u"
+inner_c_end: loc.begin: 1524 9, loc.end: 1524 9, text: "|"
+free_text: type: "tex", loc.begin: 1524 9, loc.end: 1524 9, text: " has just become large "
+comment_end: type: "c", loc.begin: 1524 9, loc.end: 1524 9, text: "*/"
+comment_begin: type: "c", loc.begin: 1524 9, loc.end: 1526 25, text: "
+  if (u==t) {
+    if (u==s) goto fin; /*"
+free_text: type: "tex", loc.begin: 1526 25, loc.end: 1526 25, text: " well, keep it small, we're done anyway "
+comment_end: type: "c", loc.begin: 1526 25, loc.end: 1526 25, text: "*/"
+comment_begin: type: "c", loc.begin: 1526 25, loc.end: 1527 18, text: "
+    o,t=u->lsib; /*"
+free_text: type: "tex", loc.begin: 1527 18, loc.end: 1527 18, text: " remove "
+inner_c_begin: loc.begin: 1527 18, loc.end: 1527 18, text: "|"
+free_text: type: "c", text: "u"
+inner_c_end: loc.begin: 1527 18, loc.end: 1527 18, text: "|"
+free_text: type: "tex", loc.begin: 1527 18, loc.end: 1527 18, text: " from end "
+comment_end: type: "c", loc.begin: 1527 18, loc.end: 1527 18, text: "*/"
+free_text: type: "c", loc.begin: 1527 18, loc.end: 1528 4, text: "
+  }"
+c_format: code: "@+"
+comment_begin: type: "c", loc.begin: 1528 4, loc.end: 1529 18, text: "else if (u==s)
+    o,s=u->rsib; /*"
+free_text: type: "tex", loc.begin: 1529 18, loc.end: 1529 18, text: " remove "
+inner_c_begin: loc.begin: 1529 18, loc.end: 1529 18, text: "|"
+free_text: type: "c", text: "u"
+inner_c_end: loc.begin: 1529 18, loc.end: 1529 18, text: "|"
+free_text: type: "tex", loc.begin: 1529 18, loc.end: 1529 18, text: " from front "
+comment_end: type: "c", loc.begin: 1529 18, loc.end: 1529 18, text: "*/"
+comment_begin: type: "c", loc.begin: 1529 18, loc.end: 1531 32, text: "
+  else {
+    ooo,u->rsib->lsib=u->lsib; /*"
+free_text: type: "tex", loc.begin: 1531 32, loc.end: 1531 32, text: " detach "
+inner_c_begin: loc.begin: 1531 32, loc.end: 1531 32, text: "|"
+free_text: type: "c", text: "u"
+inner_c_end: loc.begin: 1531 32, loc.end: 1531 32, text: "|"
+free_text: type: "tex", loc.begin: 1531 32, loc.end: 1531 32, text: " from middle "
+comment_end: type: "c", loc.begin: 1531 32, loc.end: 1531 32, text: "*/"
+free_text: type: "c", loc.begin: 1531 32, loc.end: 1534 24, text: "
+    o,u->lsib->rsib=u->rsib;
+  }
+  o,u->rsib=large_list;"
+c_format: code: "@+"
+comment_begin: type: "c", loc.begin: 1534 24, loc.end: 1534 38, text: "large_list=u; /*"
+free_text: type: "tex", loc.begin: 1534 38, loc.end: 1534 38, text: " make "
+inner_c_begin: loc.begin: 1534 38, loc.end: 1534 38, text: "|"
+free_text: type: "c", text: "u"
+inner_c_end: loc.begin: 1534 38, loc.end: 1534 38, text: "|"
+free_text: type: "tex", loc.begin: 1534 38, loc.end: 1534 38, text: " large "
+comment_end: type: "c", loc.begin: 1534 38, loc.end: 1534 38, text: "*/"
+free_text: type: "c", loc.begin: 1534 38, loc.end: 1538 1, text: "
+}
+fin:;
+
+"
+c_named_section_end: loc.begin: 1538 1, loc.end: 1538 1
+tex_begin: loc.begin: 1538 1, loc.end: 1538 1
+tex_section_begin: type: "unstarred", loc.begin: 1538 1, loc.end: 1543 1, text: "@ "
+free_text: type: "tex", loc.begin: 1538 1, loc.end: 1543 1, text: "We don't have room in our binomial queues to keep track of both
+endpoints of the arcs. But the arcs occur in pairs, and by looking
+at the address of |a| we can tell whether the matching arc is
+|a+1| or |a-1|. (See the explanation in {\sc GB\_\,GRAPH}.)
+
+"
+c_begin: loc.begin: 1543 1, loc.end: 1543 1
+c_named_section_begin: name: "Report the new edge verbosely", appended: "false"
+free_text: type: "c", loc.begin: 1543 1, loc.end: 1546 1, text: "
+report((edge_trick&(siz_t)a? a-1: a+1)->tip,a->tip,a->len);
+
+"
+c_named_section_end: loc.begin: 1546 1, loc.end: 1546 1
+tex_begin: loc.begin: 1546 1, loc.end: 1546 1
+tex_section_begin: type: "starred", title: "@*Cheriton, Tarjan, and Karp's algorithm (continued).", loc.begin: 1546 1, loc.end: 1559 1, text: "@*Cheriton, Tarjan, and Karp's algorithm (continued)."
+free_text: type: "tex", loc.begin: 1546 1, loc.end: 1559 1, text: "
+And now for the second part of the algorithm. Here we need to
+find room for a $\lsqrtn\times\lsqrtn$ matrix of edge lengths;
+we will use random access into the |z| utility fields of vertex records,
+since these haven't been used for anything yet by |cher_tar_kar|.
+We can also use the |v| utility fields to record the arcs that
+are the source of the best lengths, since this was the |lsib|
+field (no longer needed). The program doesn't count mems for
+updating that field, since it considers its goal to be simply
+the calculation of minimum spanning tree length; the actual
+edges of the minimum spanning tree are computed only for
+|verbose| mode. (We want to see how competitive |cher_tar_kar| is
+when we streamline it as much as possible.)
+"
+index_entry: entry: "discussion of \\{mems}", loc.begin: 1559 1, loc.end: 1559 25, text: "@^discussion of \\{mems}@>"
+free_text: type: "tex", loc.begin: 1559 25, loc.end: 1565 1, text: "
+
+In stage 2, the vertices will be assigned integer index numbers
+between 0 and $\lsqrtn-1$. We'll put this into the |csize| field,
+which is no longer needed, and call it |findex|.
+
+"
+middle_begin: loc.begin: 1565 1, loc.end: 1565 1
+macro_begin: name: "findex", params: {}, loc.begin: 1565 1, loc.end: 1566 1, text: "findex "
+free_text: type: "c", text: "csize
+"
+macro_end: loc.begin: 1566 1, loc.end: 1566 1
+macro_begin: name: "matx", params: {j, k}, loc.begin: 1566 1, loc.end: 1568 1, text: "matx(j,k)"
+free_text: type: "c", text: " (gv+((j)*lo_sqrt+(k)))->z.I
+ /* distance between fragments |j| and |k| */
+"
+macro_end: loc.begin: 1568 1, loc.end: 1568 1
+macro_begin: name: "matx_arc", params: {j, k}, loc.begin: 1568 1, loc.end: 1570 1, text: "matx_arc(j,k)"
+free_text: type: "c", text: " (gv+((j)*lo_sqrt+(k)))->v.A
+ /* arc corresponding to |matx(j,k)| */
+"
+macro_end: loc.begin: 1570 1, loc.end: 1570 1
+macro_begin: name: "INF", params: {}, loc.begin: 1570 1, loc.end: 1572 1, text: "INF "
+free_text: type: "c", text: "30000 /* upper bound on all edge lengths */
+
+"
+macro_end: loc.begin: 1572 1, loc.end: 1572 1
+c_begin: loc.begin: 1572 1, loc.end: 1572 1
+c_named_section_begin: name: "Do stage 2 of |cher_tar_kar|", appended: "false"
+comment_begin: type: "c", loc.begin: 1572 1, loc.end: 1573 17, text: "
+gv=g->vertices; /*"
+free_text: type: "tex", loc.begin: 1573 17, loc.end: 1573 17, text: " the global variable "
+inner_c_begin: loc.begin: 1573 17, loc.end: 1573 17, text: "|"
+free_text: type: "c", text: "gv"
+inner_c_end: loc.begin: 1573 17, loc.end: 1573 17, text: "|"
+free_text: type: "tex", loc.begin: 1573 17, loc.end: 1573 17, text: " helps access auxiliary memory "
+comment_end: type: "c", loc.begin: 1573 17, loc.end: 1573 17, text: "*/"
+free_text: type: "c", loc.begin: 1573 17, loc.end: 1574 1, text: "
+"
+section_name: name: "Map all vertices to their index number", loc.begin: 1574 1, loc.end: 1574 1, text: "@<Map all vertices to their index numbers"
+free_text: type: "c", loc.begin: 1574 1, loc.end: 1575 1, text: ";
+"
+section_name: name: "Create the reduced matrix by running through all remaining edge", loc.begin: 1575 1, loc.end: 1575 1, text: "@<Create the reduced matrix by running through all remaining edges"
+free_text: type: "c", loc.begin: 1575 1, loc.end: 1576 1, text: ";
+"
+section_name: name: "Execute Prim's algorithm on the reduced matri", loc.begin: 1576 1, loc.end: 1576 1, text: "@<Execute Prim's algorithm on the reduced matrix"
+free_text: type: "c", loc.begin: 1576 1, loc.end: 1578 1, text: ";
+
+"
+c_named_section_end: loc.begin: 1578 1, loc.end: 1578 1
+tex_begin: loc.begin: 1578 1, loc.end: 1578 1
+tex_section_begin: type: "unstarred", loc.begin: 1578 1, loc.end: 1582 1, text: "@ "
+free_text: type: "tex", loc.begin: 1578 1, loc.end: 1582 1, text: "The vertex-mapping algorithm is $O(n)$ because each non-null |comp| link
+is examined at most three times. We set the |comp| field to null
+as an indication that |findex| has been set.
+
+"
+c_begin: loc.begin: 1582 1, loc.end: 1582 1
+c_named_section_begin: name: "Map all...", appended: "false"
+free_text: type: "c", loc.begin: 1582 1, loc.end: 1596 1, text: "
+if (s==NULL) s=large_list;
+else o,t->rsib=large_list;
+for (k=0,v=s;v;o,v=v->rsib,k++) o,v->findex=k;
+for (v=g->vertices;v<g->vertices+g->n;v++)
+  if (o,v->comp) {
+    for (t=v->comp;o,t->comp;t=t->comp) ;
+    o,k=t->findex;
+    for (t=v;o,u=t->comp;t=u) {
+      o,t->comp=NULL;
+      o,t->findex=k;
+    }
+  }
+
+"
+c_named_section_end: loc.begin: 1596 1, loc.end: 1596 1
+tex_begin: loc.begin: 1596 1, loc.end: 1596 1
+tex_section_begin: type: "unstarred", loc.begin: 1596 1, loc.end: 1596 1, text: "@ "
+free_text: type: "tex", loc.begin: 1596 1, loc.end: 1596 1, text: ""
+c_begin: loc.begin: 1596 1, loc.end: 1596 1
+c_named_section_begin: name: "Create the reduced matrix by running through all remaining edges", appended: "false"
+free_text: type: "c", loc.begin: 1596 1, loc.end: 1600 1, text: "
+for (j=0;j<lo_sqrt;j++) for (k=0;k<lo_sqrt;k++) o,matx(j,k)=INF;
+for (kk=0;s;o,s=s->rsib,kk++) qtraverse(s->pq,note_edge);
+
+"
+c_named_section_end: loc.begin: 1600 1, loc.end: 1600 1
+tex_begin: loc.begin: 1600 1, loc.end: 1600 1
+tex_section_begin: type: "unstarred", loc.begin: 1600 1, loc.end: 1606 1, text: "@ "
+free_text: type: "tex", loc.begin: 1600 1, loc.end: 1606 1, text: "The |note_edge| procedure ``visits'' every edge in the
+binomial queues traversed by |qtraverse| in the preceding code.
+Global variable |kk|, which would be a global register in a
+production version, is the index of the fragment from which
+this arc emanates.
+
+"
+c_begin: loc.begin: 1606 1, loc.end: 1606 1
+c_named_section_begin: name: "Procedures to be declared early", appended: "false"
+free_text: type: "c", loc.begin: 1606 1, loc.end: 1609 2, text: "
+void note_edge(a)
+  Arc *a;
+{"
+c_format: code: "@+"
+free_text: type: "c", loc.begin: 1609 2, loc.end: 1619 1, text: "register long k;
+  oo,k=a->tip->findex;
+  if (k==kk) return;
+  if (oo,a->len<matx(kk,k)) {
+    o,matx(kk,k)=a->len;
+    o,matx(k,kk)=a->len;
+    matx_arc(kk,k)=matx_arc(k,kk)=a;
+  }
+}
+
+"
+c_named_section_end: loc.begin: 1619 1, loc.end: 1619 1
+tex_begin: loc.begin: 1619 1, loc.end: 1619 1
+tex_section_begin: type: "unstarred", loc.begin: 1619 1, loc.end: 1625 1, text: "@ "
+free_text: type: "tex", loc.begin: 1619 1, loc.end: 1625 1, text: "As we work on the final subproblem of size $\lsqrtn\times\lsqrtn$,
+we'll have a short vector that tells us the distance to each fragment that
+hasn't yet been joined up with fragment~0. The vector has |-1| in positions
+that already have been joined up. In a production version, we could
+keep this in row~0 of |matx|.
+
+"
+c_begin: loc.begin: 1625 1, loc.end: 1625 1
+c_named_section_begin: name: "Glob...", appended: "false"
+comment_begin: type: "c", loc.begin: 1625 1, loc.end: 1626 10, text: "
+long kk; /*"
+free_text: type: "tex", loc.begin: 1626 10, loc.end: 1626 10, text: " current fragment "
+comment_end: type: "c", loc.begin: 1626 10, loc.end: 1626 10, text: "*/"
+comment_begin: type: "c", loc.begin: 1626 10, loc.end: 1627 21, text: "
+long distance[100]; /*"
+free_text: type: "tex", loc.begin: 1627 21, loc.end: 1627 21, text: " distances to at most \lsqrtn\ unhit fragments "
+comment_end: type: "c", loc.begin: 1627 21, loc.end: 1627 21, text: "*/"
+comment_begin: type: "c", loc.begin: 1627 21, loc.end: 1628 21, text: "
+Arc *dist_arc[100]; /*"
+free_text: type: "tex", loc.begin: 1628 21, loc.end: 1628 21, text: " the corresponding arcs, for "
+inner_c_begin: loc.begin: 1628 21, loc.end: 1628 21, text: "|"
+free_text: type: "c", text: "verbose"
+inner_c_end: loc.begin: 1628 21, loc.end: 1628 21, text: "|"
+free_text: type: "tex", loc.begin: 1628 21, loc.end: 1628 21, text: " mode "
+comment_end: type: "c", loc.begin: 1628 21, loc.end: 1628 21, text: "*/"
+free_text: type: "c", loc.begin: 1628 21, loc.end: 1630 1, text: "
+
+"
+c_named_section_end: loc.begin: 1630 1, loc.end: 1630 1
+tex_begin: loc.begin: 1630 1, loc.end: 1630 1
+tex_section_begin: type: "unstarred", loc.begin: 1630 1, loc.end: 1631 1, text: "@ "
+free_text: type: "tex", loc.begin: 1630 1, loc.end: 1631 1, text: "The last step, as suggested by Prim, repeatedly updates
+"
+index_entry: entry: "Prim, Robert Clay", loc.begin: 1631 1, loc.end: 1631 20, text: "@^Prim, Robert Clay@>"
+free_text: type: "tex", loc.begin: 1631 20, loc.end: 1636 1, text: "
+the distance table against each row of the matrix as it is encountered.
+This is the algorithm of choice to find the minimum spanning tree of
+a complete graph.
+
+"
+c_begin: loc.begin: 1636 1, loc.end: 1636 1
+c_named_section_begin: name: "Execute Prim's algorithm on the reduced matrix", appended: "false"
+free_text: type: "c", loc.begin: 1636 1, loc.end: 1637 2, text: "
+{"
+c_format: code: "@+"
+comment_begin: type: "c", loc.begin: 1637 2, loc.end: 1637 10, text: "long d; /*"
+free_text: type: "tex", loc.begin: 1637 10, loc.end: 1637 10, text: " shortest entry seen so far in "
+inner_c_begin: loc.begin: 1637 10, loc.end: 1637 10, text: "|"
+free_text: type: "c", text: "distance"
+inner_c_end: loc.begin: 1637 10, loc.end: 1637 10, text: "|"
+free_text: type: "tex", loc.begin: 1637 10, loc.end: 1637 10, text: " vector "
+comment_end: type: "c", loc.begin: 1637 10, loc.end: 1637 10, text: "*/"
+free_text: type: "c", loc.begin: 1637 10, loc.end: 1646 5, text: "
+  o,distance[0]=-1;
+  d=INF;
+  for (k=1;k<lo_sqrt;k++) {
+    o,distance[k]=matx(0,k);
+    dist_arc[k]=matx_arc(0,k);
+    if (distance[k]<d) d=distance[k],j=k;
+  }
+  while (frags>1)
+    "
+section_name: name: "Connect fragment 0 with fragment |j|, since |j| is the column
+      achieving the smallest distance, |d|; also compute |j| and |d|
+      for the next roun", loc.begin: 1646 5, loc.end: 1646 5, text: "@<Connect fragment 0 with fragment |j|, since |j| is the column
+      achieving the smallest distance, |d|; also compute |j| and |d|
+      for the next round"
+free_text: type: "c", loc.begin: 1646 5, loc.end: 1649 1, text: ";
+}
+
+"
+c_named_section_end: loc.begin: 1649 1, loc.end: 1649 1
+tex_begin: loc.begin: 1649 1, loc.end: 1649 1
+tex_section_begin: type: "unstarred", loc.begin: 1649 1, loc.end: 1649 1, text: "@ "
+free_text: type: "tex", loc.begin: 1649 1, loc.end: 1649 1, text: ""
+c_begin: loc.begin: 1649 1, loc.end: 1649 1
+c_named_section_begin: name: "Connect fragment 0...", appended: "false"
+comment_begin: type: "c", loc.begin: 1649 1, loc.end: 1651 32, text: "
+{
+  if (d==INF) return INFINITY; /*"
+free_text: type: "tex", loc.begin: 1651 32, loc.end: 1651 32, text: " the graph isn't connected "
+comment_end: type: "c", loc.begin: 1651 32, loc.end: 1651 32, text: "*/"
+comment_begin: type: "c", loc.begin: 1651 32, loc.end: 1652 21, text: "
+  o,distance[j]=-1; /*"
+free_text: type: "tex", loc.begin: 1652 21, loc.end: 1652 21, text: " fragment "
+inner_c_begin: loc.begin: 1652 21, loc.end: 1652 21, text: "|"
+free_text: type: "c", text: "j"
+inner_c_end: loc.begin: 1652 21, loc.end: 1652 21, text: "|"
+free_text: type: "tex", loc.begin: 1652 21, loc.end: 1652 21, text: " now will join up with fragment 0 "
+comment_end: type: "c", loc.begin: 1652 21, loc.end: 1652 21, text: "*/"
+free_text: type: "c", loc.begin: 1652 21, loc.end: 1656 5, text: "
+  tot_len+=d;
+  if (verbose) {
+    a=dist_arc[j];
+    "
+section_name: name: "Report the new edge verbosel", loc.begin: 1656 5, loc.end: 1656 5, text: "@<Report the new edge verbosely"
+free_text: type: "c", loc.begin: 1656 5, loc.end: 1671 1, text: ";
+  }
+  frags--;
+  d=INF;
+  for (k=1;k<lo_sqrt;k++)
+    if (o,distance[k]>=0) {
+      if (o,matx(j,k)<distance[k]) {
+        o,distance[k]=matx(j,k);
+        dist_arc[k]=matx_arc(j,k);
+      }
+      if (distance[k]<d) d=distance[k],kk=k;
+    }
+  j=kk;
+}
+
+"
+c_named_section_end: loc.begin: 1671 1, loc.end: 1671 1
+tex_begin: loc.begin: 1671 1, loc.end: 1671 1
+tex_section_begin: type: "starred", title: "@* Conclusions.", loc.begin: 1671 1, loc.end: 1685 1, text: "@* Conclusions."
+free_text: type: "tex", loc.begin: 1671 1, loc.end: 1685 1, text: " The winning algorithm, of the four methods considered here,
+on problems of the size considered here, with respect to mem counting, is
+clearly Jarn{\'\i}k/Prim with binary heaps. Second is Kruskal with
+radix sorting, on sparse graphs, but the Fibonacci heap method beats
+it on dense graphs. Procedure |cher_tar_kar| never comes close,
+although every step it takes seems to be reasonably sensible and
+efficient, and although the implementation above gives it the benefit
+of every doubt when counting its mems. It apparently loses because
+it more or less gives up a factor of~2 by dealing with each edge
+twice; the other methods put very little effort into discarding an arc
+whose mate has already been processed.
+
+But it is important to realize that mem counting is not the whole story.
+Further tests were made on a Sun SPARCstation~2, in order to measure the true
+"
+index_entry: entry: "discussion of \\{mems}", loc.begin: 1685 1, loc.end: 1685 25, text: "@^discussion of \\{mems}@>"
+free_text: type: "tex", loc.begin: 1685 25, loc.end: 1732 1, text: "
+running times when all the complications of pipelining, caching, and compiler
+optimization are taken into account. These runs showed that Kruskal's
+algorithm was actually best, at least on the particular system tested:
+$$\advance\abovedisplayskip-5pt
+\advance\belowdisplayskip-5pt
+\advance\baselineskip-1pt
+\vbox{\halign{#\hfil&&\quad\hfil#\cr
+\hfill optimization level&\.{-g}\hfil&\.{-O2}\hfil&\.{-O3}\hfil&mems\hfil\cr
+\noalign{\vskip2pt}
+Kruskal/radix&132&111&111&8379\cr
+Jarn{\'\i}k/Prim/binary&307&226&212&7972\cr
+Jarn{\'\i}k/Prim/Fibonacci&432&350&333&11736\cr
+Cheriton/Tarjan/Karp&686&509&492&17770\cr}}$$
+(Times are shown in seconds per 100,000 runs with the default graph
+|miles(100,0,0,0,0,10,0)|. Optimization level \.{-O4} gave the same results
+as \.{-O3}. Optimization does not change the mem count.) Thus the Kruskal
+procedure used only about 160 nanoseconds per mem, without optimization,
+and about 130 with; the others used about 380 to 400 ns/mem without
+optimization, 270 to 300 with. The mem measure gave consistent readings for
+the three ``sophisticated'' data structures, but the ``na{\"\i}ve'' Kruskal
+method blended better with hardware. The complete graph |miles(100,0,0,0,0,
+99,0)|, obtained by specifying option \.{-d100}, gave somewhat different
+statistics:
+$$\advance\abovedisplayskip-5pt
+\advance\belowdisplayskip-5pt
+\advance\baselineskip-1pt
+\vbox{\halign{#\hfil&&\quad\hfil#\cr
+\hfill optimization level&\.{-g}\hfil&\.{-O2}\hfil&\.{-O3}\hfil&mems\hfil\cr
+\noalign{\vskip2pt}
+Kruskal/radix&1846&1787&1810&63795\cr
+Jarn{\'\i}k/Prim/binary&2246&1958&1845&50594\cr
+Jarn{\'\i}k/Prim/Fibonacci&2675&2377&2248&59050\cr
+Cheriton/Tarjan/Karp&8881&6964&6909&175519\cr}}$$
+% Kruskal 285 ns/mem; others 360--450, except unoptimized CTK was 536!
+Now the identical machine instructions took significantly longer per
+mem---presumably because of cache misses, although the frequency of
+conditional jump instructions might also be a factor.  Careful analyses
+of these phenomena should be instructive.  Future computers are
+expected to be more nearly limited by memory speed; therefore the running
+time per mem is likely to become more uniform between methods, although
+cache performance will probably always be a factor.
+
+The |krusk| procedure might go even faster if it were
+given a streamlined union/find algorithm. Or would such ``streamlining''
+negate some of its present efficiency?
+
+"
+tex_begin: loc.begin: 1732 1, loc.end: 1732 1
+tex_section_begin: type: "starred", title: "@* Index.", loc.begin: 1732 1, loc.end: 1736 1, text: "@* Index."
+free_text: type: "tex", loc.begin: 1732 1, loc.end: 1736 1, text: " We close with a list that shows where the identifiers of this
+program are defined and used. A special index term, `discussion of \\{mems}',
+indicates sections where there are nontrivial comments about instrumenting
+a \CEE/ program in the manner being recommended here.
+"
+file_end: file: "miles_span.w"
+document_end:
