@@ -36,8 +36,8 @@ Briefly, the cweb language comprises two-character control codes that start with
 
 */
 
-%token UNSTARRED_TEX_BEGIN             "@space untitled tex section"
-%token STARRED_TEX_BEGIN               "@* titled tex section"
+%token UNSTARRED_TEX_BEGIN             "@space unstarred tex section"
+%token STARRED_TEX_BEGIN               "@* starred tex section"
 
 %token MACRO_BEGIN                     "@d macro def"
 %token MACRO_NAME_PARAMS               "macro name params"
@@ -46,9 +46,9 @@ Briefly, the cweb language comprises two-character control codes that start with
 %token SUPPRESSED_FORMAT_DEF           "@s suppressed format def"
 %token UNNAMED_C_SECTION_BEGIN         "@c/@p unnamed program section"
 
-%token NAMED_C_SECTION_DEF_BEGIN       "@< named section definition @>="
+%token NAMED_SECTION_BEGIN             "@< named section definition @>="
 
-%token NAMED_C_SECTION_REF             "@< named section reference @>"
+%token SECTION_NAME                    "@< section name @>"
 %token FILE_OUTPUT_C_SECTION_BEGIN     "@( file output section @>="
 %token EMIT_MACROS_HERE                "@h emit macros here"
 
@@ -58,7 +58,7 @@ Briefly, the cweb language comprises two-character control codes that start with
 %token HBOX_TEXT                       "@t hbox @>"
 %token VERBATIM_TEXT                   "@= verbatim @>"
 %token COMMENT_TEXT                    "@q comment @>"
-%token UNDERLINE_TEXT                  "@! underline @>"
+%token INDEX_UNDERLINE                 "@! index underline entry @>"
 
 %token ASCII_CHAR                      "@' ascii char"
 %token NBSP                            "@& nbsp"
@@ -85,6 +85,11 @@ Briefly, the cweb language comprises two-character control codes that start with
 
 // free means free of cweb control codes and other special characters depending on context
 %token FREE_TEXT                       "free text"
+
+%token SINGLE_QUOTE                    "'"
+%token DOUBLE_QUOTE                    "\""
+%token CPLUSPLUS_RAWSTRING_OPEN        "R\""
+%token CPLUSPLUS_RAWSTRING_DELIMITER   "c++ raw string delimiter"
 
 %start cweb
 
@@ -139,10 +144,10 @@ section:
 
 // tex part of a section begins with certain control codes
 tex:
-   "@space untitled tex section" tex_contents
-   | "@space untitled tex section"
-   | "@* titled tex section" tex_contents
-   | "@* titled tex section"
+   "@space unstarred tex section" tex_contents
+   | "@space unstarred tex section"
+   | "@* starred tex section" tex_contents
+   | "@* starred tex section"
    ;
 
 // tex part has any number of pieces of tex content
@@ -207,8 +212,8 @@ c:
  | "@c/@p unnamed program section"
  | "@< named section definition @>=" c_contents
  | "@( file output section @>=" c_contents
- | "@< named section reference @>" c_contents
- | "@< named section reference @>"
+ | "@< section name @>" c_contents
+ | "@< section name @>"
  ;
 
 // c part has any number of pieces of c content
@@ -221,6 +226,8 @@ c_contents:
 c_content:
          c_control
          | comment
+         | c_string
+         | cplusplus_rawstring
          | "free text"
          ;
 
@@ -230,8 +237,9 @@ c_control:
          | non_tex_control_text
          | c_format_control
          | ctangle_control
-         | "@< named section reference @>"
+         | "@< section name @>"
          | "@h emit macros here"
+         | "@i include_file"
          ;
 
 // set of control text codes allowed in c, macro, inner c, tex and middle sections
@@ -240,7 +248,7 @@ control_text:
             | "@. index typewriter entry @>"
             | "@: index tex9 entry @>"
             | "@q comment @>"
-            | "@! underline @>"
+            | "@! index underline entry @>"
             ;
 
 // control text codes allowed in c, macro, inner c and middle sections but not in tex section
@@ -295,6 +303,14 @@ comment_content:
                | inner_c
                ;
 
+c_string:
+        "\"" "free text" "\""
+        ;
+
+cplusplus_rawstring:
+                   "R\"" "c++ raw string delimiter" "free text" "c++ raw string delimiter" "\""
+                   ;
+
 // inner c context is delimited by pipes
 inner_c:
        "|" inner_c_contents "|"
@@ -311,8 +327,10 @@ inner_c_content:
                control_text
                | non_tex_control_text
                | ctangle_control
-               | "@< named section reference @>"
+               | "@< section name @>"
                | "@, thin space"
+               | c_string
+               | cplusplus_rawstring
                | "free text"
                ;
 
