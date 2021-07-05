@@ -36,60 +36,62 @@ Briefly, the cweb language comprises two-character control codes that start with
 
 */
 
-%token UNSTARRED_TEX_BEGIN             "@space unstarred tex section"
-%token STARRED_TEX_BEGIN               "@* starred tex section"
+%token UNSTARRED_TEX_BEGIN                   "@space unstarred tex section"
+%token STARRED_TEX_BEGIN                     "@* starred tex section"
 
-%token MACRO_BEGIN                     "@d macro def"
-%token MACRO_NAME_PARAMS               "macro name params"
+%token MACRO_BEGIN                           "@d macro def"
+%token MACRO_NAME_PARAMS                     "macro name params"
 
-%token FORMAT_BEGIN                    "@f format def"
-%token SUPPRESSED_FORMAT_DEF           "@s suppressed format def"
-%token UNNAMED_C_SECTION_BEGIN         "@c/@p unnamed program section"
+%token FORMAT_DEF_BEGIN                      "@f format def"
+%token SUPPRESSED_FORMAT_DEF                 "@s suppressed format def"
 
-%token NAMED_SECTION_BEGIN             "@< named section definition @>="
+%token UNNAMED_PROGRAM_SECTION_BEGIN         "@c/@p unnamed program section"
 
-%token SECTION_NAME                    "@< section name @>"
-%token FILE_OUTPUT_C_SECTION_BEGIN     "@( file output section @>="
-%token EMIT_MACROS_HERE                "@h emit macros here"
+%token NAMED_SECTION_BEGIN                   "@< named section definition @>="
 
-%token INDEX_ENTRY                     "@^ index entry @>"
-%token INDEX_TYPEWRITER                "@. index typewriter entry @>"
-%token INDEX_TEX9                      "@: index tex9 entry @>"
-%token HBOX_TEXT                       "@t hbox @>"
-%token VERBATIM_TEXT                   "@= verbatim @>"
-%token COMMENT_TEXT                    "@q comment @>"
-%token INDEX_UNDERLINE                 "@! index underline entry @>"
+%token SECTION_NAME                          "@< section name @>"
+%token FILE_OUTPUT_C_SECTION_BEGIN           "@( file output section @>="
+%token EMIT_MACROS_HERE                      "@h emit macros here"
 
-%token ASCII_CHAR                      "@' ascii char"
-%token NBSP                            "@& nbsp"
-%token LATIN_CHAR                      "@l latin char"
+%token INDEX_ENTRY                           "@^ index entry @>"
+%token INDEX_TYPEWRITER                      "@. index typewriter entry @>"
+%token INDEX_TEX9                            "@: index tex9 entry @>"
+%token HBOX_TEXT                             "@t hbox @>"
+%token VERBATIM_TEXT                         "@= verbatim @>"
+%token COMMENT_TEXT                          "@q comment @>"
+%token INDEX_UNDERLINE                       "@! index underline entry @>"
 
-%token THIN_SPACE                      "@, thin space"
-%token LINEBREAK                       "@/ linebreak"
-%token OPTIONAL_LINEBREAK              "@| optional linebreak"
-%token LINEBREAK_SPACE                 "@# linbreak extra space"
-%token CANCEL_LINEBREAK                "@+ no linebreak"
-%token INVISIBLE_SEMICOLON             "@; invisible semicolon"
-%token FORMAT_C_EXPRESSION_BEGIN       "@[ open format expression"
-%token FORMAT_C_EXPRESSION_END         "@] close format expression"
+%token ASCII_CHAR                            "@' ascii char"
+%token NBSP                                  "@& nbsp"
+%token LATIN_CHAR                            "@l latin char"
 
-%token INCLUDE_FILE                    "@i include_file"
+%token THIN_SPACE                            "@, thin space"
+%token LINEBREAK                             "@/ linebreak"
+%token OPTIONAL_LINEBREAK                    "@| optional linebreak"
+%token FORCE_LINEBREAK                       "@# linebreak extra space"
+%token CANCEL_LINEBREAK                      "@+ no linebreak"
+%token INVISIBLE_SEMICOLON                   "@; invisible semicolon"
+%token FORMAT_C_EXPRESSION_BEGIN             "@[ open format expression"
+%token FORMAT_C_EXPRESSION_END               "@] close format expression"
 
-%token INNER_C_CONTEXT_DELIM           "|"
+%token INCLUDE_FILE                          "@i include file"
 
-%token C_COMMENT_BEGIN                 "/*"
-%token C_COMMENT_END                   "*/"
+%token INNER_C_CONTEXT_DELIM                 "|"
 
-%token CPLUSPLUS_COMMENT_BEGIN         "//"
-%token CPLUSPLUS_COMMENT_END           "eol"
+%token C_COMMENT_BEGIN                       "/*"
+%token C_COMMENT_END                         "*/"
+
+%token CPLUSPLUS_COMMENT_BEGIN               "//"
+%token CPLUSPLUS_COMMENT_END                 "eol"
 
 // free means free of cweb control codes and other special characters depending on context
-%token FREE_TEXT                       "free text"
+%token FREE_TEXT                             "free text"
 
-%token SINGLE_QUOTE                    "'"
-%token DOUBLE_QUOTE                    "\""
-%token CPLUSPLUS_RAWSTRING_OPEN        "R\""
-%token CPLUSPLUS_RAWSTRING_DELIMITER   "c++ raw string delimiter"
+%token SINGLE_QUOTE                          "'"
+%token DOUBLE_QUOTE                          "\""
+
+%token CPLUSPLUS_RAWSTRING_OPEN              "R\""
+%token CPLUSPLUS_RAWSTRING_DELIMITER         "c++ raw string delimiter"
 
 %start cweb
 
@@ -121,7 +123,7 @@ limbo_content:
 
 // control codes allowed in limbo
 limbo_control:
-             "@i include_file"
+             "@i include file"
              | "@q comment @>"
              | "@s suppressed format def"
              | "@l latin char"
@@ -167,7 +169,7 @@ tex_content:
 // valid control codes in tex section
 tex_control:
            control_text
-           | "@i include_file"
+           | "@i include file"
            ;
 
 // middle part of a section has pieces of middle content
@@ -185,6 +187,7 @@ middle_contents:
 middle_content:
               "@d macro def" "macro name params" macro_contents
               | "@d macro def" "macro name params"
+              | "@f format def" c_comment
               | "@f format def"
               | "@s suppressed format def"
               ;
@@ -239,7 +242,7 @@ c_control:
          | ctangle_control
          | "@< section name @>"
          | "@h emit macros here"
-         | "@i include_file"
+         | "@i include file"
          ;
 
 // set of control text codes allowed in c, macro, inner c, tex and middle sections
@@ -262,7 +265,7 @@ c_format_control:
                 "@, thin space"
                 | "@/ linebreak"
                 | "@| optional linebreak"
-                | "@# linbreak extra space"
+                | "@# linebreak extra space"
                 | "@+ no linebreak"
                 | "@; invisible semicolon"
                 | "@[ open format expression" c_content "@] close format expression"
