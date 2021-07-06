@@ -48,22 +48,6 @@ void CWebLexer::includeFileStart(istream& file) {
 
 void CWebLexer::setLexerState(const BisonParserState& parserState) {
 
-// ignore parser state while inside macro, macro states are local to lexer and unknown to parser
-#if 0
-  if(false
-     || YY_START == CONTROL
-     || YY_START == C_COMMENT
-     || YY_START == CPLUSPLUS_COMMENT
-     || (YY_START >= NAMED_SECTION_BODY && YY_START < NAMED_SECTION_LAST)
-     || (YY_START >= MACRO_BEGIN && YY_START < MACRO_LAST)
-  ) {
-    if(debug() != 0) {
-      print("CWebLexer.{}.{}: parser mode {}: lexer state change ignored while in state {}\n", __func__, __LINE__, parserState.mode, YY_START);
-    }
-    return;
-  }
-#endif
-
 // for debugging only
   auto oldState = YY_START;
 
@@ -82,9 +66,6 @@ void CWebLexer::setLexerState(const BisonParserState& parserState) {
       break;
     case Mode::inner_c:
       BEGIN(INNER_C);
-      break;
-    case Mode::restricted_tex:
-      BEGIN(RESTRICTED_TEX);
       break;
     case Mode::c_comment:
       BEGIN(C_COMMENT);

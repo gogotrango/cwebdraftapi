@@ -170,7 +170,6 @@ struct BisonParserState {
     middle,
     c,
     inner_c,
-    restricted_tex,
     c_comment,
     cplusplus_comment,
     c_string,

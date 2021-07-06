@@ -72,11 +72,6 @@ SOFTWARE.
 %x C
  // Mode::inner_c, special characters: @ for control code, \n for line count, / for comment, | for inner c delimiter
 %x INNER_C
- // Mode::tex, SubMode::inner_c, special characters: @ for control code, \n for line count, / for comment
-%x INNER_C_TEX
- // Mode::tex, SubMode::inner_c, special characters: @ for control code, \n for line count, / for comment
-%x INNER_C_COMMENT
-%x RESTRICTED_TEX
 
  // @i include file directive
 %x INCLUDE_FILE_START
@@ -85,6 +80,7 @@ SOFTWARE.
  // various control codes
 %x CONTROL_TEXT_START
 
+ // macro handling states
 %x MACRO_BEGIN MACRO_PARAMS MACRO_PARAMS_SEPARATOR MACRO_BODY
 
  // main control code scanning state
