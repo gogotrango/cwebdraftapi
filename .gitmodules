@@ -1,0 +1,6 @@
+[submodule "submodules/fmt"]
+	path = submodules/fmt
+	url = https://github.com/zmajeedforks/fmt
+[submodule "submodules/googletest"]
+	path = submodules/googletest
+	url = https://github.com/zmajeedforks/googletest
