@@ -82,9 +82,9 @@ TEST(CWebParser, test_3) {
   auto result = false;
 
   struct MyFuncs {
-    function<bool(void)> documentBegin;
+    function<bool(const Context&)> documentBegin;
   } myfuncs = {
-    [&result]() {
+    [&result](const Context&) {
       result = true;
       return true;
     }

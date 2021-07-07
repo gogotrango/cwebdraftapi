@@ -63,12 +63,10 @@ Briefly, the cweb language comprises two-character control codes that start with
 // adds location parameter to symbol constructors
 %locations
 
-// don't generate locations file for use by applications
-//%define api.location.file none
+ // generate header for location to be used outside of bison parser
 %define api.location.file "location.bison.h"
 %define api.location.include {"bisonparser/v4/location.bison.h"}
 
-// want to return character token from flex but don't think it can work with api.token.constructor
 // better lookup performance at cost of disallowing literal characters in grammar
 %define api.token.raw
 
@@ -330,7 +328,7 @@ using Mode = BisonParserState::Mode;
 
 // all tokens have types, at a minimum token must return a string with the unparsed source text
 // functions used by the lexer to create and return these tokens are named after the token enums
-// the token string names or aliases are used in the grammar below
+// token string names or aliases are used in the grammar below
 %token <string> UNSTARRED_TEX_BEGIN             "@space unstarred tex section"
 %token <StarredTexSection> STARRED_TEX_BEGIN    "@* starred tex section"
 
@@ -656,26 +654,35 @@ inner_c_content:
                ;
 
 free_text_tex:
-         "free text" freeTextTexEvent
-         ;
+             "free text" freeTextTexEvent
+             ;
 
 free_text_c:
-         "free text" freeTextCEvent
-         ;
+           "free text" freeTextCEvent
+           ;
 
 //////////////////////////////////////////////////////////////////////////
 // midrule actions
 //////////////////////////////////////////////////////////////////////////
 
 documentBegin: %empty {
+  const Context context = {
+    yyla.location,
+    {}
+  };
   for(auto cb: publicConfig.cbs.documentBegin) {
-    cb();
+    cb(context);
   }
 }
 
 documentEnd: %empty {
+  publicState.loc.step();
+  const Context context = {
+    publicState.loc,
+    {}
+  };
   for(auto cb: publicConfig.cbs.documentEnd) {
-    cb();
+    cb(context);
   }
 }
 
@@ -752,7 +759,7 @@ innerCBegin: %empty {
 
   const auto& text = yyla.value.as<string>();
   const Context context = {
-    publicState.loc,
+    yyla.location,
     text
   };
   for(auto cb: publicConfig.cbs.innerCBegin) {
@@ -766,10 +773,10 @@ innerCEnd: %empty {
 
   const auto& text = $<string>0;
   const Context context = {
-    publicState.loc,
+    @0,
     text
   };
-  for(auto cb: publicConfig.cbs.innerCBegin) {
+  for(auto cb: publicConfig.cbs.innerCEnd) {
     cb(context);
   }
 }
@@ -843,7 +850,7 @@ cStringEnd: %empty {
 freeTextTexEvent: %empty {
   const auto& info = $<string>0;
   const Context context = {
-    publicState.loc,
+    @0,
     info
   };
   for(auto cb: publicConfig.cbs.text) {
@@ -858,7 +865,7 @@ freeTextTexEvent: %empty {
 freeTextCEvent: %empty {
   const auto& info = $<string>0;
   const Context context = {
-    publicState.loc,
+    @0,
     info
   };
   for(auto cb: publicConfig.cbs.text) {
@@ -867,17 +874,16 @@ freeTextCEvent: %empty {
 }
 
 includeFileBegin: %empty {
-  const auto& info = yyla.value.as<IncludeFile>();
   const auto& [filename, trailingText, text, quoted] = yyla.value.as<IncludeFile>();
   const Context context = {
-    publicState.loc,
+    yyla.location,
     text
   };
   for(auto cb: publicConfig.cbs.includeBegin) {
     cb(filename, quoted, trailingText, context);
   }
 
-  string filepath = publicConfig.cwebdir + "/" + info.file;
+  string filepath = publicConfig.cwebdir + "/" + filename;
   auto& file = publicState.includeFile;
   file.open(filepath);
   if(!file.is_open())
@@ -886,12 +892,20 @@ includeFileBegin: %empty {
 }
 
 includeFileEnd: %empty {
+  //const auto& [filename, trailingText, text, quoted] = $<IncludeFile>0;
+  const Context context = {
+    @0,
+    {}
+  };
+  for(auto cb: publicConfig.cbs.includeEnd) {
+    cb(context);
+  }
 }
 
 formatDefBegin: %empty {
   const auto& [left, right, text, suppress] = $<FormatDefinition>0;
   const Context context = {
-    publicState.loc,
+    @0,
     text
   };
   for(auto cb: publicConfig.cbs.formatDefinitionBegin) {
