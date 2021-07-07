@@ -92,7 +92,7 @@ struct Callbacks {
   vector<function<bool(const Context&)>> includeEnd;
 
   vector<function<bool(const string&, const bool, const bool, const Context&)>> namedSectionBegin;
-  vector<function<bool(void)>> namedSectionEnd;
+  vector<function<bool(const Context&)>> namedSectionEnd;
 
   vector<function<bool(const string&, const bool, const bool, const Context&)>> sectionName;
 
