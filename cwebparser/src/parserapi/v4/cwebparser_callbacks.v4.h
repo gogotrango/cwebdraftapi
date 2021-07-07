@@ -58,12 +58,15 @@ struct Callbacks {
   //vector<function<bool(const Error& error)>> error;
   vector<function<bool(const string&, const Context&)>> text;
 
-  vector<function<bool(void)>> documentBegin;
-  vector<function<bool(void)>> documentEnd;
-  vector<function<bool(const string& file)>> fileBegin;
-  vector<function<bool(const string& file)>> fileEnd;
+  vector<function<bool(const Context&)>> documentBegin;
+  vector<function<bool(const Context&)>> documentEnd;
+
+  vector<function<bool(const string& file, const Context&)>> fileBegin;
+  vector<function<bool(const string& file, const Context&)>> fileEnd;
+
   vector<function<bool(void)>> limboBegin;
   vector<function<bool(const Context&)>> limboEnd;
+
   vector<function<bool(void)>> texBegin;
   vector<function<bool(void)>> texEnd;
 

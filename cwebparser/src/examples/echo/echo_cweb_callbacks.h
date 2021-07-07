@@ -33,6 +33,7 @@ SOFTWARE.
 #include "parserapi/v4/cwebparser.v4.h"
 
 namespace echo_cweb {
+using namespace std;
 using namespace cweb::v4;
 
 struct EchoCallbacks {
@@ -40,38 +41,6 @@ struct EchoCallbacks {
 
   function<bool(const string&, const Context&)> text = [](const string& text, const Context&) {
     cout << text;
-    return true;
-  };
-
-  function<bool(void)> documentBegin = []() {
-    return true;
-  };
-
-  function<bool(void)> documentEnd = []() {
-    return true;
-  };
-
-  function<bool(const string& file)> fileBegin = [](const string&) {
-    return true;
-  };
-
-  function<bool(const string& file)> fileEnd = [](const string&) {
-    return true;
-  };
-
-  function<bool(void)> limboBegin = []() {
-    return true;
-  };
-
-  function<bool(const Context&)> limboEnd = [](const Context&) {
-    return true;
-  };
-
-  function<bool(void)> texBegin = []() {
-    return true;
-  };
-
-  function<bool(void)> texEnd = []() {
     return true;
   };
 
@@ -90,22 +59,6 @@ struct EchoCallbacks {
   };
 
   function<bool(const Context&)> unstarredTexSectionEnd = [](const Context&) {
-    return true;
-  };
-
-  function<bool(void)> middleBegin = []() {
-    return true;
-  };
-
-  function<bool(void)> middleEnd = []() {
-    return true;
-  };
-
-  function<bool(void)> cBegin = []() {
-    return true;
-  };
-
-  function<bool(void)> cEnd = []() {
     return true;
   };
 

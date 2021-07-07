@@ -75,6 +75,14 @@ struct CWebParser {
     return bison();
   }
 
+  void debugLex(bool debug) {
+    lexer.set_debug(debug);
+  }
+
+  void debugParse(bool debug) {
+    bison.set_debug_level(debug);
+  }
+
   void debug(bool debug) {
     lexer.set_debug(debug);
     bison.set_debug_level(debug);

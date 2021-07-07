@@ -192,6 +192,7 @@ using IncludeFileState = BisonParserState::IncludeFileState;
   MacroName macro;
   string tmpString;
   string freeTextSave;
+  location locSave;
   vector<string> tmpStringArray;
   FormatDefinition formatDef;
   IndexEntry indexEntry;
@@ -239,16 +240,26 @@ using IncludeFileState = BisonParserState::IncludeFileState;
 
  /* opening delimiter of c comment */
   "/*" {
+    locSave = parserLocation;
+    parserLocation.step();
     parserLocation.columns(yyleng);
+    if(tmpString.empty()) {
+      return CWebBisonParser::make_C_COMMENT_BEGIN(yytext, parserLocation);
+    }
     setPendingToken(CWebBisonParser::make_C_COMMENT_BEGIN(yytext, parserLocation));
-    return CWebBisonParser::make_FREE_TEXT(tmpString, parserLocation);
+    return CWebBisonParser::make_FREE_TEXT(tmpString, locSave);
   }
 
  /* opening delimiter of c++ comment */
   "//" {
+    locSave = parserLocation;
+    parserLocation.step();
     parserLocation.columns(yyleng);
+    if(tmpString.empty()) {
+      return CWebBisonParser::make_CPLUSPLUS_COMMENT_BEGIN(yytext, parserLocation);
+    }
     setPendingToken(CWebBisonParser::make_CPLUSPLUS_COMMENT_BEGIN(yytext, parserLocation));
-    return CWebBisonParser::make_FREE_TEXT(tmpString, parserLocation);
+    return CWebBisonParser::make_FREE_TEXT(tmpString, locSave);
   }
 
  /* any other special character after slash has its own rule  */
@@ -259,18 +270,30 @@ using IncludeFileState = BisonParserState::IncludeFileState;
 
  /* quoted string starts */
   \" {
+    locSave = parserLocation;
+    parserLocation.step();
     parserLocation.columns(yyleng);
+    if(tmpString.empty()) {
+      return CWebBisonParser::make_DOUBLE_QUOTE(yytext, parserLocation);
+    }
     setPendingToken(CWebBisonParser::make_DOUBLE_QUOTE(yytext, parserLocation));
-    return CWebBisonParser::make_FREE_TEXT(tmpString, parserLocation);
+    return CWebBisonParser::make_FREE_TEXT(tmpString, locSave);
   }
 
 }
 
  /* pipe opens inner c in tex and closes inner c */
 <TEX,INNER_C>"|" {
+  if(!tmpString.empty()) {
+    locSave = parserLocation;
+    parserLocation.step();
+  }
   parserLocation.columns(yyleng);
+  if(tmpString.empty()) {
+    return CWebBisonParser::make_INNER_C_CONTEXT_DELIM(yytext, parserLocation);
+  }
   setPendingToken(CWebBisonParser::make_INNER_C_CONTEXT_DELIM(yytext, parserLocation));
-  return CWebBisonParser::make_FREE_TEXT(tmpString, parserLocation);
+  return CWebBisonParser::make_FREE_TEXT(tmpString, locSave);
 }
 
  /* count lines */
@@ -282,6 +305,10 @@ using IncludeFileState = BisonParserState::IncludeFileState;
  /* control code always passes through here */
 <LIMBO,TEX,MIDDLE,C,C_COMMENT,CPLUSPLUS_COMMENT,MACRO_BODY>@ {
   BEGIN(CONTROL);
+  if(!tmpString.empty()) {
+    locSave = parserLocation;
+    parserLocation.step();
+  }
   parserLocation.columns(yyleng);
   freeTextSave.swap(tmpString);
   tmpString = yytext;
@@ -322,8 +349,11 @@ using IncludeFileState = BisonParserState::IncludeFileState;
     tmpString += yytext;
     indexEntry.text.assign(tmpString);
     parserLocation.columns(yyleng);
+    if(freeTextSave.empty()) {
+      return symbol_type(token, indexEntry, parserLocation);
+    }
     setPendingToken(symbol_type(token, indexEntry, parserLocation));
-    return CWebBisonParser::make_FREE_TEXT(freeTextSave, parserLocation);
+    return CWebBisonParser::make_FREE_TEXT(freeTextSave, locSave);
   }
 
  /* munch max input clean of control codes */
@@ -343,7 +373,7 @@ using IncludeFileState = BisonParserState::IncludeFileState;
   \n {
     tmpString += yytext;
     parserLocation.lines();
-    throw CWebBisonParser::syntax_error(parserLocation, "control text cannot have newline \"" + tmpString + string(tmpString) + "\"");
+    throw CWebBisonParser::syntax_error(parserLocation, "control text cannot have newline \"" + tmpString + "\"");
   }
 
 }
@@ -365,7 +395,7 @@ using IncludeFileState = BisonParserState::IncludeFileState;
        return CWebBisonParser::make_UNNAMED_PROGRAM_SECTION_BEGIN(tmpString, parserLocation);
      }
      setPendingToken(CWebBisonParser::make_UNNAMED_PROGRAM_SECTION_BEGIN(tmpString, parserLocation));
-     return CWebBisonParser::make_FREE_TEXT(freeTextSave, parserLocation);
+     return CWebBisonParser::make_FREE_TEXT(freeTextSave, locSave);
 
    case 'd': // @d
      BEGIN(MACRO_BEGIN);
@@ -373,7 +403,7 @@ using IncludeFileState = BisonParserState::IncludeFileState;
        return CWebBisonParser::make_MACRO_BEGIN(tmpString, parserLocation);
      }
      setPendingToken(CWebBisonParser::make_MACRO_BEGIN(tmpString, parserLocation));
-     return CWebBisonParser::make_FREE_TEXT(freeTextSave, parserLocation);
+     return CWebBisonParser::make_FREE_TEXT(freeTextSave, locSave);
 
    case 'f': // @f
      BEGIN(FORMAT_DEF_BEGIN);
@@ -386,7 +416,7 @@ using IncludeFileState = BisonParserState::IncludeFileState;
        return CWebBisonParser::make_UNSTARRED_TEX_BEGIN(tmpString, parserLocation);
      }
      setPendingToken(CWebBisonParser::make_UNSTARRED_TEX_BEGIN(tmpString, parserLocation));
-     return CWebBisonParser::make_FREE_TEXT(freeTextSave, parserLocation);
+     return CWebBisonParser::make_FREE_TEXT(freeTextSave, locSave);
 
    case '*': // @*
      BEGIN(STARRED_TEX_BEGIN);
@@ -409,56 +439,56 @@ using IncludeFileState = BisonParserState::IncludeFileState;
        return CWebBisonParser::make_THIN_SPACE(tmpString, parserLocation);
      }
      setPendingToken(CWebBisonParser::make_THIN_SPACE(tmpString, parserLocation));
-     return CWebBisonParser::make_FREE_TEXT(freeTextSave, parserLocation);
+     return CWebBisonParser::make_FREE_TEXT(freeTextSave, locSave);
 
    case '/': // @/
      if(freeTextSave.empty()) {
        return CWebBisonParser::make_LINEBREAK(tmpString, parserLocation);
      }
      setPendingToken(CWebBisonParser::make_LINEBREAK(tmpString, parserLocation));
-     return CWebBisonParser::make_FREE_TEXT(freeTextSave, parserLocation);
+     return CWebBisonParser::make_FREE_TEXT(freeTextSave, locSave);
 
    case '|': // @|
      if(freeTextSave.empty()) {
        return CWebBisonParser::make_OPTIONAL_LINEBREAK(tmpString, parserLocation);
      }
      setPendingToken(CWebBisonParser::make_OPTIONAL_LINEBREAK(tmpString, parserLocation));
-     return CWebBisonParser::make_FREE_TEXT(freeTextSave, parserLocation);
+     return CWebBisonParser::make_FREE_TEXT(freeTextSave, locSave);
 
    case '#': // @#
      if(freeTextSave.empty()) {
        return CWebBisonParser::make_FORCE_LINEBREAK(tmpString, parserLocation);
      }
      setPendingToken(CWebBisonParser::make_FORCE_LINEBREAK(tmpString, parserLocation));
-     return CWebBisonParser::make_FREE_TEXT(freeTextSave, parserLocation);
+     return CWebBisonParser::make_FREE_TEXT(freeTextSave, locSave);
 
    case '+': // @+
      if(freeTextSave.empty()) {
        return CWebBisonParser::make_CANCEL_LINEBREAK(tmpString, parserLocation);
      }
      setPendingToken(CWebBisonParser::make_CANCEL_LINEBREAK(tmpString, parserLocation));
-     return CWebBisonParser::make_FREE_TEXT(freeTextSave, parserLocation);
+     return CWebBisonParser::make_FREE_TEXT(freeTextSave, locSave);
 
    case ';': // @;
      if(freeTextSave.empty()) {
        return CWebBisonParser::make_INVISIBLE_SEMICOLON(tmpString, parserLocation);
      }
      setPendingToken(CWebBisonParser::make_INVISIBLE_SEMICOLON(tmpString, parserLocation));
-     return CWebBisonParser::make_FREE_TEXT(freeTextSave, parserLocation);
+     return CWebBisonParser::make_FREE_TEXT(freeTextSave, locSave);
 
    case '[': // @[
      if(freeTextSave.empty()) {
        return CWebBisonParser::make_FORMAT_C_EXPRESSION_BEGIN(tmpString, parserLocation);
      }
      setPendingToken(CWebBisonParser::make_FORMAT_C_EXPRESSION_BEGIN(tmpString, parserLocation));
-     return CWebBisonParser::make_FREE_TEXT(freeTextSave, parserLocation);
+     return CWebBisonParser::make_FREE_TEXT(freeTextSave, locSave);
 
    case ']': // @]
      if(freeTextSave.empty()) {
        return CWebBisonParser::make_FORMAT_C_EXPRESSION_END(tmpString, parserLocation);
      }
      setPendingToken(CWebBisonParser::make_FORMAT_C_EXPRESSION_END(tmpString, parserLocation));
-     return CWebBisonParser::make_FREE_TEXT(freeTextSave, parserLocation);
+     return CWebBisonParser::make_FREE_TEXT(freeTextSave, locSave);
 
    case '(': // @(
      BEGIN(FILE_OUTPUT_C_SECTION_BEGIN);
@@ -469,7 +499,7 @@ using IncludeFileState = BisonParserState::IncludeFileState;
        return CWebBisonParser::make_EMIT_MACROS_HERE(tmpString, parserLocation);
      }
      setPendingToken(CWebBisonParser::make_EMIT_MACROS_HERE(tmpString, parserLocation));
-     return CWebBisonParser::make_FREE_TEXT(freeTextSave, parserLocation);
+     return CWebBisonParser::make_FREE_TEXT(freeTextSave, locSave);
 
    case 'i': // @i
      BEGIN(INCLUDE_FILE_START);
@@ -488,40 +518,76 @@ using IncludeFileState = BisonParserState::IncludeFileState;
     return CWebBisonParser::make_STARRED_TEX_BEGIN(starredTexSection, parserLocation);
   }
   setPendingToken(CWebBisonParser::make_STARRED_TEX_BEGIN(starredTexSection, parserLocation));
-  return CWebBisonParser::make_FREE_TEXT(freeTextSave, parserLocation);
+  return CWebBisonParser::make_FREE_TEXT(freeTextSave, locSave);
 }
 
-<NAMED_SECTION_BEGIN>[^@]+@>"+"?= {
+ /************************************************************************/
+
+ /* section names are restricted tex context, no control codes allowed except @@ */
+
+<NAMED_SECTION_BEGIN>[^@\n]+ {
+  parserLocation.columns(yyleng);
   namedSection.text += yytext;
-  namedSection.name.assign(yytext, yyleng - 3);
-  namedSection.isContinuation = yytext[yyleng - 2] == '+';
+  namedSection.name += yytext;
+}
+
+<NAMED_SECTION_BEGIN>@>"+"?= {
+  parserLocation.columns(yyleng);
+  namedSection.text += yytext;
+  namedSection.isContinuation = yytext[2] == '+';
   namedSection.isPrefix = namedSection.name.ends_with("...");
   if(freeTextSave.empty()) {
     return CWebBisonParser::make_NAMED_SECTION_BEGIN(namedSection, parserLocation);
   }
   setPendingToken(CWebBisonParser::make_NAMED_SECTION_BEGIN(namedSection, parserLocation));
-  return CWebBisonParser::make_FREE_TEXT(freeTextSave, parserLocation);
+  return CWebBisonParser::make_FREE_TEXT(freeTextSave, locSave);
 }
 
-<NAMED_SECTION_BEGIN>[^@]+@> {
+<NAMED_SECTION_BEGIN>@> {
+  parserLocation.columns(yyleng);
   namedSection.text += yytext;
-  namedSection.name.assign(yytext, yyleng - 2);
   namedSection.isPrefix = namedSection.name.ends_with("...");
   if(freeTextSave.empty()) {
     return CWebBisonParser::make_SECTION_NAME(namedSection, parserLocation);
   }
   setPendingToken(CWebBisonParser::make_SECTION_NAME(namedSection, parserLocation));
-  return CWebBisonParser::make_FREE_TEXT(freeTextSave, parserLocation);
+  return CWebBisonParser::make_FREE_TEXT(freeTextSave, locSave);
 }
 
+<NAMED_SECTION_BEGIN>@@ {
+  parserLocation.columns(yyleng);
+  namedSection.text += yytext;
+  namedSection.name += "@";
+}
+
+<NAMED_SECTION_BEGIN>@ {
+  parserLocation.columns(yyleng);
+  namedSection.text += yytext;
+  throw CWebBisonParser::syntax_error(parserLocation, "invalid control code in section name \"" + namedSection.text + "\"");
+}
+
+ /* normalize whitespace to single space inside section names */
+<NAMED_SECTION_BEGIN>\n+ {
+  parserLocation.lines(yyleng);
+  namedSection.text += yytext;
+  namedSection.name += " ";
+}
+
+ /***************************************************************/
+
 <FILE_OUTPUT_C_SECTION_BEGIN>.*@> {
+  parserLocation.columns(yyleng);
   tmpString.append(yytext, yyleng - 2);
   return CWebBisonParser::make_FILE_OUTPUT_C_SECTION_BEGIN(tmpString, parserLocation);
 }
 
-<FORMAT_DEF_BEGIN>" "+ formatDef.text += yytext;
+<FORMAT_DEF_BEGIN>" "+ {
+  parserLocation.columns(yyleng);
+  formatDef.text += yytext;
+}
 
 <FORMAT_DEF_BEGIN>{identifier} {
+  parserLocation.columns(yyleng);
   formatDef.text += yytext;
   if(formatDef.left.empty()) {
     formatDef.left = yytext;
@@ -530,12 +596,18 @@ using IncludeFileState = BisonParserState::IncludeFileState;
 // set right since left is already set
   formatDef.right += yytext;
  
+  if(freeTextSave.empty()) {
+    if(formatDef.suppress)
+      return CWebBisonParser::make_SUPPRESSED_FORMAT_DEF(formatDef, parserLocation);
+    else
+      return CWebBisonParser::make_FORMAT_DEF_BEGIN(formatDef, parserLocation);
+  }
   if(formatDef.suppress)
     setPendingToken(CWebBisonParser::make_SUPPRESSED_FORMAT_DEF(formatDef, parserLocation));
   else
     setPendingToken(CWebBisonParser::make_FORMAT_DEF_BEGIN(formatDef, parserLocation));
 
-  return CWebBisonParser::make_FREE_TEXT(freeTextSave, parserLocation);
+  return CWebBisonParser::make_FREE_TEXT(freeTextSave, locSave);
 }
 
  /* @d */
@@ -634,11 +706,13 @@ using IncludeFileState = BisonParserState::IncludeFileState;
  /* @i include file code */
  /************************************************************************/
 <INCLUDE_FILE_START>" "* {
- includeFile.text += yytext;
+  parserLocation.columns(yyleng);
+  includeFile.text += yytext;
 }
 
  /* quoted filename */
 <INCLUDE_FILE_START>\"[^\n]+\" {
+  parserLocation.columns(yyleng);
   includeFile.file.assign(yytext + 1, yyleng - 2);
   includeFile.quoted = true;
   includeFile.text += yytext;
@@ -647,6 +721,7 @@ using IncludeFileState = BisonParserState::IncludeFileState;
 
  /* unquoted filename */
 <INCLUDE_FILE_START>[^ \n]+ {
+  parserLocation.columns(yyleng);
   includeFile.file.assign(yytext);
   includeFile.text += yytext;
   BEGIN(INCLUDE_FILE_SKIP_TO_EOL);
@@ -657,8 +732,11 @@ using IncludeFileState = BisonParserState::IncludeFileState;
  parserLocation.lines();
  includeFile.trailingText.assign(yytext, yyleng - 1);
  includeFile.text += yytext;
+ if(freeTextSave.empty()) {
+   return CWebBisonParser::make_INCLUDE_FILE(includeFile, parserLocation);
+ }
  setPendingToken(CWebBisonParser::make_INCLUDE_FILE(includeFile, parserLocation));
- return CWebBisonParser::make_FREE_TEXT(freeTextSave, parserLocation);
+ return CWebBisonParser::make_FREE_TEXT(freeTextSave, locSave);
 }
  /************************************************************************/
 
@@ -681,16 +759,26 @@ using IncludeFileState = BisonParserState::IncludeFileState;
 
  /* closing delimiter of a c comment */
   "*"+"/" {
+    locSave = parserLocation;
+    parserLocation.step();
     parserLocation.columns(yyleng);
+    if(tmpString.empty()) {
+      return CWebBisonParser::make_C_COMMENT_END(yytext, parserLocation);
+    }
     setPendingToken(CWebBisonParser::make_C_COMMENT_END(yytext, parserLocation));
-    return CWebBisonParser::make_FREE_TEXT(tmpString, parserLocation);
+    return CWebBisonParser::make_FREE_TEXT(tmpString, locSave);
   }
 
  /* | is inner c open and close delimiter */
   "|" {
+    locSave = parserLocation;
+    parserLocation.step();
     parserLocation.columns(yyleng);
+    if(tmpString.empty()) {
+      return CWebBisonParser::make_INNER_C_CONTEXT_DELIM(yytext, parserLocation);
+    }
     setPendingToken(CWebBisonParser::make_INNER_C_CONTEXT_DELIM(yytext, parserLocation));
-    return CWebBisonParser::make_FREE_TEXT(tmpString, parserLocation);
+    return CWebBisonParser::make_FREE_TEXT(tmpString, locSave);
   }
 
 }
@@ -709,16 +797,26 @@ using IncludeFileState = BisonParserState::IncludeFileState;
 
  /* closing delimiter of a c++ comment */
   \n {
+    locSave = parserLocation;
+    parserLocation.step();
     parserLocation.lines();
+    if(tmpString.empty()) {
+      return CWebBisonParser::make_CPLUSPLUS_COMMENT_END(yytext, parserLocation);
+    }
     setPendingToken(CWebBisonParser::make_CPLUSPLUS_COMMENT_END(yytext, parserLocation));
-    return CWebBisonParser::make_FREE_TEXT(tmpString, parserLocation);
+    return CWebBisonParser::make_FREE_TEXT(tmpString, locSave);
   }
 
  /* | is inner c open and close delimiter */
   "|" {
+    locSave = parserLocation;
+    parserLocation.step();
     parserLocation.columns(yyleng);
+    if(tmpString.empty()) {
+      return CWebBisonParser::make_INNER_C_CONTEXT_DELIM(yytext, parserLocation);
+    }
     setPendingToken(CWebBisonParser::make_INNER_C_CONTEXT_DELIM(yytext, parserLocation));
-    return CWebBisonParser::make_FREE_TEXT(tmpString, parserLocation);
+    return CWebBisonParser::make_FREE_TEXT(tmpString, locSave);
   }
 
 }
@@ -752,9 +850,14 @@ using IncludeFileState = BisonParserState::IncludeFileState;
 
  /* must be closing quote */
   \" {
+    locSave = parserLocation;
+    parserLocation.step();
     parserLocation.columns(yyleng);
+    if(tmpString.empty()) {
+      return CWebBisonParser::make_DOUBLE_QUOTE(yytext, parserLocation);
+    }
     setPendingToken(CWebBisonParser::make_DOUBLE_QUOTE(yytext, parserLocation));
-    return CWebBisonParser::make_FREE_TEXT(tmpString, parserLocation);
+    return CWebBisonParser::make_FREE_TEXT(tmpString, locSave);
   }
 
   \n {
