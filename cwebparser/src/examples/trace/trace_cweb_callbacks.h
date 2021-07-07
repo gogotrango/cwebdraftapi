@@ -42,252 +42,179 @@ using namespace cweb::v4;
 struct TraceCallbacks {
   //function<bool(const Error& error)> error;
 
-  function<bool(const string&, const Context&)> text = [](const string&, const Context& context) {
+// utility function
+  bool printLineInfo(const string& event, const Context& context) const {
     const auto& [bfilename, bline, bcol] = context.loc.begin;
     const auto& [efilename, eline, ecol] = context.loc.end;
-    print("{:<6} {:<5} {:<6} {:<5} text\n", bline, bcol, eline, ecol);
+    print("{:<6} {:<5} {:<6} {:<5} {}\n", bline, bcol, eline, ecol, event);
+    return true;
+  }
+
+  function<bool(const string&, const Context&)> text = [this](const string&, const Context& context) {
+    return printLineInfo("text", context);
+  };
+
+  function<bool(const Context&)> documentBegin = [this](const Context& context) {
+    return printLineInfo("documentBegin", context);
+  };
+
+  function<bool(const Context&)> documentEnd = [this](const Context& context) {
+    return printLineInfo("documentEnd", context);
+  };
+
+  function<bool(const string& file, const Context&)> fileBegin = [this](const string&, const Context& context) {
+    return printLineInfo("fileBegin", context);
+  };
+
+  function<bool(const string& file, const Context&)> fileEnd = [this](const string&, const Context& context) {
+    return printLineInfo("fileEnd", context);
+  };
+
+  function<bool(void)> limboBegin = [this]() {
     return true;
   };
 
-  function<bool(const Context&)> documentBegin = [](const Context& context) {
-    const auto& [bfilename, bline, bcol] = context.loc.begin;
-    const auto& [efilename, eline, ecol] = context.loc.end;
-    print("{:<6} {:<5} {:<6} {:<5} documentBegin\n", bline, bcol, eline, ecol);
+  function<bool(const Context&)> limboEnd = [this](const Context&) {
     return true;
   };
 
-  function<bool(const Context&)> documentEnd = [](const Context& context) {
-    const auto& [bfilename, bline, bcol] = context.loc.begin;
-    const auto& [efilename, eline, ecol] = context.loc.end;
-    print("{:<6} {:<5} {:<6} {:<5} documentEnd\n", bline, bcol, eline, ecol);
+  function<bool(void)> texBegin = [this]() {
     return true;
   };
 
-  function<bool(const string& file, const Context&)> fileBegin = [](const string&, const Context& context) {
-    const auto& [bfilename, bline, bcol] = context.loc.begin;
-    const auto& [efilename, eline, ecol] = context.loc.end;
-    print("{:<6} {:<5} {:<6} {:<5} fileBegin\n", bline, bcol, eline, ecol);
+  function<bool(void)> texEnd = [this]() {
     return true;
   };
 
-  function<bool(const string& file, const Context&)> fileEnd = [](const string&, const Context& context) {
-    const auto& [bfilename, bline, bcol] = context.loc.begin;
-    const auto& [efilename, eline, ecol] = context.loc.end;
-    print("{:<6} {:<5} {:<6} {:<5} fileEnd\n", bline, bcol, eline, ecol);
+  function<bool(const string&, const Context&)> starredTexSectionBegin = [this](const string&, const Context& context) {
+    return printLineInfo("starredTexSectionBegin", context);
+  };
+
+  function<bool(const string&, const Context&)> starredTexSectionEnd = [this](const string&, const Context&) {
     return true;
   };
 
-  function<bool(void)> limboBegin = []() {
+  function<bool(const Context&)> unstarredTexSectionBegin = [this](const Context& context) {
+    return printLineInfo("unstarredTexSectionBegin", context);
+  };
+
+  function<bool(const Context&)> unstarredTexSectionEnd = [this](const Context&) {
     return true;
   };
 
-  function<bool(const Context&)> limboEnd = [](const Context&) {
+  function<bool(void)> middleBegin = [this]() {
     return true;
   };
 
-  function<bool(void)> texBegin = []() {
+  function<bool(void)> middleEnd = [this]() {
     return true;
   };
 
-  function<bool(void)> texEnd = []() {
+  function<bool(void)> cBegin = [this]() {
     return true;
   };
 
-  function<bool(const string&, const Context&)> starredTexSectionBegin = [](const string&, const Context& context) {
-    const auto& [bfilename, bline, bcol] = context.loc.begin;
-    const auto& [efilename, eline, ecol] = context.loc.end;
-    print("{:<6} {:<5} {:<6} {:<5} starredTexSectionBegin\n", bline, bcol, eline, ecol);
+  function<bool(void)> cEnd = [this]() {
     return true;
   };
 
-  function<bool(const string&, const Context&)> starredTexSectionEnd = [](const string&, const Context&) {
+  function<bool(const Context&)> innerCBegin = [this](const Context& context) {
+    return printLineInfo("innerCBegin", context);
+  };
+
+  function<bool(const Context&)> innerCEnd = [this](const Context& context) {
+    return printLineInfo("innerCEnd", context);
+  };
+
+  function<bool(const CommentType, const Context&)> commentBegin = [this](const CommentType, const Context& context) {
+    return printLineInfo("commentBegin", context);
+  };
+
+  function<bool(const CommentType, const Context&)> commentEnd = [this](const CommentType, const Context& context) {
+    return printLineInfo("commentEnd", context);
+  };
+
+  function<bool(const string&, const bool, const string&, const Context&)> includeBegin = [this](const string&, const bool, const string&, const Context& context) {
+    return printLineInfo("includeBegin", context);
+  };
+
+  function<bool(const Context&)> includeEnd = [this](const Context& context) {
+    return printLineInfo("includeEnd", context);
+  };
+
+  function<bool(const string&, const bool, const bool, const Context&)> namedSectionBegin = [this](const string&, const bool, const bool, const Context& context) {
+    return printLineInfo("namedSectionBegin", context);
+  };
+
+  function<bool(const Context&)> namedSectionEnd = [this](const Context& context) {
+    return printLineInfo("namedSectionEnd", context);
+  };
+
+  function<bool(const string&, const bool, const bool, const Context&)> sectionName = [this](const string&, const bool, const bool, const Context& context) {
+    return printLineInfo("sectionName", context);
+  };
+
+  function<bool(const Context&)> macroBegin = [this](const Context& context) {
+    return printLineInfo("macroBegin", context);
+  };
+
+  function<bool(const string&, const vector<string>&, const Context&)> macroNameParams = [this](const string&, const vector<string>&, const Context& context) {
+    return printLineInfo("macroNameParams", context);
+  };
+
+  function<bool(void)> macroEnd = [this]() {
     return true;
   };
 
-  function<bool(const Context&)> unstarredTexSectionBegin = [](const Context& context) {
-    const auto& [bfilename, bline, bcol] = context.loc.begin;
-    const auto& [efilename, eline, ecol] = context.loc.end;
-    print("{:<6} {:<5} {:<6} {:<5} unstarredTexSectionBegin\n", bline, bcol, eline, ecol);
+  function<bool(const StringType, const Context&)> stringBegin = [this](const StringType, const Context& context) {
+    return printLineInfo("stringBegin", context);
+  };
+
+  function<bool(const StringType, const Context&)> stringEnd = [this](const StringType, const Context& context) {
+    return printLineInfo("stringEnd", context);
+  };
+
+  function<bool(const string&, const string&, const bool, const Context&)> formatDefinitionBegin = [this](const string&, const string&, const bool, const Context& context) {
+    return printLineInfo("formatDefinitionBegin", context);
+  };
+
+  function<bool(const Context&)> programSectionBegin = [this](const Context& context) {
+    return printLineInfo("programSectionBegin", context);
+  };
+
+  function<bool(const Context&)> programSectionEnd = [this](const Context&) {
     return true;
   };
 
-  function<bool(const Context&)> unstarredTexSectionEnd = [](const Context&) {
+  function<bool(void)> fileSectionBegin = [this]() {
     return true;
   };
 
-  function<bool(void)> middleBegin = []() {
+  function<bool(void)> fileSectionEnd = [this]() {
     return true;
   };
 
-  function<bool(void)> middleEnd = []() {
-    return true;
+  function<bool(const Context&)> emitMacrosHere = [this](const Context& context) {
+    return printLineInfo("emitMacrosHere", context);
   };
 
-  function<bool(void)> cBegin = []() {
-    return true;
+  function<bool(const string&, const Context&)> controlText = [this](const string&, const Context& context) {
+    return printLineInfo("controlText", context);
   };
 
-  function<bool(void)> cEnd = []() {
-    return true;
+  function<bool(const FormatControlCode, const Context&)> formatControl = [this](const FormatControlCode, const Context& context) {
+    return printLineInfo("formatControl", context);
   };
 
-  function<bool(const Context&)> innerCBegin = [](const Context& context) {
-    const auto& [bfilename, bline, bcol] = context.loc.begin;
-    const auto& [efilename, eline, ecol] = context.loc.end;
-    print("{:<6} {:<5} {:<6} {:<5} innerCBegin\n", bline, bcol, eline, ecol);
-    return true;
+  function<bool(const Context&)> formatExpressionBegin = [this](const Context& context) {
+    return printLineInfo("formatExpressionBegin", context);
   };
 
-  function<bool(const Context&)> innerCEnd = [](const Context& context) {
-    const auto& [bfilename, bline, bcol] = context.loc.begin;
-    const auto& [efilename, eline, ecol] = context.loc.end;
-    print("{:<6} {:<5} {:<6} {:<5} innerCEnd\n", bline, bcol, eline, ecol);
-    return true;
+  function<bool(const Context&)> formatExpressionEnd = [this](const Context& context) {
+    return printLineInfo("formatExpressionEnd", context);
   };
 
-  function<bool(const CommentType, const Context&)> commentBegin = [](const CommentType, const Context& context) {
-    const auto& [bfilename, bline, bcol] = context.loc.begin;
-    const auto& [efilename, eline, ecol] = context.loc.end;
-    print("{:<6} {:<5} {:<6} {:<5} commentBegin\n", bline, bcol, eline, ecol);
-    return true;
-  };
-
-  function<bool(const CommentType, const Context&)> commentEnd = [](const CommentType, const Context& context) {
-    const auto& [bfilename, bline, bcol] = context.loc.begin;
-    const auto& [efilename, eline, ecol] = context.loc.end;
-    print("{:<6} {:<5} {:<6} {:<5} commentEnd\n", bline, bcol, eline, ecol);
-    return true;
-  };
-
-  function<bool(const string&, const bool, const string&, const Context&)> includeBegin = [](const string&, const bool, const string&, const Context& context) {
-    const auto& [bfilename, bline, bcol] = context.loc.begin;
-    const auto& [efilename, eline, ecol] = context.loc.end;
-    print("{:<6} {:<5} {:<6} {:<5} includeBegin\n", bline, bcol, eline, ecol);
-    return true;
-  };
-
-  function<bool(const Context&)> includeEnd = [](const Context& context) {
-    const auto& [bfilename, bline, bcol] = context.loc.begin;
-    const auto& [efilename, eline, ecol] = context.loc.end;
-    print("{:<6} {:<5} {:<6} {:<5} includeEnd\n", bline, bcol, eline, ecol);
-    return true;
-  };
-
-  function<bool(const string&, const bool, const bool, const Context&)> namedSectionBegin = [](const string&, const bool, const bool, const Context& context) {
-    const auto& [bfilename, bline, bcol] = context.loc.begin;
-    const auto& [efilename, eline, ecol] = context.loc.end;
-    print("{:<6} {:<5} {:<6} {:<5} namedSectionBegin\n", bline, bcol, eline, ecol);
-    return true;
-  };
-
-  function<bool(const Context&)> namedSectionEnd = [](const Context& context) {
-    const auto& [bfilename, bline, bcol] = context.loc.begin;
-    const auto& [efilename, eline, ecol] = context.loc.end;
-    print("{:<6} {:<5} {:<6} {:<5} namedSectionEnd\n", bline, bcol, eline, ecol);
-    return true;
-  };
-
-  function<bool(const string&, const bool, const bool, const Context&)> sectionName = [](const string&, const bool, const bool, const Context& context) {
-    const auto& [bfilename, bline, bcol] = context.loc.begin;
-    const auto& [efilename, eline, ecol] = context.loc.end;
-    print("{:<6} {:<5} {:<6} {:<5} sectionName\n", bline, bcol, eline, ecol);
-    return true;
-  };
-
-  function<bool(const Context&)> macroBegin = [](const Context& context) {
-    const auto& [bfilename, bline, bcol] = context.loc.begin;
-    const auto& [efilename, eline, ecol] = context.loc.end;
-    print("{:<6} {:<5} {:<6} {:<5} macroBegin\n", bline, bcol, eline, ecol);
-    return true;
-  };
-
-  function<bool(const string&, const vector<string>&, const Context&)> macroNameParams = [](const string&, const vector<string>&, const Context& context) {
-    const auto& [bfilename, bline, bcol] = context.loc.begin;
-    const auto& [efilename, eline, ecol] = context.loc.end;
-    print("{:<6} {:<5} {:<6} {:<5} macroNameParams\n", bline, bcol, eline, ecol);
-    return true;
-  };
-
-  function<bool(void)> macroEnd = []() {
-    return true;
-  };
-
-  function<bool(const StringType, const Context&)> stringBegin = [](const StringType, const Context& context) {
-    const auto& [bfilename, bline, bcol] = context.loc.begin;
-    const auto& [efilename, eline, ecol] = context.loc.end;
-    print("{:<6} {:<5} {:<6} {:<5} stringBegin\n", bline, bcol, eline, ecol);
-    return true;
-  };
-
-  function<bool(const StringType, const Context&)> stringEnd = [](const StringType, const Context& context) {
-    const auto& [bfilename, bline, bcol] = context.loc.begin;
-    const auto& [efilename, eline, ecol] = context.loc.end;
-    print("{:<6} {:<5} {:<6} {:<5} stringEnd\n", bline, bcol, eline, ecol);
-    return true;
-  };
-
-  function<bool(const string&, const string&, const bool, const Context&)> formatDefinitionBegin = [](const string&, const string&, const bool, const Context& context) {
-    const auto& [bfilename, bline, bcol] = context.loc.begin;
-    const auto& [efilename, eline, ecol] = context.loc.end;
-    print("{:<6} {:<5} {:<6} {:<5} formatDefinitionBegin\n", bline, bcol, eline, ecol);
-    return true;
-  };
-
-  function<bool(const Context&)> programSectionBegin = [](const Context& context) {
-    const auto& [bfilename, bline, bcol] = context.loc.begin;
-    const auto& [efilename, eline, ecol] = context.loc.end;
-    print("{:<6} {:<5} {:<6} {:<5} programSectionBegin\n", bline, bcol, eline, ecol);
-    return true;
-  };
-
-  function<bool(const Context&)> programSectionEnd = [](const Context&) {
-    return true;
-  };
-
-  function<bool(void)> fileSectionBegin = []() {
-    return true;
-  };
-
-  function<bool(void)> fileSectionEnd = []() {
-    return true;
-  };
-
-  function<bool(const Context&)> emitMacrosHere = [](const Context& context) {
-    const auto& [bfilename, bline, bcol] = context.loc.begin;
-    const auto& [efilename, eline, ecol] = context.loc.end;
-    print("{:<6} {:<5} {:<6} {:<5} emitMacrosHere\n", bline, bcol, eline, ecol);
-    return true;
-  };
-
-  function<bool(const string&, const Context&)> controlText = [](const string&, const Context& context) {
-    const auto& [bfilename, bline, bcol] = context.loc.begin;
-    const auto& [efilename, eline, ecol] = context.loc.end;
-    print("{:<6} {:<5} {:<6} {:<5} controlText\n", bline, bcol, eline, ecol);
-    return true;
-  };
-
-  function<bool(const FormatControlCode, const Context&)> formatControl = [](const FormatControlCode, const Context& context) {
-    const auto& [bfilename, bline, bcol] = context.loc.begin;
-    const auto& [efilename, eline, ecol] = context.loc.end;
-    print("{:<6} {:<5} {:<6} {:<5} formatControl\n", bline, bcol, eline, ecol);
-    return true;
-  };
-
-  function<bool(const Context&)> formatExpressionBegin = [](const Context& context) {
-    const auto& [bfilename, bline, bcol] = context.loc.begin;
-    const auto& [efilename, eline, ecol] = context.loc.end;
-    print("{:<6} {:<5} {:<6} {:<5} formatExpressionBegin\n", bline, bcol, eline, ecol);
-    return true;
-  };
-
-  function<bool(const Context&)> formatExpressionEnd = [](const Context& context) {
-    const auto& [bfilename, bline, bcol] = context.loc.begin;
-    const auto& [efilename, eline, ecol] = context.loc.end;
-    print("{:<6} {:<5} {:<6} {:<5} formatExpressionEnd\n", bline, bcol, eline, ecol);
-    return true;
-  };
-
-  function<bool(void)> ctangleControl = []() {
+  function<bool(void)> ctangleControl = [this]() {
     return true;
   };
 
