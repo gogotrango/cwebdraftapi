@@ -63,11 +63,17 @@ struct TraceCallbacks {
     return true;
   };
 
-  function<bool(const string& file, const Context&)> fileBegin = [](const string&, const Context&) {
+  function<bool(const string& file, const Context&)> fileBegin = [](const string&, const Context& context) {
+    const auto& [bfilename, bline, bcol] = context.loc.begin;
+    const auto& [efilename, eline, ecol] = context.loc.end;
+    print("{:<6} {:<5} {:<6} {:<5} fileBegin\n", bline, bcol, eline, ecol);
     return true;
   };
 
-  function<bool(const string& file, const Context&)> fileEnd = [](const string&, const Context&) {
+  function<bool(const string& file, const Context&)> fileEnd = [](const string&, const Context& context) {
+    const auto& [bfilename, bline, bcol] = context.loc.begin;
+    const auto& [efilename, eline, ecol] = context.loc.end;
+    print("{:<6} {:<5} {:<6} {:<5} fileEnd\n", bline, bcol, eline, ecol);
     return true;
   };
 
@@ -174,7 +180,10 @@ struct TraceCallbacks {
     return true;
   };
 
-  function<bool(void)> namedSectionEnd = []() {
+  function<bool(const Context&)> namedSectionEnd = [](const Context& context) {
+    const auto& [bfilename, bline, bcol] = context.loc.begin;
+    const auto& [efilename, eline, ecol] = context.loc.end;
+    print("{:<6} {:<5} {:<6} {:<5} namedSectionEnd\n", bline, bcol, eline, ecol);
     return true;
   };
 

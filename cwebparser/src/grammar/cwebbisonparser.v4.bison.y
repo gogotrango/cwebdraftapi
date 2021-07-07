@@ -673,6 +673,9 @@ documentBegin: %empty {
   for(auto cb: publicConfig.cbs.documentBegin) {
     cb(context);
   }
+  for(auto cb: publicConfig.cbs.fileBegin) {
+    cb(*yyla.location.begin.filename, context);
+  }
 }
 
 documentEnd: %empty {
@@ -681,6 +684,9 @@ documentEnd: %empty {
     publicState.loc,
     {}
   };
+  for(auto cb: publicConfig.cbs.fileEnd) {
+    cb(*publicState.loc.begin.filename, context);
+  }
   for(auto cb: publicConfig.cbs.documentEnd) {
     cb(context);
   }
@@ -889,16 +895,24 @@ includeFileBegin: %empty {
   if(!file.is_open())
     print(stderr, "includeFileBegin: file \"{}\" is not open\n", filepath);
   publicState.includeFileState = IncludeFileState::open;
+
+  for(auto cb: publicConfig.cbs.fileBegin) {
+    cb(filename, context);
+  }
+
 }
 
 includeFileEnd: %empty {
-  //const auto& [filename, trailingText, text, quoted] = $<IncludeFile>0;
+  const auto& [filename, trailingText, text, quoted] = $<IncludeFile>0;
   const Context context = {
     @0,
     {}
   };
   for(auto cb: publicConfig.cbs.includeEnd) {
     cb(context);
+  }
+  for(auto cb: publicConfig.cbs.fileEnd) {
+    cb(filename, context);
   }
 }
 
@@ -933,7 +947,7 @@ unnamedProgramSectionEnd: %empty {
 namedSectionBegin: %empty {
   const auto& [name, text, isPrefix, isContinuation] = $<NamedSection>0;
   const Context context = {
-    publicState.loc,
+    @0,
     text
   };
   for(auto cb: publicConfig.cbs.namedSectionBegin) {
@@ -942,12 +956,19 @@ namedSectionBegin: %empty {
 }
 
 namedSectionEnd: %empty {
+  const Context context = {
+    publicState.loc,
+    {}
+  };
+  for(auto cb: publicConfig.cbs.namedSectionEnd) {
+    cb(context);
+  }
 }
 
 sectionNameEvent: %empty {
   const auto& [name, text, isPrefix, isContinuation] = $<NamedSection>0;
   const Context context = {
-    publicState.loc,
+    @0,
     text
   };
   for(auto cb: publicConfig.cbs.sectionName) {

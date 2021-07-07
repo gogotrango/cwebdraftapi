@@ -96,7 +96,7 @@ struct EchoCallbacks {
     return true;
   };
 
-  function<bool(void)> namedSectionEnd = []() {
+  function<bool(const Context&)> namedSectionEnd = [](const Context&) {
     return true;
   };
 
